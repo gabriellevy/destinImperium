@@ -7,6 +7,7 @@
 #include "../destinLib/lancerde.h"
 #include "../destinLib/setcarac.h"
 #include "../destinLib/choix.h"
+#include "planet.h"
 
 GenVieHumain::GenVieHumain():GenHistoire ("Vive l'Imperium") {}
 
@@ -17,6 +18,8 @@ GenVieHumain* GenVieHumain::GetGenVieHumain()
 
 Hist* GenVieHumain::GenererHistoire()
 {
+    GenererDataUnivers();
+
     GenererPersos();
 
     //GenererFonctionsCallback();
@@ -26,6 +29,10 @@ Hist* GenVieHumain::GenererHistoire()
     GenererCaracs();
 
     return m_HistoireGeneree;
+}
+
+void GenVieHumain::GenererDataUnivers()
+{
 }
 
 void GenVieHumain::GenererPersos()
@@ -44,16 +51,10 @@ void GenVieHumain::GenererCaracs()
 void GenVieHumain::GenererEvtsAccueil()
 {
     this->AjouterEvt("Debut", "Génération du perso par les choix");
-    Effet* effet1 = AjouterEffetNarration("effet1", ":/images/Imperium.jpg");
-    effet1->m_MsChrono = GenVieHumain::CHRONO;
-    Effet* effet2 = AjouterEffetNarration("effet2", ":/images/Imperium.jpg");
-    effet2->m_MsChrono = GenVieHumain::CHRONO;
-    Effet* effet3 = AjouterEffetNarration("effet3", ":/images/Imperium.jpg");
-    effet3->m_MsChrono = GenVieHumain::CHRONO;
-    Effet* effet4 = AjouterEffetNarration("effet4", ":/images/Imperium.jpg");
-    effet4->m_MsChrono = GenVieHumain::CHRONO;
-    Effet* effet5 = AjouterEffetNarration("effet5", ":/images/Imperium.jpg");
-    effet5->m_MsChrono = GenVieHumain::CHRONO;
-    Effet* effet6 = AjouterEffetNarration("effet6", ":/images/Imperium.jpg");
-    effet6->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet1 = AjouterEffetNarration("", "");
+    effet1->m_GoToEffetId = "effetSelectionPlanete";
+
+    QVector<NoeudProbable*> noeudsDestination = Planete::ConstruireToutePlanetes(m_GenerateurEvt); // doit se faire ici car contient la génération d'effets associés
+    Effet* effetSelectionPlanete = m_GenerateurEvt->AjouterEffetSelecteurDEvt(noeudsDestination, "effetSelectionPlanete");
+    effetSelectionPlanete->m_MsChrono = 1;
 }

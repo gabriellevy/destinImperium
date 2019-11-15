@@ -56,7 +56,8 @@ SOURCES += \
     aspectratiolabel.cpp \
     genviehumain.cpp \
     imperium.cpp \
-        main.cpp
+        main.cpp \
+    planet.cpp
 
 HEADERS += \
     ../destinLib/execlancerde.h \
@@ -88,7 +89,8 @@ HEADERS += \
     ../destinLib/aleatoire.h \
     aspectratiolabel.h \
     genviehumain.h \
-    imperium.h
+    imperium.h \
+    planet.h
 
 FORMS += \
     ../destinLib/univers.ui \
@@ -109,5 +111,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     images.qrc
 
-DISTFILES += \
-    images/Imperium.jpg
+DISTFILES +=

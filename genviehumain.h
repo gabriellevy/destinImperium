@@ -16,11 +16,12 @@ public:
 
     static GenVieHumain* GetGenVieHumain();
 
-    const static int CHRONO = 1000; // nombre de ms entre chaque effet
+    const static int CHRONO = 5000; // nombre de ms entre chaque effet
 protected:
     // génère toutes les caracs qui peuvent être visualisées par le joueur (d'autres caracs peuvent être générées et invisibles n'importe quand dans l'aventure)
     virtual void GenererCaracs();
     virtual void GenererPersos();
+    void GenererDataUnivers();
 
 private:
     // génération des événement et effets de base
