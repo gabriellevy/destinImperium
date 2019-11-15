@@ -44,7 +44,16 @@ void GenVieHumain::GenererCaracs()
 void GenVieHumain::GenererEvtsAccueil()
 {
     this->AjouterEvt("Debut", "Génération du perso par les choix");
-    AjouterEffetNarration("vous êtes né", ":/images/Imperium.jpg");
-
-    //GenererCombatBidon();
+    Effet* effet1 = AjouterEffetNarration("effet1", ":/images/Imperium.jpg");
+    effet1->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet2 = AjouterEffetNarration("effet2", ":/images/Imperium.jpg");
+    effet2->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet3 = AjouterEffetNarration("effet3", ":/images/Imperium.jpg");
+    effet3->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet4 = AjouterEffetNarration("effet4", ":/images/Imperium.jpg");
+    effet4->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet5 = AjouterEffetNarration("effet5", ":/images/Imperium.jpg");
+    effet5->m_MsChrono = GenVieHumain::CHRONO;
+    Effet* effet6 = AjouterEffetNarration("effet6", ":/images/Imperium.jpg");
+    effet6->m_MsChrono = GenVieHumain::CHRONO;
 }
