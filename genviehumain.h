@@ -20,7 +20,15 @@ public:
 
     // caracs :
     static QString PLANETE;
+    static QString TYPE_PLANETE;
     static QString AGE;
+    static QString METIER;
+
+    // evts important :
+    static QString EFFET_SELECTEUR_ID;
+    static QString EVT_SELECTEUR_ID;
+    static Evt* EVT_SELECTEUR;
+    static Effet* TransformerEffetEnEffetMoisDeVie(Effet* effet);
 protected:
     // génère toutes les caracs qui peuvent être visualisées par le joueur (d'autres caracs peuvent être générées et invisibles n'importe quand dans l'aventure)
     virtual void GenererCaracs();
@@ -32,8 +40,7 @@ private:
     void GenererEvtsAccueil();
     void GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds);
     void GenererPrincipalSelectionneurDEffet();
-
-    Effet* TransformerEffetEnEffetMoisDeVie(Effet* effet); //  cet effet représente à lui seul un mois complet de vie, il veiilit de le personnage
+ //  cet effet représente à lui seul un mois complet de vie, il veiilit de le personnage
 };
 
 #endif // GENVIEHUMAIN_H

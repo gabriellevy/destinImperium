@@ -59,6 +59,7 @@ SOURCES += \
     humain.cpp \
     imperium.cpp \
         main.cpp \
+    metier.cpp \
     planet.cpp \
     tithegrade.cpp
 
@@ -95,6 +96,7 @@ HEADERS += \
     genviehumain.h \
     humain.h \
     imperium.h \
+    metier.h \
     planet.h \
     tithegrade.h
 

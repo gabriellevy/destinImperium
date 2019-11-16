@@ -27,8 +27,16 @@ Planete::Planete()
         m_TypePlanete = MondeForge;
         m_Faction = new Factions(AdeptusMechanicus);
         m_Image = ":/images/planetes/Accatran.jpg";
-        m_TypeDeVie = Souterraine;
+        m_Climat = AtmosphereQuasiMorte;
         m_TitheGrade = new TitheGrade(AptusNon, IV_Secundi);
+    }break;
+    case 2 : {
+        m_Nom = "Acreage";
+        m_Population = 1;
+        m_TypePlanete = MondeFeodal;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/Acreage.gif";
+        m_Climat = Tempere;
     }break;
     }
 
@@ -36,7 +44,12 @@ Planete::Planete()
 }
 QString Planete::GetTypeMondeAsStr()
 {
-    switch (m_TypePlanete) {
+    return Planete::GetTypeMondeAsStr(m_TypePlanete);
+}
+
+QString Planete::GetTypeMondeAsStr(TypePlanete typePlanete)
+{
+    switch (typePlanete) {
     case MondeForge : return "Monde forge";
     case MondeRuche : return "Monde ruche";
     case MondeAgricole : return "Monde agricole";
@@ -70,6 +83,7 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString
                     planete->m_Image,
                     "naissance_planete_" + planete->m_Nom);
         effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::PLANETE, planete->m_Nom);
+        effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::TYPE_PLANETE, planete->GetTypeMondeAsStr());
         effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
         NoeudProbable* noeud = new NoeudProbable(
                     effetNaissancePlanete,

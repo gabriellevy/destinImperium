@@ -14,12 +14,13 @@ enum TypePlanete {
     Divers,
     MondeAgricole,
     MondeForge,
+    MondeFeodal,
     MondeRuche
 };
 
-enum TypeDeVie { // type de vie sur cette planète pour l'humain typique
-    Banale, // villes blablabla
-    Souterraine
+enum Climat {
+    Tempere, // tempéré
+    AtmosphereQuasiMorte // vie souterraine ou en ruche obligatoire
 };
 
 
@@ -35,7 +36,7 @@ public:
     QString m_Image = "";
     double m_Population = -1;// en milliards
     TypePlanete m_TypePlanete = Divers;
-    TypeDeVie m_TypeDeVie = Banale;
+    Climat m_Climat = Tempere;
     Factions* m_Faction = nullptr;// qui contrôle la planète
     TitheGrade* m_TitheGrade = nullptr;
 
@@ -43,6 +44,8 @@ public:
     static QVector<NoeudProbable*> ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet);
 
     QString GetTypeMondeAsStr();
+
+    static QString GetTypeMondeAsStr(TypePlanete typePlanete);
 };
 
 #endif // PLANET_H
