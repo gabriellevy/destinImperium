@@ -6,10 +6,14 @@
 
 class Humain : public DPerso
 {
+    static Humain* ME;
 public:
     Humain();
 
+    static Humain* GetHumainJoue();
+
     Planete* GetPlanete();
+    int GetAge();
 };
 
 #endif // HUMAIN_H
