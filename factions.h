@@ -5,7 +5,8 @@
 
 enum e_Factions {
     // Imperium
-    AdeptusMechanicus
+    AdeptusMechanicus,
+    Imperium
 };
 
 class Factions

@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>images/Imperium.jpg</file>
         <file>images/planetes/Accatran.jpg</file>
+        <file>images/planetes/Terra_And_Luna.jpg</file>
     </qresource>
 </RCC>

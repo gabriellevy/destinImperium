@@ -58,7 +58,8 @@ SOURCES += \
     genviehumain.cpp \
     imperium.cpp \
         main.cpp \
-    planet.cpp
+    planet.cpp \
+    tithegrade.cpp
 
 HEADERS += \
     ../destinLib/execlancerde.h \
@@ -92,7 +93,8 @@ HEADERS += \
     factions.h \
     genviehumain.h \
     imperium.h \
-    planet.h
+    planet.h \
+    tithegrade.h
 
 FORMS += \
     ../destinLib/univers.ui \

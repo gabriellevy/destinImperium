@@ -10,20 +10,23 @@ QMap<QString, Planete*> Planete::PLANETES;
 
 Planete::Planete()
 {
-    m_Nom = "";
-    m_Population = -1;
-    m_TypePlanete = Divers;
-
     switch (Planete::COMPTEUR) {
     case 0 : {
         m_Nom = "Terre";
-        m_Population = 50;// sans doute plus...
+        m_Population = 300;// sans doute plus...
+        m_TypePlanete = MondeRuche;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/Terra_And_Luna.jpg";
+        m_TitheGrade = new TitheGrade(AptusNon);
     }break;
     case 1 : {
         m_Nom = "Accatran";
         m_Population = 10;
         m_TypePlanete = MondeForge;
         m_Faction = new Factions(AdeptusMechanicus);
+        m_Image = ":/images/planetes/Accatran.jpg";
+        m_TypeDeVie = Souterraine;
+        m_TitheGrade = new TitheGrade(AptusNon, IV_Secundi);
     }break;
     }
 
@@ -33,6 +36,7 @@ QString Planete::GetTypeMondeAsStr()
 {
     switch (m_TypePlanete) {
     case MondeForge : return "Monde forge";
+    case MondeRuche : return "Monde ruche";
     case MondeAgricole : return "Monde agricole";
     case Divers : default : return "";
 
@@ -48,7 +52,12 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt)
 
         QString texteNaissance = "Vous êtes nés sur " +
                 planete->m_Nom +
-                (planete->GetTypeMondeAsStr() == "" ? "." : ", " + planete->GetTypeMondeAsStr() + ".");
+                (planete->GetTypeMondeAsStr() == "" ? "" : ", " + planete->GetTypeMondeAsStr());
+
+        if ( planete->m_TitheGrade != nullptr) {
+            texteNaissance += " (" + planete->m_TitheGrade->GetIntitule() + ")";
+        }
+        texteNaissance += ".";
 
         if ( planete->m_Faction != nullptr) {
             texteNaissance += "\nCette planète est contrôlée par " + planete->m_Faction->m_Nom + ".";
@@ -57,7 +66,7 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt)
         NoeudProbable* noeud = new NoeudProbable(
                     genEvt->AjouterEffetNarration(
                         texteNaissance,
-                        "",
+                        planete->m_Image,
                         "naissance_planete_" + planete->m_Nom),
                     new Condition(planete->m_Population));
 
