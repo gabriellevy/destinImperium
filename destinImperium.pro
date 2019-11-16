@@ -54,6 +54,7 @@ SOURCES += \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
     aspectratiolabel.cpp \
+    factions.cpp \
     genviehumain.cpp \
     imperium.cpp \
         main.cpp \
@@ -88,6 +89,7 @@ HEADERS += \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
     aspectratiolabel.h \
+    factions.h \
     genviehumain.h \
     imperium.h \
     planet.h

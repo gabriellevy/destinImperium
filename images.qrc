@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>images/Imperium.jpg</file>
+        <file>images/planetes/Accatran.jpg</file>
     </qresource>
 </RCC>
