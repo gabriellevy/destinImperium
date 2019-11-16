@@ -56,6 +56,7 @@ SOURCES += \
     aspectratiolabel.cpp \
     factions.cpp \
     genviehumain.cpp \
+    humain.cpp \
     imperium.cpp \
         main.cpp \
     planet.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     aspectratiolabel.h \
     factions.h \
     genviehumain.h \
+    humain.h \
     imperium.h \
     planet.h \
     tithegrade.h

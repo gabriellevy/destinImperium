@@ -40,7 +40,7 @@ public:
     TitheGrade* m_TitheGrade = nullptr;
 
     static QMap<QString, Planete*> PLANETES;
-    static QVector<NoeudProbable*> ConstruireToutePlanetes(GenEvt* genEvt);
+    static QVector<NoeudProbable*> ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet);
 
     QString GetTypeMondeAsStr();
 };

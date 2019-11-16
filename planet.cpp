@@ -4,6 +4,8 @@
 #include "../destinLib/evt.h"
 #include "../destinLib/genevt.h"
 #include "../destinLib/selectionneurdenoeud.h"
+#include "imperium.h"
+#include "genviehumain.h"
 
 int Planete::COMPTEUR = 0;
 QMap<QString, Planete*> Planete::PLANETES;
@@ -43,9 +45,9 @@ QString Planete::GetTypeMondeAsStr()
     }
 }
 
-QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt)
+QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet)
 {
-    QVector<NoeudProbable*> effetPlanetes;
+    QVector<NoeudProbable*> effetsPlanetes;
     Planete* planete = new Planete();
     while ( planete->m_Population > 0) {
         Planete::PLANETES[planete->m_Nom] = planete;
@@ -63,17 +65,20 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt)
             texteNaissance += "\nCette planète est contrôlée par " + planete->m_Faction->m_Nom + ".";
         }
 
+        Effet* effetNaissancePlanete = genEvt->AjouterEffetNarration(
+                    texteNaissance,
+                    planete->m_Image,
+                    "naissance_planete_" + planete->m_Nom);
+        effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::PLANETE, planete->m_Nom);
+        effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
         NoeudProbable* noeud = new NoeudProbable(
-                    genEvt->AjouterEffetNarration(
-                        texteNaissance,
-                        planete->m_Image,
-                        "naissance_planete_" + planete->m_Nom),
+                    effetNaissancePlanete,
                     new Condition(planete->m_Population));
 
-        effetPlanetes.push_back(noeud);
+        effetsPlanetes.push_back(noeud);
 
         planete = new Planete();
     }
 
-    return effetPlanetes;
+    return effetsPlanetes;
 }
