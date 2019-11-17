@@ -11,6 +11,7 @@
 #include "humain.h"
 #include "metier.h"
 #include "pbsante.h"
+#include "identite.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -50,7 +51,8 @@ void GenVieHumain::GenererDataUnivers()
 
 void GenVieHumain::GenererPersos()
 {
-    Humain* perso = new Humain();
+    QString nom = Identite::CreerPatronyme();
+    Humain* perso = new Humain(nom);
     perso->InitialiserPerso();
     IPerso::AjouterPersoJouable(perso);
 }
@@ -64,7 +66,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(GenVieHumain::METIER, GenVieHumain::METIER,"",
                    "", GenVieHumain::METIER, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 2000); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -99,11 +101,20 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
 
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
+
+    Evt* evtFinVie = AjouterEvt("evtFinVie");
+    Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");
+    effetFinVie->m_ChangeurModeDeroulement = ModeDeroulement::Fini;
+    Condition* condMort = new Condition(0);
+    PbSante::AjouterModifProbaSiMort(condMort, 9999999);
+    noeuds.push_back( new NoeudProbable(
+                           evtFinVie,
+                           condMort));
 }
 
 Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)
 {
-    // ne se déclnche que si le personnage est encore en vie :
+    // ne se déclenche que si le personnage est encore en vie :
     effet->AjouterCondition(PbSante::SANTE, Comparateur::c_Different, PbSante::MORT);
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";

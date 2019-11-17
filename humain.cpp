@@ -4,7 +4,7 @@
 
 Humain* Humain::ME = nullptr;
 
-Humain::Humain():DPerso("Reynault", "Reynault", "Reynault", "")
+Humain::Humain(QString nom):DPerso(nom, nom, nom, "")
 {
     Humain::ME = this;
 }
@@ -12,7 +12,7 @@ Humain::Humain():DPerso("Reynault", "Reynault", "Reynault", "")
 Humain* Humain::GetHumainJoue()
 {
     if ( Humain::ME == nullptr )
-        Humain::ME = new Humain();
+        Humain::ME = new Humain("inconnu ??");
     return ME;
 }
 

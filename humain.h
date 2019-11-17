@@ -8,7 +8,7 @@ class Humain : public DPerso
 {
     static Humain* ME;
 public:
-    Humain();
+    Humain(QString nom);
 
     static Humain* GetHumainJoue();
 

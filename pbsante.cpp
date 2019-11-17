@@ -79,3 +79,10 @@ void PbSante::GenererNoeudsSelectionPbSante(GenEvt* genEvt, QVector<NoeudProbabl
         pbSante = new PbSante();
     }
 }
+
+Condition* PbSante::AjouterModifProbaSiMort(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(PbSante::SANTE, PbSante::MORT, Comparateur::c_Egal)});
+    return cond;
+}

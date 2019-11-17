@@ -57,6 +57,7 @@ SOURCES += \
     factions.cpp \
     genviehumain.cpp \
     humain.cpp \
+    identite.cpp \
     imperium.cpp \
         main.cpp \
     metier.cpp \
@@ -96,6 +97,7 @@ HEADERS += \
     factions.h \
     genviehumain.h \
     humain.h \
+    identite.h \
     imperium.h \
     metier.h \
     pbsante.h \
