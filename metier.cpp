@@ -15,25 +15,30 @@ Metier::Metier()
     case 0 : {
         m_Nom = "Paysan";
         m_Metier = Paysan;
-        m_Condition = new Condition(0.3f);
+        m_Condition = new Condition(0.1);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
-        m_Condition->AjouterModifProba(2.0,
+        m_Condition->AjouterModifProba(0.8,
             {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeAgricole), Comparateur::c_Egal)});
-        m_Condition->AjouterModifProba(1.2,
+        m_Condition->AjouterModifProba(0.6,
             {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
     }break;
     case 1 : {
         m_Nom = "Fonctionnaire de l'Administratum";
         m_Metier = FonctionnaireAdministratum;
-        m_Condition = new Condition(0.3f);
+        m_Condition = new Condition(0.2);
     }break;
     }
 
     if ( m_Condition!= nullptr) {
-        // si on a pas de métier les chances qu'on s'en voit affecter un sont multipliées :
-        m_Condition->AjouterModifProba(1.0, {new Condition(GenVieHumain::METIER, "", Comparateur::c_Egal)});
+        // si on a un métier les chances qu'on s'en voit affecter un sont très faibles :
+        m_Condition->AjouterModifProba(-1.0, {new Condition(GenVieHumain::METIER, "", Comparateur::c_Different)});
         // et si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
-        m_Condition->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "180", Comparateur::c_Inferieur)});
+        // mais affectation de métier plus rapide sur monde féodal :
+        m_Condition->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
+        m_Condition->AjouterModifProba(-2.3,
+            {new Condition(GenVieHumain::AGE, "180", Comparateur::c_Inferieur),
+             new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Different)
+                                       });
     }
 
     Metier::COMPTEUR++;
