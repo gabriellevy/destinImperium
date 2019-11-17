@@ -9,6 +9,7 @@ class Condition;
 
 enum e_Metier {
     Paysan,
+    GardeImperial,
     FonctionnaireAdministratum,
     // mondes chevaliers :
     NobleChevalier

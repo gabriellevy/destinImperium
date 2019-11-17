@@ -69,6 +69,79 @@ Planete::Planete()
         m_Climat = Froid;
         m_TitheGrade = new TitheGrade(Exactis_Tertius, I_Extremis);
     }break;
+    case 7 : {
+        m_Nom = "Alaric Prime";
+        m_Population = 1;
+        m_TypePlanete = MondeChevalier;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/Agripinaa.jpg";
+        m_Climat = Tempere;
+    }break;
+    case 8 : {
+        m_Nom = "Amontep II";
+        m_Population = 20;
+        m_TypePlanete = MondeForge;
+        m_Faction = new Factions(AdeptusMechanicus);
+        m_Climat = Aride;
+        m_Xenos = {MondeTombe};
+    }break;
+    case 9 : {
+        m_Nom = "Anark Zeta";
+        m_Population = 1;
+        m_TypePlanete = MondeFeral;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Froid;
+        m_Xenos = {Ogryn};
+    }break;
+    case 10 : {
+        m_Nom = "Antax";
+        m_Population = 10;
+        m_TypePlanete = MondeForge;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 11 : {
+        m_Nom = "Kronite";
+        m_Population = 1;
+        m_TypePlanete = MondeFeodal;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 12 : {
+        m_Nom = "Ogris Major";
+        m_Population = 1;
+        m_TypePlanete = MondeFeodal;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 13 : {
+        m_Nom = "Birmingham";
+        m_Population = 1;
+        m_TypePlanete = MondeFeral;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 14 : {
+        m_Nom = "Kaledon";
+        m_Population = 1;
+        m_TypePlanete = MondeFeral;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 15 : {
+        m_Nom = "Attila";
+        m_Population = 1;
+        m_TypePlanete = MondeFeral;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 16 : {
+        m_Nom = "Dreer";
+        m_Population = 1;
+        m_TypePlanete = MondeFeral;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
     }
 
     Planete::COMPTEUR++;
@@ -101,6 +174,13 @@ Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poids
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
+    return cond;
+}
+
+Condition* Planete::AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeral), Comparateur::c_Egal)});
     return cond;
 }
 

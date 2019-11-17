@@ -27,10 +27,18 @@ Metier::Metier()
     }break;
     case 2 : {
         m_Nom = "Noble Chevalier";
-        m_Metier = Paysan;
+        m_Metier = NobleChevalier;
         m_Condition = new Condition(0);
-        // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
         Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
+    }break;
+    case 3 : {
+        m_Nom = "Garde Imperial";
+        m_Metier = GardeImperial;
+        m_Image = ":/images/metier/garde-imperial.jpg";
+        m_Condition = new Condition(0.02);
+        // plus de chances de devenir garde sur les mondes férals et médiévaux
+        Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.2);
+        Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
     }break;
     }
 
