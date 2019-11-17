@@ -19,6 +19,7 @@ Planete::Planete()
         m_TypePlanete = MondeRuche;
         m_Faction = new Factions(Imperium);
         m_Image = ":/images/planetes/Terra_And_Luna.jpg";
+        m_Climat = Tempere;
         m_TitheGrade = new TitheGrade(AptusNon);
     }break;
     case 1 : {
@@ -38,6 +39,36 @@ Planete::Planete()
         m_Image = ":/images/planetes/Acreage.gif";
         m_Climat = Tempere;
     }break;
+    case 3 : {
+        m_Nom = "Adrastapol";
+        m_Population = 10;
+        m_TypePlanete = MondeChevalier;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 4 : {
+        m_Nom = "Aerius";
+        m_Population = 10;
+        m_TypePlanete = MondeRuche;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 5 : {
+        m_Nom = "Aexe Cardinal";
+        m_Population = 10;
+        m_TypePlanete = MondeAgricole;
+        m_Faction = new Factions(Imperium);
+        m_Climat = Tempere;
+    }break;
+    case 6 : {
+        m_Nom = "Agripinaa";
+        m_Population = 1;
+        m_TypePlanete = MondeForge;
+        m_Faction = new Factions(AdeptusMechanicus);
+        m_Image = ":/images/planetes/Agripinaa.jpg";
+        m_Climat = Froid;
+        m_TitheGrade = new TitheGrade(Exactis_Tertius, I_Extremis);
+    }break;
     }
 
     Planete::COMPTEUR++;
@@ -53,6 +84,7 @@ QString Planete::GetTypeMondeAsStr(TypePlanete typePlanete)
     case MondeForge : return "Monde forge";
     case MondeRuche : return "Monde ruche";
     case MondeAgricole : return "Monde agricole";
+    case MondeChevalier : return "Monde chevalier";
     case Divers : default : return "";
 
     }
@@ -69,6 +101,13 @@ Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poids
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
+    return cond;
+}
+
+Condition* Planete::AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeChevalier), Comparateur::c_Egal)});
     return cond;
 }
 

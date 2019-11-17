@@ -9,7 +9,9 @@ class Condition;
 
 enum e_Metier {
     Paysan,
-    FonctionnaireAdministratum
+    FonctionnaireAdministratum,
+    // mondes chevaliers :
+    NobleChevalier
 };
 
 class Metier

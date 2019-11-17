@@ -15,12 +15,14 @@ enum TypePlanete {
     Divers,
     MondeAgricole,
     MondeForge,
+    MondeChevalier,
     MondeFeodal,
     MondeRuche
 };
 
 enum Climat {
     Tempere, // tempéré
+    Froid,
     AtmosphereQuasiMorte // vie souterraine ou en ruche obligatoire
 };
 
@@ -51,6 +53,7 @@ public:
     // modificateurs de condition standards :
     static Condition* AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
 };
 
 #endif // PLANET_H

@@ -25,6 +25,13 @@ Metier::Metier()
         m_Metier = FonctionnaireAdministratum;
         m_Condition = new Condition(0.2);
     }break;
+    case 2 : {
+        m_Nom = "Noble Chevalier";
+        m_Metier = Paysan;
+        m_Condition = new Condition(0);
+        // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
+        Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
+    }break;
     }
 
     if ( m_Condition!= nullptr) {

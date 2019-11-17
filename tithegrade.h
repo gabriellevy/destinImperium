@@ -4,7 +4,8 @@
 #include <QString>
 
 enum e_TitheGrade {
-    AptusNon
+    AptusNon,
+    Exactis_Tertius
 };
 
 enum e_ProductionGrade { //  niveau de production indutrielle du monde
