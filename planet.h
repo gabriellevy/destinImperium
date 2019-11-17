@@ -9,6 +9,7 @@
 
 class NoeudProbable;
 class GenEvt;
+class Condition;
 
 enum TypePlanete {
     Divers,
@@ -46,6 +47,10 @@ public:
     QString GetTypeMondeAsStr();
 
     static QString GetTypeMondeAsStr(TypePlanete typePlanete);
+
+    // modificateurs de condition standards :
+    static Condition* AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
 };
 
 #endif // PLANET_H

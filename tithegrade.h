@@ -29,7 +29,7 @@ enum e_ProductionGrade { //  niveau de production indutrielle du monde
     IV_Secundi,
     IV_Tertius,
     Inconnu,
-    Aucun
+    epg_Aucun
 };
 
 /**

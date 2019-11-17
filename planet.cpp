@@ -58,6 +58,20 @@ QString Planete::GetTypeMondeAsStr(TypePlanete typePlanete)
     }
 }
 
+Condition* Planete::AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeAgricole), Comparateur::c_Egal)});
+    return cond;
+}
+
+Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
+    return cond;
+}
+
 QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet)
 {
     QVector<NoeudProbable*> effetsPlanetes;

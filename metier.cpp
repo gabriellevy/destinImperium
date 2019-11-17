@@ -17,10 +17,8 @@ Metier::Metier()
         m_Metier = Paysan;
         m_Condition = new Condition(0.1);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
-        m_Condition->AjouterModifProba(0.8,
-            {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeAgricole), Comparateur::c_Egal)});
-        m_Condition->AjouterModifProba(0.6,
-            {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
+        Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
+        Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
     }break;
     case 1 : {
         m_Nom = "Fonctionnaire de l'Administratum";

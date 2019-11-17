@@ -10,6 +10,7 @@
 #include "planet.h"
 #include "humain.h"
 #include "metier.h"
+#include "pbsante.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -37,6 +38,9 @@ Hist* GenVieHumain::GenererHistoire()
 
     GenererPrincipalSelectionneurDEffet();
 
+    m_HistoireGeneree->m_ModeDeroulement = ModeDeroulement::Automatique;
+    m_HistoireGeneree->m_MsDureeDefilement = GenVieHumain::CHRONO;
+
     return m_HistoireGeneree;
 }
 
@@ -60,7 +64,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(GenVieHumain::METIER, GenVieHumain::METIER,"",
                    "", GenVieHumain::METIER, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 2000); // début à 15 ans (180)
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -89,15 +93,18 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Evt* evtRien2 = AjouterEvt("evtRien2");
     Effet* effetRien2 = AjouterEffetNarration("Encore un mois tranquille.");
     effetRien2 = TransformerEffetEnEffetMoisDeVie(effetRien2);
-    noeuds.push_back(  new NoeudProbable(
+    noeuds.push_back( new NoeudProbable(
                            evtRien2,
                            new Condition(1)));
 
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
+    PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
 }
 
 Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)
 {
+    // ne se déclnche que si le personnage est encore en vie :
+    effet->AjouterCondition(PbSante::SANTE, Comparateur::c_Different, PbSante::MORT);
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);

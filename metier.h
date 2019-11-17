@@ -23,8 +23,6 @@ public:
     QString m_Image = ""; // chemin vers une éventuelle image représentant le métier
     Condition* m_Condition = nullptr; // proba de se voir affecter ce métier
 
-    QString GetIntitule();
-
     static void GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 };
 
