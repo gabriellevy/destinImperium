@@ -12,6 +12,7 @@
 #include "metier.h"
 #include "pbsante.h"
 #include "identite.h"
+#include "voyage.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -67,6 +68,17 @@ void GenVieHumain::GenererCaracs()
                 new Carac(GenVieHumain::METIER, GenVieHumain::METIER,"",
                    "", GenVieHumain::METIER, MODE_AFFICHAGE::ma_Texte, nullptr));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
+
+    // temp test :
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Voyage::REAFFECTATION_PLANETE, Voyage::REAFFECTATION_PLANETE,"",
+                   "", Voyage::REAFFECTATION_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Voyage::DESTINATION_PLANETE, Voyage::DESTINATION_PLANETE,"",
+                   "", Voyage::DESTINATION_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Voyage::VOYAGE_WARP, Voyage::VOYAGE_WARP,"",
+                   "", Voyage::VOYAGE_WARP, MODE_AFFICHAGE::ma_Texte, nullptr));
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -101,6 +113,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
 
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
+    Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

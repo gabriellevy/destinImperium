@@ -6,6 +6,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "planet.h"
+#include "voyage.h"
 
 int Metier::COMPTEUR = 0;
 
@@ -23,7 +24,7 @@ Metier::Metier()
     case 1 : {
         m_Nom = "Fonctionnaire de l'Administratum";
         m_Metier = FonctionnaireAdministratum;
-        m_Condition = new Condition(0.2);
+        m_Condition = new Condition(0.15);
     }break;
     case 2 : {
         m_Nom = "Noble Chevalier";
@@ -39,6 +40,15 @@ Metier::Metier()
         // plus de chances de devenir garde sur les mondes férals et médiévaux
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.2);
         Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
+    }break;
+    case 4 : {
+        m_Nom = "Arbitrator";
+        m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
+        m_Metier = Arbitrator;
+        m_Image = ":/images/metier/Arbitrator.jpg";
+        m_Condition = new Condition(2.01);
+        // à peine nommé, un arbitrator est affecté à une nouvelle planète
+        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
     }
 
@@ -67,14 +77,23 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
         QString texteAffectation = "Vous êtes maintenant " +
                 metier->m_Nom;
         texteAffectation += ".";
+        if ( metier->m_Description != "" )
+            texteAffectation += " " + metier->m_Description;
 
         Effet* effetAffectation = genEvt->AjouterEffetNarration(
                     texteAffectation,
                     metier->m_Image,
                     "affectation_metier_" + metier->m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effetAffectation->AjouterChangeurDeCarac(GenVieHumain::METIER, metier->m_Nom);
         effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
+
+        // modificateurs de carac :
+        effetAffectation->AjouterChangeurDeCarac(GenVieHumain::METIER, metier->m_Nom);
+        QMapIterator<QString, QString> it(metier->m_ModificateursCaracs);
+        while ( it.hasNext()) {
+            it.next();
+            effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
+        }
 
         Condition* cond = metier->m_Condition;
 

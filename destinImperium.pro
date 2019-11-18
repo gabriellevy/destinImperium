@@ -64,7 +64,8 @@ SOURCES += \
     metier.cpp \
     pbsante.cpp \
     planet.cpp \
-    tithegrade.cpp
+    tithegrade.cpp \
+    voyage.cpp
 
 HEADERS += \
     ../destinLib/execlancerde.h \
@@ -104,7 +105,8 @@ HEADERS += \
     metier.h \
     pbsante.h \
     planet.h \
-    tithegrade.h
+    tithegrade.h \
+    voyage.h
 
 FORMS += \
     ../destinLib/univers.ui \

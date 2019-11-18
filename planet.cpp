@@ -2,10 +2,13 @@
 //#include "../destinLib/noeudnarratif.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/evt.h"
+#include "../destinLib/gestionnairecarac.h"
+#include "../destinLib/aleatoire.h"
 #include "../destinLib/genevt.h"
 #include "../destinLib/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
+#include "humain.h"
 
 int Planete::COMPTEUR = 0;
 QMap<QString, Planete*> Planete::PLANETES;
@@ -146,6 +149,42 @@ Planete::Planete()
 
     Planete::COMPTEUR++;
 }
+
+Planete* Planete::GetPlaneteAleatoire(bool usePopulationCommePoids, bool ignorePlaneteActuelle)
+{
+    Planete* planeteCourante = nullptr;
+    if ( ignorePlaneteActuelle)
+        planeteCourante = Humain::GetHumainJoue()->GetPlanete();
+
+    double poidsTotal = 0;
+    QMap<QString, Planete*>::iterator i = Planete::PLANETES.begin();
+    while (i != Planete::PLANETES.end()) {
+        if ( planeteCourante != i.value()) {
+            if ( usePopulationCommePoids)
+                poidsTotal += i.value()->m_Population;
+            else poidsTotal += 1;
+        }
+        ++i;
+    }
+
+    double val = Aleatoire::GetAl()->EntierInferieurA(qAbs(poidsTotal));
+    double poidsCourant = 0;
+    i = Planete::PLANETES.begin();
+    while ( i != Planete::PLANETES.end()) {
+        if ( planeteCourante != i.value()) {
+            if ( usePopulationCommePoids)
+                poidsCourant += i.value()->m_Population;
+            else {
+                poidsCourant += 1;
+            }
+            if ( poidsCourant >= val)
+                break;
+        }
+        ++i;
+    }
+    return i.value();
+}
+
 QString Planete::GetTypeMondeAsStr()
 {
     return Planete::GetTypeMondeAsStr(m_TypePlanete);

@@ -52,6 +52,7 @@ public:
     QVector<Xenos> m_Xenos;
 
     static QMap<QString, Planete*> PLANETES;
+    static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false);
     static QVector<NoeudProbable*> ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet);
 
     QString GetTypeMondeAsStr();
