@@ -26,7 +26,9 @@ Voyage::Voyage()
         m_CallbackDisplay = [](){
             // détermination dynamique de la planète de destination :
             Planete* nouvellePlanete = Planete::GetPlaneteAleatoire(true, true);
-            Univers::ME->GetExecHistoire()->EffetActuel()->m_Texte = "Vos avez été réaffecté vers la planète " + nouvellePlanete->m_Nom + ".";
+            Effet* effetActuel = Univers::ME->GetExecHistoire()->EffetActuel();
+            effetActuel->m_ImgPath = nouvellePlanete->m_Image;
+            effetActuel->m_Texte = "Vos avez été réaffecté vers la planète " + nouvellePlanete->m_Nom + ".";
             GestionnaireCarac::SetValeurACaracId(Voyage::DESTINATION_PLANETE, nouvellePlanete->m_Nom);
         };
     }break;

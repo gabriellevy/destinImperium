@@ -46,7 +46,7 @@ Metier::Metier()
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
         m_Metier = Arbitrator;
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_Condition = new Condition(2.01);
+        m_Condition = new Condition(0.01);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
