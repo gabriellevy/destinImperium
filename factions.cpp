@@ -9,6 +9,9 @@ Factions::Factions(e_Factions faction):m_FactionE(faction)
     case Imperium : {
         m_Nom = "l'Imperium de l'homme";
     } break;
+    case Ultramarines : {
+        m_Nom = "les Ultramarines";
+    } break;
 
     }
 }

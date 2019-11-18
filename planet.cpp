@@ -145,6 +145,20 @@ Planete::Planete()
         m_Faction = new Factions(Imperium);
         m_Climat = Tempere;
     }break;
+    case 17 : {
+        m_Nom = "Anuaris";
+        m_Population = 10;
+        m_TypePlanete = MondeForge;
+        m_Faction = new Factions(AdeptusMechanicus);
+        m_Climat = Tempere;
+    }break;
+    case 18 : {
+        m_Nom = "Ardium";
+        m_Population = 100;
+        m_TypePlanete = MondeRuche;
+        m_Faction = new Factions(Ultramarines);
+        m_Climat = Tempere;
+    }break;
     }
 
     Planete::COMPTEUR++;

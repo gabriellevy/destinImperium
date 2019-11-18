@@ -6,6 +6,7 @@
 enum e_Factions {
     // Imperium
     AdeptusMechanicus,
+    Ultramarines, // en tant que chef de leur propre secteur
     Imperium
 };
 
