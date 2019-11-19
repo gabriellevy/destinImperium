@@ -9,6 +9,7 @@
 #include "voyage.h"
 
 int Metier::COMPTEUR = 0;
+QMap<e_Metier, Metier*> Metier::METIERS;
 
 Metier::Metier()
 {
@@ -22,8 +23,9 @@ Metier::Metier()
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
     }break;
     case 1 : {
-        m_Nom = "Fonctionnaire de l'Administratum";
-        m_Metier = FonctionnaireAdministratum;
+        m_Nom = "Adepte Administratum";
+        m_Metier = AdepteAdministratum;
+        m_Image = ":/images/metier/Administratum Adept.png";
         m_Condition = new Condition(0.15);
     }break;
     case 2 : {
@@ -64,10 +66,16 @@ Metier::Metier()
                                        });
     }
 
+    METIERS[m_Metier] = this;
+
     Metier::COMPTEUR++;
 }
 
 
+QString Metier::GetMetierAsStr(e_Metier metier)
+{
+    return Metier::METIERS[metier]->m_Nom;
+}
 
 
 void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)

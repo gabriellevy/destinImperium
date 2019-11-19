@@ -11,7 +11,7 @@ class Condition;
 enum e_Metier {
     Paysan,
     GardeImperial,
-    FonctionnaireAdministratum,
+    AdepteAdministratum,
     // Adeptus Arbites :
     Arbitrator, // Adeptus Arbites
     AdeptusArbitesJuge, //  => inateignable pour l'instant
@@ -34,6 +34,9 @@ public:
     QMap<QString, QString> m_ModificateursCaracs;
 
     static void GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+
+    static QMap<e_Metier, Metier*> METIERS;
+    static QString GetMetierAsStr(e_Metier metier);
 };
 
 #endif // METIER_H

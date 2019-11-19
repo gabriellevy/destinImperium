@@ -13,6 +13,7 @@
 #include "pbsante.h"
 #include "identite.h"
 #include "voyage.h"
+#include "administratum.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -114,6 +115,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
     Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
+    Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

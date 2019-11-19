@@ -53,6 +53,7 @@ SOURCES += \
     ../destinLib/dbmanager.cpp \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
+    administratum.cpp \
     aspectratiolabel.cpp \
     citation.cpp \
     factions.cpp \
@@ -95,6 +96,7 @@ HEADERS += \
     ../destinLib/dbmanager.h \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
+    administratum.h \
     aspectratiolabel.h \
     citation.h \
     factions.h \
