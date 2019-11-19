@@ -69,6 +69,9 @@ void GenVieHumain::GenererCaracs()
                 new Carac(GenVieHumain::METIER, GenVieHumain::METIER,"",
                    "", GenVieHumain::METIER, MODE_AFFICHAGE::ma_Texte, nullptr));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Administratum::C_DIVISION, Administratum::C_DIVISION,"",
+                   "", Administratum::C_DIVISION, MODE_AFFICHAGE::ma_Texte, nullptr));
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(

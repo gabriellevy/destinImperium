@@ -25,10 +25,21 @@ public:
 
     static void GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
+    Condition* AjouterModifProbaSiAdepteAdministratum(Condition* cond, double poidsProba);
     Condition* AjouterModifProbaSiAdepteAdministratum40Ans(Condition* cond, double poidsProba);
+    Condition* AjouterModifProbaSiADivision(Condition* cond, double poidsProba);
 
     // caracs :
     static QString RANG; // dans l'administratum
+    static QString C_DIVISION; // sous partie d'administration
+    // valeurs de caracs
+    static QString DEPARTMENTO_MUNITORUM;
+    static QString DEPARTMENTO_EXACTA;
+    static QString ESTATE_IMPERIUM;
+    static QString REVISION_HISTORIQUE;
+    static QString OFFICIO_MEDICAE;
+    static QString LOGIS_STRATEGOS;
+    static QVector<QString> DIVISIONS;
 };
 
 #endif // ADMINISTRATUM_H
