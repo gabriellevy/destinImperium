@@ -8,9 +8,13 @@
 #include "planet.h"
 #include "voyage.h"
 #include "metier.h"
+#include "../destinLib/effet.h"
 
 QString Administratum::RANG = "Rang administratum";
 int Administratum::COMPTEUR = 0;
+
+// ids :
+QString Administratum::ID_AFFECTATION_DIVISION = "Affectation Division";
 
 // sous-divisions
 QString Administratum::C_DIVISION = "Division Administratum";
@@ -20,6 +24,13 @@ QString Administratum::ESTATE_IMPERIUM = "Estate Imperium";
 QString Administratum::REVISION_HISTORIQUE = "Unité de révision historique";
 QString Administratum::OFFICIO_MEDICAE = "Officio Medicae";
 QString Administratum::LOGIS_STRATEGOS = "Logis Strategos";
+QString Administratum::FLOTTE_IMPERIALE_DE_GUERRE = "Flotte impériale de guerre";
+QString Administratum::FLOTTE_MARCHANDE = "Flotte marchande";
+QString Administratum::FLOTTE_CIVILE = "Flotte civile";
+QString Administratum::OFFICIO_ASSASSINORUM = "Officio Assassinorum";
+QString Administratum::OFFICIO_SABATORUM = "Officio Sabatorum";
+QString Administratum::OFFICIO_AGRICULTAE = "Officio Agricultae";
+QString Administratum::ORDO_TEMPESTUS = "Ordo Tempestus";
 QVector<QString> Administratum::DIVISIONS = {
     Administratum::DEPARTMENTO_MUNITORUM, Administratum::DEPARTMENTO_EXACTA
 };
@@ -37,55 +48,11 @@ Administratum::Administratum()
 
     }break;
     case 1 : {
-        m_Nom = "Affectation Division";
+        m_Nom = Administratum::ID_AFFECTATION_DIVISION;
         m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::DEPARTMENTO_MUNITORUM;
-        m_Image = ":/images/metier/Munitorum_Scribe.jpg";
-        m_Description = "Vous avez été assigné à la division du departmento munitorum, la branche logistique au service de la garde impériale.";
         Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
         Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
-    }break;
-    case 2 : {
-        m_Nom = "Affectation Division Departmento Exacta";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::DEPARTMENTO_EXACTA;
-        m_Description = "Vous avez été assigné à la division du departmento Exacta. Vous êtes chargé de la collecte du considérable tribut Exacta prélevé sur la plupart des mondes de l'Imperium.";
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
-    }break;
-    case 3 : {
-        m_Nom = "Affectation Division Estate Imperium";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::ESTATE_IMPERIUM;
-        m_Description = "Vous avez été assigné à la division de l'Estate Imperium."
-                " Vous êtes chargé de tenir à jour les comptes et registres.";
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
-    }break;
-    case 4 : {
-        m_Nom = "Affectation Division Unité de révision historique";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::REVISION_HISTORIQUE;
-        m_Description = "Vous avez été assigné à l'unité de révision historique en tant qu'Historitor."
-                " Vous êtes chargé de contrôler les registres historiques et de les éditer, voire de les purger de tous les éléments non approuvés par hauts seigneurs de Terre.";
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
-    }break;
-    case 5 : {
-        m_Nom = "Affectation Division Officio Medicae";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::OFFICIO_MEDICAE;
-        m_Description = "Vous avez été assigné à l'Officio Medicae, en charge de la santé public.";
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
-    }break;
-    case 6 : {
-        m_Nom = "Affectation Division Logis Strategos";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::C_DIVISION] = Administratum::LOGIS_STRATEGOS;
-        m_Description = "Vous avez été assigné à la Logis Strategos, en charge de l'a santé public'analyse de données d'espionnage et de la détection de menaces.";
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
+
     }break;
     }
 
@@ -117,34 +84,168 @@ Condition* Administratum::AjouterModifProbaSiAdepteAdministratum40Ans(Condition*
     return cond;
 }
 
+Effet* Administratum::GenererEffet(GenEvt* genEvt)
+{
+    Effet* effet = nullptr;
+    if ( m_Nom == Administratum::ID_AFFECTATION_DIVISION) {
+        // sélectionneur d'effets
+        QVector<NoeudProbable*> noeudsAffectation;
+        DivisionAdministratum::GenererNoeudsAffectation(genEvt, noeudsAffectation);
+        effet = genEvt->AjouterEffetSelecteurDEvt(noeudsAffectation, Administratum::ID_AFFECTATION_DIVISION, "", GenVieHumain::EVT_SELECTEUR);
+    } else {
+        // système de création d'effets de base :
+        effet = genEvt->AjouterEffetNarration(
+            m_Description,
+            m_Image,
+            "avt_administratum_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
+        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
+        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
+    }
+
+    // modificateurs de carac :
+    QMapIterator<QString, QString> it(m_ModificateursCaracs);
+    while ( it.hasNext()) {
+        it.next();
+        effet->AjouterChangeurDeCarac(it.key(), it.value());
+    }
+
+    return effet;
+}
 
 void Administratum::GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     Administratum* evt = new Administratum();
     while ( evt->m_Nom != "") {
 
-        Effet* effetAffectation = genEvt->AjouterEffetNarration(
-                    evt->m_Description,
-                    evt->m_Image,
-                    "avt_administratum_" + evt->m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
-
-        // modificateurs de carac :
-        QMapIterator<QString, QString> it(evt->m_ModificateursCaracs);
-        while ( it.hasNext()) {
-            it.next();
-            effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
-        }
+        Effet* effet = evt->GenererEffet(genEvt);
 
         Condition* cond = evt->m_Condition;
 
         NoeudProbable* noeud = new NoeudProbable(
-                    effetAffectation,
+                    effet,
                     cond);
 
         noeuds.push_back(noeud);
 
         evt = new Administratum();
+    }
+}
+QVector<DivisionAdministratum*> DivisionAdministratum::DIVISIONS = {};
+void DivisionAdministratum::GenererDivisions()
+{
+    if ( DivisionAdministratum::DIVISIONS.length() > 0)
+        return;
+
+    DivisionAdministratum* div = new DivisionAdministratum();
+    while ( div->m_Nom != "") {
+        DivisionAdministratum::DIVISIONS.push_back(div);
+        div = new DivisionAdministratum();
+    }
+}
+int DivisionAdministratum::COMPTEUR = 0;
+
+DivisionAdministratum::DivisionAdministratum()
+{
+    switch (DivisionAdministratum::COMPTEUR) {
+    case 0 : {
+        m_Nom = Administratum::DEPARTMENTO_MUNITORUM;
+        m_Condition = new Condition(0.5);
+        m_Image = ":/images/metier/Munitorum_Scribe.jpg";
+        m_Description = "Vous avez été assigné à la division du departmento munitorum, la branche logistique au service de la garde impériale.";
+    }break;
+    case 1 : {
+        m_Nom = Administratum::DEPARTMENTO_EXACTA;
+        m_Condition = new Condition(0.3);
+        m_Image = ":/images/metier/DepartmentoExacta.jpg";
+        m_Description = "Vous avez été assigné à la division du departmento Exacta. Vous êtes chargé de la collecte du considérable tribut Exacta prélevé sur la plupart des mondes de l'Imperium.";
+    }break;
+    case 2 : {
+        m_Nom = Administratum::OFFICIO_SABATORUM;
+        m_Condition = new Condition(0.01);
+        m_Image = ":/images/organisations/Officio_Assassinorum_symbol_2.png";
+        m_Description = "Vous avez été assigné à la gestion logistique de l'Officio Sabatorum, un bureau de sabotage ultra secret.";
+    }break;
+    case 3 : {
+        m_Nom = Administratum::ESTATE_IMPERIUM;
+        m_Condition = new Condition(0.3);
+        m_Description = "Vous avez été assigné à la division de l'Estate Imperium."
+                " Vous êtes chargé de tenir à jour les comptes et registres.";
+    }break;
+    case 4 : {
+        m_Nom = Administratum::REVISION_HISTORIQUE;
+        m_Condition = new Condition(0.1);
+        m_Description = "Vous avez été assigné à l'unité de révision historique en tant qu'Historitor."
+                " Vous êtes chargé de contrôler les registres historiques et de les éditer, voire de les purger de tous les éléments non approuvés par hauts seigneurs de Terre.";
+    }break;
+    case 5 : {
+        m_Nom = Administratum::OFFICIO_MEDICAE;
+        m_Condition = new Condition(0.2);
+        m_Description = "Vous avez été assigné à l'Officio Medicae, en charge de la santé public.";
+    }break;
+    case 6 : {
+        m_Nom = Administratum::LOGIS_STRATEGOS;
+        m_Condition = new Condition(0.2);
+        m_Description = "Vous avez été assigné à la Logis Strategos, en charge de l'analyse de données d'espionnage et de la détection de menaces.";
+    }break;
+    case 7 : {
+        m_Nom = Administratum::FLOTTE_IMPERIALE_DE_GUERRE;
+        m_Condition = new Condition(0.3);
+        m_Image = ":/images/organisations/FlotteImperialeDeGuerre.jpg";
+        m_Description = "Vous avez été assigné à la gestion logistique de la flotte de guerre impériale.";
+    }break;
+    case 8 : {
+        m_Nom = Administratum::FLOTTE_MARCHANDE;
+        m_Condition = new Condition(0.3);
+        m_Image = ":/images/vaisseaux/VagabondTrader.jpg";
+        m_Description = "Vous avez été assigné à la gestion logistique de la flotte marchande impériale.";
+    }break;
+    case 9 : {
+        m_Nom = Administratum::FLOTTE_CIVILE;
+        m_Condition = new Condition(0.3);
+        m_Image = ":/images/vaisseaux/VagabondTrader.jpg";
+        m_Description = "Vous avez été assigné à la gestion logistique de la flotte civile impériale.";
+    }break;
+    case 10 : {
+        m_Nom = Administratum::OFFICIO_ASSASSINORUM;
+        m_Condition = new Condition(0.1);
+        m_Image = ":/images/organisations/Officio_Assassinorum_symbol_2.png";
+        m_Description = "Vous avez été assigné à la gestion logistique de l'Officio Assassinorum, le bureau des assassins impériaux.";
+    }break;
+    case 11 : {
+        m_Nom = Administratum::OFFICIO_AGRICULTAE;
+        m_Condition = new Condition(0.3);
+        m_Description = "Vous avez été assigné à la gestion de l'Officio Agricultae, l'organisation de contrôle des mondes agricoles de l'imperium.";
+    }break;
+    case 12 : {
+        m_Nom = Administratum::ORDO_TEMPESTUS;
+        m_Condition = new Condition(0.1);
+        m_Description = "Vous avez été assigné à la gestion de l'Ordo Tempestus, une branche militaire d'élite de l'Imperium.";
+    }break;
+    }
+    m_ModificateursCaracs[Administratum::C_DIVISION] = m_Nom;
+
+    DivisionAdministratum::COMPTEUR++;
+}
+
+void DivisionAdministratum::GenererNoeudsAffectation(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+{
+    for (int i = 0; i < DivisionAdministratum::DIVISIONS.length() ; ++i) {
+        DivisionAdministratum* div = DIVISIONS[i];
+        Effet* effet = genEvt->AjouterEffetNarration(
+            div->m_Description,
+            div->m_Image,
+            "affectation_division_administratum_" + div->m_Nom, GenVieHumain::EVT_SELECTEUR);
+        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
+        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
+        effet->AjouterChangeurDeCarac(Administratum::C_DIVISION, div->m_Nom);
+
+        Condition* cond = div->m_Condition;
+
+        NoeudProbable* noeud = new NoeudProbable(
+                    effet,
+                    cond);
+
+        noeuds.push_back(noeud);
+
     }
 }

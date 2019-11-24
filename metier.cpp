@@ -15,20 +15,20 @@ Metier::Metier()
 {
     switch (Metier::COMPTEUR) {
     case 0 : {
-        m_Nom = "Paysan";
+        /*m_Nom = "Paysan";
         m_Metier = Paysan;
         m_Condition = new Condition(0.1);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
         Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
     }break;
-    case 1 : {
+    case 1 : {*/
         m_Nom = "Adepte Administratum";
         m_Metier = AdepteAdministratum;
         m_Image = ":/images/metier/Administratum Adept.png";
         m_Condition = new Condition(0.15);
     }break;
-    case 2 : {
+    /*case 2 : {
         m_Nom = "Noble Chevalier";
         m_Metier = NobleChevalier;
         m_Condition = new Condition(0);
@@ -51,7 +51,7 @@ Metier::Metier()
         m_Condition = new Condition(0.01);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
-    }break;
+    }break;*/
     }
 
     if ( m_Condition!= nullptr) {

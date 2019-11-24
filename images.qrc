@@ -11,5 +11,9 @@
         <file>images/metier/Administratum Adept.png</file>
         <file>images/metier/Metallic_Scribe.jpg</file>
         <file>images/metier/Munitorum_Scribe.jpg</file>
+        <file>images/metier/DepartmentoExacta.jpg</file>
+        <file>images/organisations/FlotteImperialeDeGuerre.jpg</file>
+        <file>images/vaisseaux/VagabondTrader.jpg</file>
+        <file>images/organisations/Officio_Assassinorum_symbol_2.png</file>
     </qresource>
 </RCC>

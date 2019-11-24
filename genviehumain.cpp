@@ -49,6 +49,7 @@ Hist* GenVieHumain::GenererHistoire()
 
 void GenVieHumain::GenererDataUnivers()
 {
+    DivisionAdministratum::GenererDivisions();
 }
 
 void GenVieHumain::GenererPersos()
@@ -147,7 +148,7 @@ Evt* GenVieHumain::EVT_SELECTEUR = nullptr;
 void GenVieHumain::GenererPrincipalSelectionneurDEffet()
 {
     GenVieHumain::EVT_SELECTEUR = this->AjouterEvt(GenVieHumain::EVT_SELECTEUR_ID, "Principal sélecteur");
-    Effet* effetDebut = AjouterEffetGoToEffet(GenVieHumain::EFFET_SELECTEUR_ID);
+    /*Effet* effetDebut = */AjouterEffetGoToEffet(GenVieHumain::EFFET_SELECTEUR_ID);
     // ce vector doit contenir tous les noeuds de base déclenchant des effets et événements à partir du cours normal de la vie
     // en dehors de lui les sélections de noeuds ne sont qu'à la création du personnage et quand un événement particulier est en cours d'exécution
     // à sa fin on doit avoir un goto qui ramène à cet événement/effet "sélecteur"
