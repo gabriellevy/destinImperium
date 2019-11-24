@@ -15,30 +15,30 @@ Metier::Metier()
 {
     switch (Metier::COMPTEUR) {
     case 0 : {
-        /*m_Nom = "Paysan";
+        m_Nom = "Paysan";
         m_Metier = Paysan;
-        m_Condition = new Condition(0.1);
+        m_Condition = new Condition(0.1, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
         Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
     }break;
-    case 1 : {*/
+    case 1 : {
         m_Nom = "Adepte Administratum";
         m_Metier = AdepteAdministratum;
         m_Image = ":/images/metier/Administratum Adept.png";
-        m_Condition = new Condition(0.15);
+        m_Condition = new Condition(0.15, p_Relative);
     }break;
-    /*case 2 : {
+    case 2 : {
         m_Nom = "Noble Chevalier";
         m_Metier = NobleChevalier;
-        m_Condition = new Condition(0);
+        m_Condition = new Condition(0, p_Relative);
         Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
     }break;
     case 3 : {
         m_Nom = "Garde Imperial";
         m_Metier = GardeImperial;
         m_Image = ":/images/metier/garde-imperial.jpg";
-        m_Condition = new Condition(0.02);
+        m_Condition = new Condition(0.02, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.2);
         Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
@@ -48,10 +48,10 @@ Metier::Metier()
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
         m_Metier = Arbitrator;
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_Condition = new Condition(0.01);
+        m_Condition = new Condition(0.01, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
-    }break;*/
+    }break;
     }
 
     if ( m_Condition!= nullptr) {

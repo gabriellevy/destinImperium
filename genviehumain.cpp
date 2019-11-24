@@ -109,7 +109,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     effetRien = TransformerEffetEnEffetMoisDeVie(effetRien);
     NoeudProbable* noeudEvtRien = new NoeudProbable(
                 evtRien,
-                new Condition(1));
+                new Condition(1, p_Relative));
     noeuds.push_back(noeudEvtRien);
 
     Evt* evtRien2 = AjouterEvt("evtRien2");
@@ -117,7 +117,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     effetRien2 = TransformerEffetEnEffetMoisDeVie(effetRien2);
     noeuds.push_back( new NoeudProbable(
                            evtRien2,
-                           new Condition(1)));
+                           new Condition(1, p_Relative)));
 
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
@@ -127,8 +127,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");
     effetFinVie->m_ChangeurModeDeroulement = ModeDeroulement::Fini;
-    Condition* condMort = new Condition(0);
-    PbSante::AjouterModifProbaSiMort(condMort, 9999999);
+    Condition* condMort = new Condition(0, p_Pure);
+    PbSante::AjouterModifProbaSiMort(condMort, 1.0);
     noeuds.push_back( new NoeudProbable(
                            evtFinVie,
                            condMort));

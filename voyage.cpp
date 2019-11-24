@@ -16,7 +16,7 @@ Voyage::Voyage()
     switch (Voyage::COMPTEUR) {
     case 0 : {
         m_Nom = "Réaffectation vers une planète";
-        m_Condition = new Condition(0.0);
+        m_Condition = new Condition(0.0, p_Relative);
         m_Condition->AjouterModifProba(2.0,
         {new Condition(Voyage::REAFFECTATION_PLANETE, "", Comparateur::c_Different)});
         m_Description = "Vos avez été réaffecté vers une nouvelle planète.";

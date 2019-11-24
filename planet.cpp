@@ -273,7 +273,7 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString
         effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
         NoeudProbable* noeud = new NoeudProbable(
                     effetNaissancePlanete,
-                    new Condition(planete->m_Population));
+                    new Condition(planete->m_Population, p_Relative));
 
         effetsPlanetes.push_back(noeud);
 
