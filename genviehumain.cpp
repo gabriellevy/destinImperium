@@ -73,6 +73,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(Administratum::C_DIVISION, Administratum::C_DIVISION,"",
                    "", Administratum::C_DIVISION, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Administratum::RANG, Administratum::RANG,"",
+                   "", Administratum::RANG, MODE_AFFICHAGE::ma_Texte, nullptr));
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(

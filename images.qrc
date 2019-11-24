@@ -15,5 +15,7 @@
         <file>images/organisations/FlotteImperialeDeGuerre.jpg</file>
         <file>images/vaisseaux/VagabondTrader.jpg</file>
         <file>images/organisations/Officio_Assassinorum_symbol_2.png</file>
+        <file>images/metier/Maitre.jpg</file>
+        <file>images/metier/Prefet.jpg</file>
     </qresource>
 </RCC>

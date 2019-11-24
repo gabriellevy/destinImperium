@@ -10,7 +10,6 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 
-QString Administratum::RANG = "Rang administratum";
 int Administratum::COMPTEUR = 0;
 
 // ids :
@@ -35,23 +34,49 @@ QVector<QString> Administratum::DIVISIONS = {
     Administratum::DEPARTMENTO_MUNITORUM, Administratum::DEPARTMENTO_EXACTA
 };
 
+// grades
+QString Administratum::RANG = "Rang administratum";
+QString Administratum::GRADE_SCRIBE = "Scribe";
+QString Administratum::GRADE_ORDINATE = "Ordinate";
+QString Administratum::GRADE_PREFET = "Préfet";
+QString Administratum::GRADE_MAITRE = "Maître";
+
 Administratum::Administratum()
 {
     switch (Administratum::COMPTEUR) {
     case 0 : {
-        m_Nom = "Passer au rang de scribe";
-        m_Condition = new Condition(0);
-        m_ModificateursCaracs[Administratum::RANG] = "Scribe augmenté";
-        m_Image = ":/images/metier/Metallic_Scribe.jpg";
-        m_Description = "Vous avez l'insigne honneur de devenir scribe vétéran mécaniqueemnt augmenté.";
-        Administratum::AjouterModifProbaSiAdepteAdministratum40Ans(m_Condition, 0.15);
-
-    }break;
-    case 1 : {
         m_Nom = Administratum::ID_AFFECTATION_DIVISION;
         m_Condition = new Condition(0);
         Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
         Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 1);
+        m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_SCRIBE;
+
+    }break;
+    case 1 : {
+        m_Nom = Administratum::GRADE_ORDINATE;
+        m_Condition = new Condition(0);
+        m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_ORDINATE;
+        m_Image = ":/images/metier/Metallic_Scribe.jpg";
+        m_Description = "Vous avez l'insigne honneur de devenir Ordinate mécaniquement augmenté.";
+        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_Condition, 0.15);
+
+    }break;
+    case 2 : {
+        m_Nom = Administratum::GRADE_PREFET;
+        m_Condition = new Condition(0);
+        m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_PREFET;
+        m_Image = ":/images/metier/Prefet.jpg";
+        m_Description = "Vous avez l'insigne honneur de devenir Préfet de l'Administratum.";
+        Administratum::AjouterModifProbaSiOrdinateAdministratum50Ans(m_Condition, 0.05);
+
+    }break;
+    case 3 : {
+        m_Nom = Administratum::GRADE_MAITRE;
+        m_Condition = new Condition(0);
+        m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_MAITRE;
+        m_Image = ":/images/metier/Maitre.jpg";
+        m_Description = "Vous avez l'insigne honneur de devenir Maître de votre division.";
+        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_Condition, 0.01);
 
     }break;
     }
@@ -75,11 +100,32 @@ Condition* Administratum::AjouterModifProbaSiAdepteAdministratum(Condition* cond
     return cond;
 }
 
-Condition* Administratum::AjouterModifProbaSiAdepteAdministratum40Ans(Condition* cond, double poidsProba)
+Condition* Administratum::AjouterModifProbaSiScribeAdministratum40Ans(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::AGE, "400", Comparateur::c_Superieur),
-         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal)
+         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Administratum::RANG, Administratum::GRADE_SCRIBE, Comparateur::c_Egal)
+        });
+    return cond;
+}
+
+Condition* Administratum::AjouterModifProbaSiOrdinateAdministratum50Ans(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::AGE, "520", Comparateur::c_Superieur),
+         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Administratum::RANG, Administratum::GRADE_ORDINATE, Comparateur::c_Egal)
+        });
+    return cond;
+}
+
+Condition* Administratum::AjouterModifProbaSiPrefetAdministratum60Ans(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(GenVieHumain::AGE, "640", Comparateur::c_Superieur),
+         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Administratum::RANG, Administratum::GRADE_PREFET, Comparateur::c_Egal)
         });
     return cond;
 }

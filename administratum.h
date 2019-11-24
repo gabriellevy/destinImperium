@@ -29,11 +29,12 @@ public:
     static void GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
     Condition* AjouterModifProbaSiAdepteAdministratum(Condition* cond, double poidsProba);
-    Condition* AjouterModifProbaSiAdepteAdministratum40Ans(Condition* cond, double poidsProba);
+    Condition* AjouterModifProbaSiScribeAdministratum40Ans(Condition* cond, double poidsProba);
+    Condition* AjouterModifProbaSiOrdinateAdministratum50Ans(Condition* cond, double poidsProba);
+    Condition* AjouterModifProbaSiPrefetAdministratum60Ans(Condition* cond, double poidsProba);
     Condition* AjouterModifProbaSiADivision(Condition* cond, double poidsProba);
 
     // caracs :
-    static QString RANG; // dans l'administratum
     static QString C_DIVISION; // sous partie d'administration
     // valeurs de caracs
     static QString DEPARTMENTO_MUNITORUM;
@@ -53,6 +54,13 @@ public:
 
     // ids d'effets
     static QString ID_AFFECTATION_DIVISION;
+
+    // grades
+    static QString RANG; // dans l'administratum
+    static QString GRADE_SCRIBE;
+    static QString GRADE_ORDINATE;
+    static QString GRADE_PREFET;
+    static QString GRADE_MAITRE;
 };
 
 class DivisionAdministratum
