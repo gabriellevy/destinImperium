@@ -86,7 +86,7 @@ Planete::Planete()
         m_TypePlanete = MondeForge;
         m_Faction = new Factions(AdeptusMechanicus);
         m_Climat = Aride;
-        m_Xenos = {MondeTombe};
+        m_Xenos = {ex_MondeTombe};
     }break;
     case 9 : {
         m_Nom = "Anark Zeta";
@@ -94,7 +94,7 @@ Planete::Planete()
         m_TypePlanete = MondeFeral;
         m_Faction = new Factions(Imperium);
         m_Climat = Froid;
-        m_Xenos = {Ogryn};
+        m_Xenos = {ex_Ogryn};
     }break;
     case 10 : {
         m_Nom = "Antax";
@@ -159,6 +159,15 @@ Planete::Planete()
         m_Faction = new Factions(Ultramarines);
         m_Climat = Tempere;
     }break;
+    case 19 : {
+        m_Nom = "Calth";
+        m_Population = 100;
+        m_TypePlanete = MondeCivilise;
+        m_Faction = new Factions(Ultramarines);
+        m_Image = ":/images/planetes/Calth_1.png";
+        m_Climat = Climat::AtmosphereQuasiMorte;
+        m_Xenos = {ex_SuivivantsTyranides};
+    }break;
     }
 
     Planete::COMPTEUR++;
@@ -209,6 +218,7 @@ QString Planete::GetTypeMondeAsStr(TypePlanete typePlanete)
     switch (typePlanete) {
     case MondeForge : return "Monde forge";
     case MondeRuche : return "Monde ruche";
+    case MondeCivilise : return "Monde civilisé";
     case MondeAgricole : return "Monde agricole";
     case MondeChevalier : return "Monde chevalier";
     case Divers : default : return "";

@@ -18,12 +18,14 @@ enum TypePlanete {
     MondeFeral,
     MondeChevalier,
     MondeFeodal,
+    MondeCivilise,
     MondeRuche
 };
 
 enum Xenos { // présence xénos sur la planète
-    MondeTombe, // contient des nécrons en sous-sol
-    Ogryn // monde de recrutement Ogryn
+    ex_MondeTombe, // contient des nécrons en sous-sol
+    ex_SuivivantsTyranides, // pas une flotte complète : des survivants d'une invasion ratée
+    ex_Ogryn // monde de recrutement Ogryn
 };
 
 enum Climat {
