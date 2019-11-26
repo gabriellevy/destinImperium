@@ -15,7 +15,7 @@ Metier::Metier()
 {
     switch (Metier::COMPTEUR) {
     case 0 : {
-        m_Nom = "Paysan";
+        /*m_Nom = "Paysan";
         m_Metier = Paysan;
         m_Condition = new Condition(0.1, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
@@ -50,6 +50,15 @@ Metier::Metier()
         m_Image = ":/images/metier/Arbitrator.jpg";
         m_Condition = new Condition(0.01, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
+        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+    }break;
+    case 5 : {*/
+        m_Nom = "Inquisiteur";
+        m_Description = "Agent de l'Inquisition, une organisation secrète chargée de traquer les ennemis de l'imperium.";
+        m_Metier = Inquisiteur;
+        m_Image = ":/images/metier/inquisiteur.jpg";
+        m_Condition = new Condition(0.001, p_Relative);
+        // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
     }

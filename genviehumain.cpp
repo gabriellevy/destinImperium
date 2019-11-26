@@ -14,6 +14,7 @@
 #include "identite.h"
 #include "voyage.h"
 #include "factions/administratum.h"
+#include "factions/inquisition.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -123,6 +124,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
     Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
     Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
+    Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

@@ -17,7 +17,8 @@ enum e_Metier {
     AdeptusArbitesJuge, //  => inateignable pour l'instant
     GrandPrevotMarechal, // chef de tout l'adeptus => innateignable pour l'instant
     // mondes chevaliers :
-    NobleChevalier
+    NobleChevalier,
+    Inquisiteur
 };
 
 class Metier

@@ -176,6 +176,7 @@ void Administratum::GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProb
         evt = new Administratum();
     }
 }
+
 QVector<DivisionAdministratum*> DivisionAdministratum::DIVISIONS = {};
 void DivisionAdministratum::GenererDivisions()
 {
