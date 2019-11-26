@@ -4,7 +4,7 @@
 #include <QString>
 #include <QList>
 #include <QVector>
-#include "factions.h"
+#include "factions/factions.h"
 #include "tithegrade.h"
 
 class NoeudProbable;

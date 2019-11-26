@@ -22,6 +22,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+include(factions/factions.pri)
+
 CONFIG += c++11
 CONFIG += resources_big
 
@@ -53,15 +55,13 @@ SOURCES += \
     ../destinLib/dbmanager.cpp \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
-    administratum.cpp \
     aspectratiolabel.cpp \
     citation.cpp \
-    factions.cpp \
     genviehumain.cpp \
     humain.cpp \
     identite.cpp \
     imperium.cpp \
-        main.cpp \
+    main.cpp \
     metier.cpp \
     pbsante.cpp \
     planet.cpp \
@@ -96,10 +96,8 @@ HEADERS += \
     ../destinLib/dbmanager.h \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
-    administratum.h \
     aspectratiolabel.h \
     citation.h \
-    factions.h \
     genviehumain.h \
     humain.h \
     identite.h \

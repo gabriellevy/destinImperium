@@ -13,7 +13,7 @@
 #include "pbsante.h"
 #include "identite.h"
 #include "voyage.h"
-#include "administratum.h"
+#include "factions/administratum.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";

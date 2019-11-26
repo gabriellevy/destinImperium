@@ -8,7 +8,8 @@ Imperium::Imperium(ModeAffichage modeAffichage,
                    QWidget *parent)
     : Univers(parent, modeAffichage)
 {
-    this->AppliquerTheme(QColor(240, 214, 113));
+    //this->AppliquerTheme(QColor(54, 46, 43));
+    this->AppliquerTheme(QColor(100, 90, 80));
 
     m_GensHistoire[Imperium::VIE_HUMAIN] = new GenVieHumain();
 }
