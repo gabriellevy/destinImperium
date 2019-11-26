@@ -18,15 +18,23 @@ QString Inquisition::C_ORDO = "Ordo";
 QString Inquisition::ORDO_XENOS = "Ordo Xenos";
 QString Inquisition::ORDO_MALLEUS = "Ordo Malleus";
 QString Inquisition::ORDO_HERETICUS = "Ordo Hereticos";
+QString Inquisition::ORDO_MACHINUM = "Ordo Machinum";
+QString Inquisition::ORDO_MILITUM = "Ordo Militum";
+QString Inquisition::ORDO_OBSULETUS = "Ordo Obsuletus";
+QString Inquisition::ORDO_ORIGINATUS = "Ordo Originatus";
+QString Inquisition::ORDO_REDACTUS = "Ordo Redactus";
+QString Inquisition::ORDO_SCRIPTORUM = "Ordo Scriptarum";
+QString Inquisition::ORDO_SEPULTURUM = "Ordo Sepulturum";
+QString Inquisition::ORDO_SICARIUS = "Ordo Sicarius";
 
 // ids :
-QString Inquisition::ID_AFFECTATION_DIVISION = "Affectation Ordo";
+QString Inquisition::ID_AFFECTATION_ORDO = "Affectation Ordo";
 
 Inquisition::Inquisition()
 {
     switch (Inquisition::COMPTEUR) {
     case 0 : {
-        m_Nom = Inquisition::ID_AFFECTATION_DIVISION;
+        m_Nom = Inquisition::ID_AFFECTATION_ORDO;
         m_Condition = new Condition(0, p_Pure);
         Inquisition::AjouterModifProbaSiAOrdo(m_Condition, -1);
         Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
@@ -58,11 +66,15 @@ Condition* Inquisition::AjouterModifProbaSiInquisiteur(Condition* cond, double p
 Effet* Inquisition::GenererEffet(GenEvt* genEvt)
 {
     Effet* effet = nullptr;
-    if ( m_Nom == Inquisition::ID_AFFECTATION_DIVISION) {
+    if ( m_Nom == Inquisition::ID_AFFECTATION_ORDO) {
         // sélectionneur d'effets
         QVector<NoeudProbable*> noeudsAffectation;
         Ordo::GenererNoeudsAffectation(genEvt, noeudsAffectation);
-        effet = genEvt->AjouterEffetSelecteurDEvt(noeudsAffectation, Inquisition::ID_AFFECTATION_DIVISION, "", GenVieHumain::EVT_SELECTEUR);
+        effet = genEvt->AjouterEffetSelecteurDEvt(
+                    noeudsAffectation,
+                    Inquisition::ID_AFFECTATION_ORDO,
+                    "select_" + Inquisition::ID_AFFECTATION_ORDO,
+                    GenVieHumain::EVT_SELECTEUR);
     } else {
         // système de création d'effets de base :
         effet = genEvt->AjouterEffetNarration(
@@ -140,6 +152,55 @@ Ordo::Ordo()
         m_Image = ":/images/metier/inquisiteur_ordo_hereticus.jpg";
         m_Description = "Vous avez été assigné à l'Ordo Hereticus. "
                 "Vous êtes chargé d'éliminer les psykers, les traîtres et les hérétiques.";
+    }break;
+    case 3 : {
+        m_Nom = Inquisition::ORDO_MACHINUM;
+        m_Condition = new Condition(0.05, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Machinum. "
+                "Vous êtes chargé de surveiller l'Adeptus Mechanicus et leurs découvertes d'archéotechnologie.";
+    }break;
+    case 4 : {
+        m_Nom = Inquisition::ORDO_MILITUM;
+        m_Condition = new Condition(0.05, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Militum. "
+                "Vous êtes chargé de surveiller les branches armées de l'Imperium.";
+    }break;
+    case 5 : {
+        m_Nom = Inquisition::ORDO_OBSULETUS;
+        m_Condition = new Condition(0.05, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Obsuletus. "
+                "Vous êtes chargé de repérer et analyser les phénomènes inexpliqués, pour déterminer si il s'agit de miracles de l'empereur ou des pièges des xenos ou du chaos.";
+    }break;
+    case 6 : {
+        m_Nom = Inquisition::ORDO_ORIGINATUS;
+        m_Condition = new Condition(0.01, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Originatus. "
+                "Vous devez enquêter sur l'histoire et la corriger en triant le mythe de la réalité.";
+    }break;
+    case 7 : {
+        m_Nom = Inquisition::ORDO_REDACTUS;
+        m_Condition = new Condition(0.01, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Redactus. "
+                "Vous devez obscurcir et mythifier l'histoire pour confondre les ennemis de l'imperium et les empêcher de s'en servir pour vous combattre.";
+    }break;
+    case 8 : {
+        m_Nom = Inquisition::ORDO_SCRIPTORUM;
+        m_Condition = new Condition(0.01, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Scriptorum. "
+                "Vous devez surveiller et corriger les enregistrements et communiqués de l'Adeptus Ministorum.";
+    }break;
+    case 9 : {
+        m_Nom = Inquisition::ORDO_SEPULTURUM;
+        m_Condition = new Condition(0.01, p_Relative);
+        m_Description = "Vous avez été assigné à l'Ordo Sepulturum, "
+                "la branche chargée de gérer les diverses menaces zombies.";
+    }break;
+    case 10 : {
+        m_Nom = Inquisition::ORDO_SICARIUS;
+        m_Condition = new Condition(0.01, p_Relative);
+        m_Image = ":/images/metier/inquisiteur_ordo_sicarius.jpg";
+        m_Description = "Vous avez été assigné à l'Ordo Sicarius, "
+                "la branche chargée de surveiller les activités de l'iOfficio Assassinorum.";
     }break;
     }
     m_ModificateursCaracs[Inquisition::C_ORDO] = m_Nom;

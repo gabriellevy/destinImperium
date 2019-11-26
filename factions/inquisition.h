@@ -32,8 +32,16 @@ public:
     static QString ORDO_XENOS;
     static QString ORDO_MALLEUS;
     static QString ORDO_HERETICUS;
+    static QString ORDO_MACHINUM;
+    static QString ORDO_MILITUM;
+    static QString ORDO_OBSULETUS;
+    static QString ORDO_ORIGINATUS;
+    static QString ORDO_REDACTUS;
+    static QString ORDO_SCRIPTORUM;
+    static QString ORDO_SEPULTURUM;
+    static QString ORDO_SICARIUS;
 
-    static QString ID_AFFECTATION_DIVISION;
+    static QString ID_AFFECTATION_ORDO;
 
     static void GenererNoeudsInquisition(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 

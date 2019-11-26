@@ -22,5 +22,6 @@
         <file>images/metier/inquisiteur_ordo_malleus.png</file>
         <file>images/metier/inquisiteur_ordo_xenos.jpg</file>
         <file>images/metier/inquisiteur.jpg</file>
+        <file>images/metier/inquisiteur_ordo_sicarius.jpg</file>
     </qresource>
 </RCC>
