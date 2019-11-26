@@ -13,11 +13,12 @@ QMap<e_Metier, Metier*> Metier::METIERS;
 
 Metier::Metier()
 {
+    double tmpFavoriseur = 1.0; // valeur servant à tester => à mettre à 0 pour un test final
     switch (Metier::COMPTEUR) {
     case 0 : {
         m_Nom = "Paysan";
         m_Metier = Paysan;
-        m_Condition = new Condition(0.1, p_Relative);
+        m_Condition = new Condition(0.1 - tmpFavoriseur, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
         Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
@@ -26,19 +27,19 @@ Metier::Metier()
         m_Nom = "Adepte Administratum";
         m_Metier = AdepteAdministratum;
         m_Image = ":/images/metier/Administratum Adept.png";
-        m_Condition = new Condition(0.15, p_Relative);
+        m_Condition = new Condition(0.15 - tmpFavoriseur, p_Relative);
     }break;
     case 2 : {
         m_Nom = "Noble Chevalier";
         m_Metier = NobleChevalier;
-        m_Condition = new Condition(0, p_Relative);
+        m_Condition = new Condition(0 - tmpFavoriseur, p_Relative);
         Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
     }break;
     case 3 : {
         m_Nom = "Garde Imperial";
         m_Metier = GardeImperial;
         m_Image = ":/images/metier/garde-imperial.jpg";
-        m_Condition = new Condition(0.02, p_Relative);
+        m_Condition = new Condition(0.02 - tmpFavoriseur, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.2);
         Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
@@ -48,7 +49,7 @@ Metier::Metier()
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
         m_Metier = Arbitrator;
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_Condition = new Condition(0.01, p_Relative);
+        m_Condition = new Condition(0.01 - tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
@@ -57,7 +58,7 @@ Metier::Metier()
         m_Description = "Agent de l'Inquisition, une organisation secrète chargée de traquer les ennemis de l'imperium.";
         m_Metier = Inquisiteur;
         m_Image = ":/images/metier/inquisiteur.jpg";
-        m_Condition = new Condition(2.001, p_Relative); // 0.001
+        m_Condition = new Condition(0.001 + tmpFavoriseur, p_Relative); // 0.001
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;

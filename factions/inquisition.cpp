@@ -73,14 +73,14 @@ Effet* Inquisition::GenererEffet(GenEvt* genEvt)
         effet = genEvt->AjouterEffetSelecteurDEvt(
                     noeudsAffectation,
                     Inquisition::ID_AFFECTATION_ORDO,
-                    "select_" + Inquisition::ID_AFFECTATION_ORDO,
+                    "",
                     GenVieHumain::EVT_SELECTEUR);
     } else {
         // système de création d'effets de base :
         effet = genEvt->AjouterEffetNarration(
             m_Description,
             m_Image,
-            "avt_administratum_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
+            "evt_inquisition_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
         effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
     }
@@ -211,16 +211,16 @@ Ordo::Ordo()
 void Ordo::GenererNoeudsAffectation(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     for (int i = 0; i < Ordo::ORDOS.length() ; ++i) {
-        Ordo* div = ORDOS[i];
+        Ordo* ordo = ORDOS[i];
         Effet* effet = genEvt->AjouterEffetNarration(
-            div->m_Description,
-            div->m_Image,
-            "affectation_division_administratum_" + div->m_Nom, GenVieHumain::EVT_SELECTEUR);
+            ordo->m_Description,
+            ordo->m_Image,
+            "affectation_ordo_inquisition_" + ordo->m_Nom, GenVieHumain::EVT_SELECTEUR);
         effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-        effet->AjouterChangeurDeCarac(Inquisition::C_ORDO, div->m_Nom);
+        effet->AjouterChangeurDeCarac(Inquisition::C_ORDO, ordo->m_Nom);
 
-        Condition* cond = div->m_Condition;
+        Condition* cond = ordo->m_Condition;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effet,

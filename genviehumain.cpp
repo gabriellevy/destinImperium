@@ -51,6 +51,7 @@ Hist* GenVieHumain::GenererHistoire()
 void GenVieHumain::GenererDataUnivers()
 {
     DivisionAdministratum::GenererDivisions();
+    Ordo::GenererOrdos();
 }
 
 void GenVieHumain::GenererPersos()
@@ -77,6 +78,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(Administratum::RANG, Administratum::RANG,"",
                    "", Administratum::RANG, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Inquisition::C_ORDO, Inquisition::C_ORDO,"",
+                   "", Inquisition::C_ORDO, MODE_AFFICHAGE::ma_Texte, nullptr));
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
