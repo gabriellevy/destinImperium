@@ -9,6 +9,7 @@
 #include "voyage.h"
 #include "metier.h"
 #include "../destinLib/effet.h"
+#include "../socio_eco/classesociale.h"
 
 
 int MondeRuche::COMPTEUR = 0;
@@ -17,9 +18,13 @@ MondeRuche::MondeRuche()
 {
     switch (MondeRuche::COMPTEUR) {
     case 0 : {
-        m_Nom = "test temp";
-        m_Condition = new Condition(0, p_Pure);
-        m_Description = "blablabla";
+        m_Nom = "repas_bouillie";
+        // seulement pour les pauvres :
+        m_Conditions = { new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different),
+                         new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Different)
+                       };
+        m_ConditionSelecteurProba = new Condition(1, p_Relative);
+        m_Description = "Encore une bonne bouillie de déchets organiques recyclés comme repas";
         //Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
         //m_ModificateursCaracs[Inquisition::RANG] = Administratum::GRADE_SCRIBE;
 
@@ -53,6 +58,8 @@ Effet* MondeRuche::GenererEffet(GenEvt* genEvt)
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
     }
 
+    effet->m_Conditions = m_Conditions;
+
     // modificateurs de carac :
     QMapIterator<QString, QString> it(m_ModificateursCaracs);
     while ( it.hasNext()) {
@@ -71,7 +78,7 @@ void MondeRuche::GenererNoeudsMondeRuche(GenEvt* genEvt, QVector<NoeudProbable*>
 
         Effet* effet = evt->GenererEffet(genEvt);
 
-        Condition* cond = evt->m_Condition;
+        Condition* cond = evt->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effet,

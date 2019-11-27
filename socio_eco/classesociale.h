@@ -46,7 +46,14 @@ public:
     static QString GetClasseSocialeAsStr(e_ClasseSociale classSociale, TypePlanete typeMonde);
 
     // caracs :
-    static QString CLASSE_SOCIALE;
+    static QString ID_CLASSE_SOCIALE;
+    // valeurs de caracs :
+    static QString MISERABLES;
+    static QString PAUVRES;
+    static QString CLASSE_MOYENNE;
+    static QString INFLUENTS;
+    static QString MAITRES;
+
 };
 
 #endif // CLASSESOCIALE_H

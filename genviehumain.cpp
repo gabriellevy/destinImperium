@@ -86,8 +86,8 @@ void GenVieHumain::GenererCaracs()
                 new Carac(Inquisition::C_ORDO, Inquisition::C_ORDO,"",
                    "", Inquisition::C_ORDO, MODE_AFFICHAGE::ma_Texte, nullptr));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(ClasseSociale::CLASSE_SOCIALE, ClasseSociale::CLASSE_SOCIALE,"",
-                   "", ClasseSociale::CLASSE_SOCIALE, MODE_AFFICHAGE::ma_Texte, nullptr));
+                new Carac(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::ID_CLASSE_SOCIALE,"",
+                   "", ClasseSociale::ID_CLASSE_SOCIALE, MODE_AFFICHAGE::ma_Texte, nullptr));
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(

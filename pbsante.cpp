@@ -24,11 +24,11 @@ PbSante::PbSante()
             {new Condition(GenVieHumain::AGE, "600", Comparateur::c_Superieur)}); // 50 ans
         m_Condition->AjouterModifProba(0.001,
             {new Condition(GenVieHumain::AGE, "720", Comparateur::c_Superieur)}); // 60 ans
-        m_Condition->AjouterModifProba(0.01,
+        m_Condition->AjouterModifProba(0.005,
             {new Condition(GenVieHumain::AGE, "840", Comparateur::c_Superieur)}); // 70 ans
-        m_Condition->AjouterModifProba(0.05,
+        m_Condition->AjouterModifProba(0.01,
             {new Condition(GenVieHumain::AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
-        m_Condition->AjouterModifProba(0.1,
+        m_Condition->AjouterModifProba(0.05,
             {new Condition(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
         m_Condition->AjouterModifProba(0.05,
             {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});

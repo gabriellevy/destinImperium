@@ -21,7 +21,8 @@ public:
     QString m_Nom = "";
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant l'événement
-    Condition* m_Condition = nullptr;
+    Condition* m_ConditionSelecteurProba = nullptr;
+    QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QMap<QString, QString> m_ModificateursCaracs;
 
     Effet* GenererEffet(GenEvt* genEvt);

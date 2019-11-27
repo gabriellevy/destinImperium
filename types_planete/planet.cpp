@@ -298,7 +298,7 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString
         effetNaissancePlanete->m_CallbackDisplay = [typePlanete]{
             e_ClasseSociale classeSociale = ClasseSociale::GetClasseSocialeAleatoire(typePlanete);
             QString classeSocialeStr = ClasseSociale::GetClasseSocialeAsStr(classeSociale, typePlanete);
-            GestionnaireCarac::SetValeurACaracId(ClasseSociale::CLASSE_SOCIALE, classeSocialeStr);
+            GestionnaireCarac::SetValeurACaracId(ClasseSociale::ID_CLASSE_SOCIALE, classeSocialeStr);
 
         };
 
