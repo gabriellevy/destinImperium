@@ -7,7 +7,7 @@
 #include "../destinLib/lancerde.h"
 #include "../destinLib/setcarac.h"
 #include "../destinLib/choix.h"
-#include "planet.h"
+#include "types_planete/planet.h"
 #include "humain.h"
 #include "metier.h"
 #include "pbsante.h"
@@ -15,6 +15,7 @@
 #include "voyage.h"
 #include "factions/administratum.h"
 #include "factions/inquisition.h"
+#include "factions/spacemarine.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -52,6 +53,7 @@ void GenVieHumain::GenererDataUnivers()
 {
     DivisionAdministratum::GenererDivisions();
     Ordo::GenererOrdos();
+    SpaceMarine::GenererChapitres();
 }
 
 void GenVieHumain::GenererPersos()

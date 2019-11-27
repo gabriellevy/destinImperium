@@ -5,7 +5,7 @@
 #include "../destinLib/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
-#include "planet.h"
+#include "types_planete/planet.h"
 #include "voyage.h"
 
 int Metier::COMPTEUR = 0;
@@ -13,7 +13,7 @@ QMap<e_Metier, Metier*> Metier::METIERS;
 
 Metier::Metier()
 {
-    double tmpFavoriseur = 1.0; // valeur servant à tester => à mettre à 0 pour un test final
+    double tmpFavoriseur = 0.0; // valeur servant à tester => à mettre à 0 pour un test final
     switch (Metier::COMPTEUR) {
     case 0 : {
         m_Nom = "Paysan";

@@ -2,7 +2,7 @@
 #define HUMAIN_H
 
 #include "../destinLib/gestionnairecarac.h"
-#include "planet.h"
+#include "types_planete/planet.h"
 
 class Humain : public DPerso
 {

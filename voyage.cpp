@@ -6,7 +6,7 @@
 #include "../destinLib/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
-#include "planet.h"
+#include "types_planete/planet.h"
 #include "../destinLib/gestionnairecarac.h"
 
 int Voyage::COMPTEUR = 0;

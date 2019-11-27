@@ -5,7 +5,7 @@
 #include "../destinLib/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
-#include "planet.h"
+#include "types_planete/planet.h"
 
 int PbSante::COMPTEUR = 0;
 QString PbSante::PESTE = "Peste";

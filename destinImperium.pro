@@ -23,6 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(factions/factions.pri)
+include(types_planete/types_planete.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
@@ -64,7 +65,6 @@ SOURCES += \
     main.cpp \
     metier.cpp \
     pbsante.cpp \
-    planet.cpp \
     tithegrade.cpp \
     voyage.cpp
 
@@ -104,7 +104,6 @@ HEADERS += \
     imperium.h \
     metier.h \
     pbsante.h \
-    planet.h \
     tithegrade.h \
     voyage.h
 

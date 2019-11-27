@@ -28,6 +28,10 @@ enum Xenos { // présence xénos sur la planète
     ex_Ogryn // monde de recrutement Ogryn
 };
 
+enum PresenceNotableImperium { // organisations, bâtiments etc très importants de l'imperium présents sur la planète
+    ep_RecrutementSpaceMarine
+};
+
 enum Climat {
     Tempere, // tempéré
     Aride,
@@ -52,6 +56,7 @@ public:
     Factions* m_Faction = nullptr;// qui contrôle la planète
     TitheGrade* m_TitheGrade = nullptr;
     QVector<Xenos> m_Xenos;
+    QVector<PresenceNotableImperium> m_PresenceNotableImperium;
 
     static QMap<QString, Planete*> PLANETES;
     static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false);

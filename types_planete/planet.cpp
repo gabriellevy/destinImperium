@@ -168,6 +168,15 @@ Planete::Planete()
         m_Climat = Climat::AtmosphereQuasiMorte;
         m_Xenos = {ex_SuivivantsTyranides};
     }break;
+    case 20 : {
+        m_Nom = "Necromunda";
+        m_Population = 150;
+        m_TypePlanete = MondeRuche;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/Necromunda.jpg";
+        m_Climat = Climat::AtmosphereQuasiMorte;
+        m_PresenceNotableImperium = {ep_RecrutementSpaceMarine};
+    }break;
     }
 
     Planete::COMPTEUR++;

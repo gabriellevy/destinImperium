@@ -5,7 +5,7 @@
 #include "../destinLib/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
-#include "planet.h"
+#include "../types_planete/planet.h"
 #include "voyage.h"
 #include "metier.h"
 #include "../destinLib/effet.h"
