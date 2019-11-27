@@ -16,6 +16,8 @@
 #include "factions/administratum.h"
 #include "factions/inquisition.h"
 #include "factions/spacemarine.h"
+#include "types_planete/monderuche.h"
+#include "socio_eco/classesociale.h"
 
 QString GenVieHumain::PLANETE = "Planète";
 QString GenVieHumain::TYPE_PLANETE = "Type de planète";
@@ -83,6 +85,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(Inquisition::C_ORDO, Inquisition::C_ORDO,"",
                    "", Inquisition::C_ORDO, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(ClasseSociale::CLASSE_SOCIALE, ClasseSociale::CLASSE_SOCIALE,"",
+                   "", ClasseSociale::CLASSE_SOCIALE, MODE_AFFICHAGE::ma_Texte, nullptr));
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
@@ -131,6 +136,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
     Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
     Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
+    MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
+    ClasseSociale::GenererNoeudsClasseSociale(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

@@ -9,6 +9,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "humain.h"
+#include "../socio_eco/classesociale.h"
 
 int Planete::COMPTEUR = 0;
 QMap<QString, Planete*> Planete::PLANETES;
@@ -290,6 +291,17 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString
         effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::PLANETE, planete->m_Nom);
         effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::TYPE_PLANETE, planete->GetTypeMondeAsStr());
         effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
+
+        // l'affection de planète équivaut à la naissance (pour l'instant) donc on y associe les autres effets de naissance
+        // mais c'est un bricolage temporaire, la naissance devrait fonctionner différemment en dehors des systèmes d'effet
+        TypePlanete typePlanete = planete->m_TypePlanete;
+        effetNaissancePlanete->m_CallbackDisplay = [typePlanete]{
+            e_ClasseSociale classeSociale = ClasseSociale::GetClasseSocialeAleatoire(typePlanete);
+            QString classeSocialeStr = ClasseSociale::GetClasseSocialeAsStr(classeSociale, typePlanete);
+            GestionnaireCarac::SetValeurACaracId(ClasseSociale::CLASSE_SOCIALE, classeSocialeStr);
+
+        };
+
         NoeudProbable* noeud = new NoeudProbable(
                     effetNaissancePlanete,
                     new Condition(planete->m_Population, p_Relative));

@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(factions/factions.pri)
 include(types_planete/types_planete.pri)
+include(socio_eco/socio_eco.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
