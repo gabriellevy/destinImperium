@@ -14,6 +14,10 @@
 int Planete::COMPTEUR = 0;
 QMap<QString, Planete*> Planete::PLANETES;
 
+// caracs :
+QString Planete::C_PLANETE = "Planète";
+QString Planete::C_TYPE_PLANETE = "Type de planète";
+
 Planete::Planete()
 {
     switch (Planete::COMPTEUR) {
@@ -239,28 +243,28 @@ QString Planete::GetTypeMondeAsStr(TypePlanete typePlanete)
 Condition* Planete::AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeAgricole), Comparateur::c_Egal)});
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeAgricole), Comparateur::c_Egal)});
     return cond;
 }
 
 Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Egal)});
     return cond;
 }
 
 Condition* Planete::AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeral), Comparateur::c_Egal)});
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeral), Comparateur::c_Egal)});
     return cond;
 }
 
 Condition* Planete::AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeChevalier), Comparateur::c_Egal)});
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeChevalier), Comparateur::c_Egal)});
     return cond;
 }
 
@@ -288,8 +292,8 @@ QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString
                     texteNaissance,
                     planete->m_Image,
                     "naissance_planete_" + planete->m_Nom);
-        effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::PLANETE, planete->m_Nom);
-        effetNaissancePlanete->AjouterChangeurDeCarac(GenVieHumain::TYPE_PLANETE, planete->GetTypeMondeAsStr());
+        effetNaissancePlanete->AjouterChangeurDeCarac(Planete::C_PLANETE, planete->m_Nom);
+        effetNaissancePlanete->AjouterChangeurDeCarac(Planete::C_TYPE_PLANETE, planete->GetTypeMondeAsStr());
         effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
 
         // l'affection de planète équivaut à la naissance (pour l'instant) donc on y associe les autres effets de naissance

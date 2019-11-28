@@ -14,6 +14,9 @@ public:
 
     Planete* GetPlanete();
     int GetAge();
+
+    virtual QString GetValeurCarac(QString id);
+    virtual int GetValeurCaracAsInt(QString id);
 };
 
 #endif // HUMAIN_H

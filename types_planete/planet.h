@@ -71,6 +71,10 @@ public:
     static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
+
+    // caracs associées :
+    static QString C_PLANETE;
+    static QString C_TYPE_PLANETE;
 };
 
 #endif // PLANET_H

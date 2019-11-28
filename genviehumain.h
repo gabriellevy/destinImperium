@@ -19,8 +19,6 @@ public:
     const static int CHRONO = 5000; // nombre de ms entre chaque effet
 
     // caracs :
-    static QString PLANETE;
-    static QString TYPE_PLANETE;
     static QString AGE;
     static QString METIER;
 

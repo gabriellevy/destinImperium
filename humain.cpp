@@ -1,6 +1,7 @@
 #include "humain.h"
 #include "imperium.h"
 #include "genviehumain.h"
+#include "actions/combat.h"
 
 Humain* Humain::ME = nullptr;
 
@@ -18,11 +19,31 @@ Humain* Humain::GetHumainJoue()
 
 Planete* Humain::GetPlanete()
 {
-    QString planeteStr = DPerso::GetValeurCarac(GenVieHumain::PLANETE);
+    QString planeteStr = DPerso::GetValeurCarac(Planete::C_PLANETE);
     return Planete::PLANETES[planeteStr];
 }
 
 int Humain::GetAge()
 {
     return DPerso::GetValeurCaracAsInt(GenVieHumain::AGE);
+}
+
+QString Humain::GetValeurCarac(QString id)
+{
+    return DPerso::GetValeurCarac(id);
+}
+
+int Humain::GetValeurCaracAsInt(QString id)
+{
+    // cas particuliers où on ne rend aps directement la valeur associée :
+    if ( id == Combat::C_FORCE_COMBAT) {
+        int val = 1; //humain de base
+
+        // ici on pourra ajouter ou retirer des points selon les caracs du perso (space marine = +2 par exemple
+        // cf échelle des Combat.h
+
+        return 1;
+    }
+
+    return DPerso::GetValeurCaracAsInt(id);
 }

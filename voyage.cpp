@@ -21,7 +21,7 @@ Voyage::Voyage()
         {new Condition(Voyage::REAFFECTATION_PLANETE, "", Comparateur::c_Different)});
         m_Description = "Vos avez été réaffecté vers une nouvelle planète.";
         m_ModificateursCaracs[Voyage::VOYAGE_WARP] = "1";
-        m_ModificateursCaracs[GenVieHumain::PLANETE] = "";
+        m_ModificateursCaracs[Planete::C_PLANETE] = "";
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = "";
         m_CallbackDisplay = [](){
             // détermination dynamique de la planète de destination :

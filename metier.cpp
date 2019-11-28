@@ -72,7 +72,7 @@ Metier::Metier()
         m_Condition->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
         m_Condition->AjouterModifProba(-2.3,
             {new Condition(GenVieHumain::AGE, "180", Comparateur::c_Inferieur),
-             new Condition(GenVieHumain::TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Different)
+             new Condition(Planete::C_TYPE_PLANETE, Planete::GetTypeMondeAsStr(MondeFeodal), Comparateur::c_Different)
                                        });
     }
 

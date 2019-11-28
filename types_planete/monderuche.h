@@ -24,6 +24,7 @@ public:
     Condition* m_ConditionSelecteurProba = nullptr;
     QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QMap<QString, QString> m_ModificateursCaracs;
+    std::function<void()> m_CallbackDisplay = nullptr;
 
     Effet* GenererEffet(GenEvt* genEvt);
 

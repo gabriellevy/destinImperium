@@ -18,9 +18,8 @@
 #include "factions/spacemarine.h"
 #include "types_planete/monderuche.h"
 #include "socio_eco/classesociale.h"
+#include "actions/combat.h"
 
-QString GenVieHumain::PLANETE = "Planète";
-QString GenVieHumain::TYPE_PLANETE = "Type de planète";
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::METIER = "Métier";
 
@@ -68,8 +67,8 @@ void GenVieHumain::GenererPersos()
 
 void GenVieHumain::GenererCaracs()
 {
-    Carac* caracPlanete = new Carac(GenVieHumain::PLANETE, GenVieHumain::PLANETE,"",
-                                    "", GenVieHumain::PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr);
+    Carac* caracPlanete = new Carac(Planete::C_PLANETE, Planete::C_PLANETE,"",
+                                    "", Planete::C_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(caracPlanete);
 
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
@@ -99,6 +98,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(Voyage::VOYAGE_WARP, Voyage::VOYAGE_WARP,"",
                    "", Voyage::VOYAGE_WARP, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(Combat::C_FORCE_COMBAT, Combat::C_FORCE_COMBAT,"",
+                   "", Combat::C_FORCE_COMBAT, MODE_AFFICHAGE::ma_Texte, nullptr));
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -123,13 +125,6 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
                 evtRien,
                 new Condition(1, p_Relative));
     noeuds.push_back(noeudEvtRien);
-
-    Evt* evtRien2 = AjouterEvt("evtRien2");
-    Effet* effetRien2 = AjouterEffetNarration("Encore un mois tranquille.");
-    effetRien2 = TransformerEffetEnEffetMoisDeVie(effetRien2);
-    noeuds.push_back( new NoeudProbable(
-                           evtRien2,
-                           new Condition(1, p_Relative)));
 
     Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
     PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
