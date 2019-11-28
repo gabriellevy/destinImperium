@@ -268,49 +268,12 @@ Condition* Planete::AjouterModifProbaSiMondeChevalier(Condition* cond, double po
     return cond;
 }
 
-QVector<NoeudProbable*> Planete::ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet)
+QVector<NoeudProbable*> Planete::ConstruireToutePlanetes()
 {
     QVector<NoeudProbable*> effetsPlanetes;
     Planete* planete = new Planete();
     while ( planete->m_Population > 0) {
         Planete::PLANETES[planete->m_Nom] = planete;
-
-        QString texteNaissance = "Vous êtes nés sur " +
-                planete->m_Nom +
-                (planete->GetTypeMondeAsStr() == "" ? "" : ", " + planete->GetTypeMondeAsStr());
-
-        if ( planete->m_TitheGrade != nullptr) {
-            texteNaissance += " (" + planete->m_TitheGrade->GetIntitule() + ")";
-        }
-        texteNaissance += ".";
-
-        if ( planete->m_Faction != nullptr) {
-            texteNaissance += "\nCette planète est contrôlée par " + planete->m_Faction->m_Nom + ".";
-        }
-
-        Effet* effetNaissancePlanete = genEvt->AjouterEffetNarration(
-                    texteNaissance,
-                    planete->m_Image,
-                    "naissance_planete_" + planete->m_Nom);
-        effetNaissancePlanete->AjouterChangeurDeCarac(Planete::C_PLANETE, planete->m_Nom);
-        effetNaissancePlanete->AjouterChangeurDeCarac(Planete::C_TYPE_PLANETE, planete->GetTypeMondeAsStr());
-        effetNaissancePlanete->m_GoToEffetId = evtIdGoToApresEffet;
-
-        // l'affection de planète équivaut à la naissance (pour l'instant) donc on y associe les autres effets de naissance
-        // mais c'est un bricolage temporaire, la naissance devrait fonctionner différemment en dehors des systèmes d'effet
-        TypePlanete typePlanete = planete->m_TypePlanete;
-        effetNaissancePlanete->m_CallbackDisplay = [typePlanete]{
-            e_ClasseSociale classeSociale = ClasseSociale::GetClasseSocialeAleatoire(typePlanete);
-            QString classeSocialeStr = ClasseSociale::GetClasseSocialeAsStr(classeSociale, typePlanete);
-            GestionnaireCarac::SetValeurACaracId(ClasseSociale::ID_CLASSE_SOCIALE, classeSocialeStr);
-
-        };
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effetNaissancePlanete,
-                    new Condition(planete->m_Population, p_Relative));
-
-        effetsPlanetes.push_back(noeud);
 
         planete = new Planete();
     }

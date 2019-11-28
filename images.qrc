@@ -24,5 +24,9 @@
         <file>images/metier/inquisiteur.jpg</file>
         <file>images/metier/inquisiteur_ordo_sicarius.jpg</file>
         <file>images/planetes/Necromunda.jpg</file>
+        <file>images/organisations/Khorne.png</file>
+        <file>images/organisations/Nurgle.png</file>
+        <file>images/organisations/Slaanesh.png</file>
+        <file>images/organisations/Tzeentch.png</file>
     </qresource>
 </RCC>

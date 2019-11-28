@@ -26,6 +26,7 @@ include(factions/factions.pri)
 include(types_planete/types_planete.pri)
 include(socio_eco/socio_eco.pri)
 include(actions/actions.pri)
+include(chaos/chaos.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
@@ -66,6 +67,7 @@ SOURCES += \
     imperium.cpp \
     main.cpp \
     metier.cpp \
+    naissance.cpp \
     pbsante.cpp \
     tithegrade.cpp \
     voyage.cpp
@@ -105,6 +107,7 @@ HEADERS += \
     identite.h \
     imperium.h \
     metier.h \
+    naissance.h \
     pbsante.h \
     tithegrade.h \
     voyage.h

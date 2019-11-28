@@ -60,7 +60,7 @@ public:
 
     static QMap<QString, Planete*> PLANETES;
     static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false);
-    static QVector<NoeudProbable*> ConstruireToutePlanetes(GenEvt* genEvt, QString evtIdGoToApresEffet);
+    static QVector<NoeudProbable*> ConstruireToutePlanetes();
 
     QString GetTypeMondeAsStr();
 

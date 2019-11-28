@@ -19,6 +19,8 @@
 #include "types_planete/monderuche.h"
 #include "socio_eco/classesociale.h"
 #include "actions/combat.h"
+#include "naissance.h"
+#include "chaos/sectechaos.h"
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::METIER = "Métier";
@@ -52,6 +54,7 @@ Hist* GenVieHumain::GenererHistoire()
 
 void GenVieHumain::GenererDataUnivers()
 {
+    Planete::ConstruireToutePlanetes();
     DivisionAdministratum::GenererDivisions();
     Ordo::GenererOrdos();
     SpaceMarine::GenererChapitres();
@@ -101,17 +104,19 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(Combat::C_FORCE_COMBAT, Combat::C_FORCE_COMBAT,"",
                    "", Combat::C_FORCE_COMBAT, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(SecteChaos::C_SECTE_CHAOS, SecteChaos::C_SECTE_CHAOS,"",
+                   "", SecteChaos::C_SECTE_CHAOS, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(SecteChaos::C_DIEU, SecteChaos::C_DIEU,"",
+                   "", SecteChaos::C_DIEU, MODE_AFFICHAGE::ma_Texte, nullptr));
 }
 
 void GenVieHumain::GenererEvtsAccueil()
 {
     this->AjouterEvt("Debut", "Génération du perso par les choix");
     Effet* effet1 = AjouterEffetNarration("", "");
-    effet1->m_GoToEffetId = "effetSelectionPlanete";
-
-    QVector<NoeudProbable*> noeudsDestination = Planete::ConstruireToutePlanetes(m_GenerateurEvt, "finNaissance"); // doit se faire ici car contient la génération d'effets associés
-    Effet* effetSelectionPlanete = m_GenerateurEvt->AjouterEffetSelecteurDEvt(noeudsDestination, "effetSelectionPlanete");
-    effetSelectionPlanete->m_MsChrono = 1;
+    Naissance::GenererEffetNaissance(effet1);
 
     AjouterEffetGoToEvt("PrincipalSelecteur", "finNaissance");
 }
@@ -133,6 +138,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
     MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
     ClasseSociale::GenererNoeudsClasseSociale(m_GenerateurEvt, noeuds);
+    SecteChaos::GenererNoeudsSecteChaos(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");
