@@ -191,6 +191,16 @@ Planete::Planete()
         m_Climat = Climat::Aride;
         m_PresenceNotableImperium = {ep_HautAutelTechnologie};
     }break;
+    case 22 : {
+        m_Nom = "Macragge";
+        m_Population = 0.4;
+        m_TypePlanete = MondeCivilise;
+        m_Faction = new Factions(Ultramarines);
+        m_Image = ":/images/planetes/Mars_Red_Planet2.jpg";
+        m_Climat = Climat::Tempere;
+        m_PresenceNotableImperium = {ep_MondeMereSpaceMarine, ep_DefenseOrbitalesHautes};
+        m_TitheGrade = new TitheGrade(AptusNon);
+    }break;
     }
 
     Planete::COMPTEUR++;

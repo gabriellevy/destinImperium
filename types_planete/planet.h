@@ -30,8 +30,11 @@ enum Xenos { // présence xénos sur la planète
 
 enum PresenceNotableImperium { // organisations, bâtiments etc très importants de l'imperium présents sur la planète
     ep_RecrutementSpaceMarine,
+    ep_MondeMereSpaceMarine, //  monde principal d'un chaître (unique pour ce chapitre, pas forcément recruteur)
     // uniques :
-    ep_HautAutelTechnologie // de Mars
+    ep_HautAutelTechnologie, // de Mars
+    // semi courants
+    ep_DefenseOrbitalesHautes // mondes particulièrement bien défendus
 };
 
 enum Climat {
