@@ -182,6 +182,15 @@ Planete::Planete()
         m_Climat = Climat::AtmosphereQuasiMorte;
         m_PresenceNotableImperium = {ep_RecrutementSpaceMarine};
     }break;
+    case 21 : {
+        m_Nom = "Mars";
+        m_Population = 20;
+        m_TypePlanete = MondeForge;
+        m_Faction = new Factions(AdeptusMechanicus);
+        m_Image = ":/images/planetes/Mars_Red_Planet2.jpg";
+        m_Climat = Climat::Aride;
+        m_PresenceNotableImperium = {ep_HautAutelTechnologie};
+    }break;
     }
 
     Planete::COMPTEUR++;

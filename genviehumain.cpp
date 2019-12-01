@@ -24,6 +24,7 @@
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::METIER = "Métier";
+QString GenVieHumain::C_LIBERTE = "Liberté";
 
 GenVieHumain::GenVieHumain():GenHistoire ("Vive l'Imperium") {}
 
@@ -110,6 +111,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Carac(SecteChaos::C_DIEU, SecteChaos::C_DIEU,"",
                    "", SecteChaos::C_DIEU, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Carac(GenVieHumain::C_LIBERTE, GenVieHumain::C_LIBERTE,"",
+                   "", GenVieHumain::C_LIBERTE, MODE_AFFICHAGE::ma_Texte, nullptr));
 }
 
 void GenVieHumain::GenererEvtsAccueil()

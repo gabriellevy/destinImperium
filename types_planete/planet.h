@@ -29,7 +29,9 @@ enum Xenos { // présence xénos sur la planète
 };
 
 enum PresenceNotableImperium { // organisations, bâtiments etc très importants de l'imperium présents sur la planète
-    ep_RecrutementSpaceMarine
+    ep_RecrutementSpaceMarine,
+    // uniques :
+    ep_HautAutelTechnologie // de Mars
 };
 
 enum Climat {

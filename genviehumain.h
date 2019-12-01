@@ -21,6 +21,7 @@ public:
     // caracs :
     static QString AGE;
     static QString METIER;
+    static QString C_LIBERTE; // par défaut le perso est libre. Si il est enfermé ou très restraint, le préciser dasn cette carac
 
     // evts important :
     static QString EFFET_SELECTEUR_ID;

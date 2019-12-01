@@ -50,7 +50,7 @@ MondeRuche::MondeRuche()
                     GestionnaireCarac::SetValeurACaracId(PbSante::SANTE, PbSante::MORT);
                 } else if ( resCombat == -1) {
                     effetActuel->m_Texte += "\nVous êtes capturé par les infâmes mutants !";
-                    // TODO MATHIEU : oula c'est dur là ! que faire ?
+                    GestionnaireCarac::SetValeurACaracId(GenVieHumain::C_LIBERTE, "Capturé par les mutants rebelles des sables.");
                 } else if ( resCombat < 2) {
                     effetActuel->m_Texte += "\nLes pillards volent une bonne partie de la cargaison puis s'enfuient. Vous êtes sauf.";
                 } else {
