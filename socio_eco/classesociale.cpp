@@ -83,35 +83,35 @@ void ClasseSociale::GenererNoeudsClasseSociale(GenEvt* genEvt, QVector<NoeudProb
     }
 }
 
-QString ClasseSociale::ID_CLASSE_SOCIALE = "Classe sociale";
+QString ClasseSociale::C_CLASSE_SOCIALE = "Classe sociale";
 
 
-e_ClasseSociale ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
+QString ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
 {
     double proba = Aleatoire::GetAl()->Entre0Et1();
     if (typeMonde == Planete::PLANETE_RUCHE) {
         if ( proba < 0.01)
-            return Miserable;
+            return ClasseSociale::MISERABLES;
         else if (proba < 0.7)
-            return Pauvre;
+            return ClasseSociale::PAUVRES;
         else if ( proba < 0.98)
-            return ClasseMoyenne;
+            return ClasseSociale::CLASSE_MOYENNE;
         else if ( proba < 0.999)
-            return Influents;
+            return ClasseSociale::INFLUENTS;
         else {
-            return Maitres;
+            return ClasseSociale::MAITRES;
         }
     } else {
         if ( proba < 0.01)
-            return Miserable;
+            return ClasseSociale::MISERABLES;
         else if (proba < 0.7)
-            return Pauvre;
+            return ClasseSociale::PAUVRES;
         else if ( proba < 0.98)
-            return ClasseMoyenne;
+            return ClasseSociale::CLASSE_MOYENNE;
         else if ( proba < 0.999)
-            return Influents;
+            return ClasseSociale::INFLUENTS;
         else {
-            return Maitres;
+            return ClasseSociale::MAITRES;
         }
     }
 }
@@ -122,19 +122,3 @@ QString ClasseSociale::PAUVRES = "Pauvre";
 QString ClasseSociale::CLASSE_MOYENNE = "Classe moyenne";
 QString ClasseSociale::INFLUENTS = "Classe dominante";
 QString ClasseSociale::MAITRES = "Classe dirigeante";
-
-QString ClasseSociale::GetClasseSocialeAsStr(e_ClasseSociale classeSociale, QString typeMonde)
-{
-    switch (classeSociale) {
-    case Miserable :
-        return ClasseSociale::MISERABLES;
-    case Pauvre :
-        return ClasseSociale::PAUVRES;
-    case ClasseMoyenne :
-        return ClasseSociale::CLASSE_MOYENNE;
-    case Influents :
-        return ClasseSociale::INFLUENTS;
-    case Maitres :
-        return ClasseSociale::MAITRES;
-    }
-}

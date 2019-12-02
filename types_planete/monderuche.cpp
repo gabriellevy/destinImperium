@@ -24,7 +24,7 @@ MondeRuche::MondeRuche()
     case 0 : {
         m_Nom = "voyage_train_des_cendres";
         // pas pour les très pauvres :
-        m_Conditions = { new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
+        m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
         m_ConditionSelecteurProba = new Condition(0.01, p_Relative); // 0.01
         m_Description = "Vous prenez ne train des cendres pour rendre une visite dans une ruche voisine.";
         m_CallbackDisplay = [] {

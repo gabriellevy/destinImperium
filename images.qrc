@@ -30,5 +30,7 @@
         <file>images/organisations/Tzeentch.png</file>
         <file>images/planetes/Mars_Red_Planet2.jpg</file>
         <file>images/planetes/Macragge.png</file>
+        <file>images/socio_eco/FemmeNobleApparat.jpg</file>
+        <file>images/socio_eco/GrosNoble.png</file>
     </qresource>
 </RCC>

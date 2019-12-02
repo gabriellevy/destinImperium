@@ -43,7 +43,7 @@ int Humain::GetValeurCaracAsInt(QString id)
         // ici on pourra ajouter ou retirer des points selon les caracs du perso (space marine = +2 par exemple
         // cf échelle des Combat.h
 
-        return 1;
+        return val;
     }
 
     return DPerso::GetValeurCaracAsInt(id);

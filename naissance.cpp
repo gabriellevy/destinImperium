@@ -27,7 +27,6 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     effetNarrationVide->m_GoToEffetId = "finNaissance";
 
     //2. détermination classe sociale :
-    e_ClasseSociale classeSociale = ClasseSociale::GetClasseSocialeAleatoire(planete->m_TypePlanete);
-    QString classeSocialeStr = ClasseSociale::GetClasseSocialeAsStr(classeSociale, planete->m_TypePlanete);
-    effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::ID_CLASSE_SOCIALE, classeSocialeStr);
+    QString classeSocialeStr = ClasseSociale::GetClasseSocialeAleatoire(planete->m_TypePlanete);
+    effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, classeSocialeStr);
 }

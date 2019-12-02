@@ -73,13 +73,12 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_PLANETE);
-
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::ID_CLASSE_SOCIALE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::REAFFECTATION_PLANETE);
@@ -89,6 +88,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_SECTE_CHAOS);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_DIEU);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_TYPE_PLANETE);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -106,7 +106,10 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Effet* effetRien = AjouterEffetNarration("Il ne se passe rien. => à régénérer");
     effetRien = TransformerEffetEnEffetMoisDeVie(effetRien);
     effetRien->m_CallbackDisplay = [] {
-        ExecHistoire::GetEffetActuel()->m_Texte = JourApresJour::ExtrairePhrase();
+        Phrase phrase = JourApresJour::ExtrairePhrase();
+        ExecHistoire::GetEffetActuel()->m_Texte = phrase.m_Texte;
+        ExecHistoire::GetEffetActuel()->m_ImgPath = phrase.m_CheminImg;
+        ExecHistoire::GetExecEffetActuel()->ChargerImage(phrase.m_CheminImg);
     };
     NoeudProbable* noeudEvtRien = new NoeudProbable(
                 evtRien,

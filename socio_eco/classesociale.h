@@ -11,17 +11,6 @@ class Effet;
 class Condition;
 
 /**
- * @brief dénominations abstraites des classes, qui sont précisées selon les planètes
- */
-enum e_ClasseSociale {
-    Miserable,
-    Pauvre,
-    ClasseMoyenne,
-    Influents,
-    Maitres // nobles etc
-};
-
-/**
  * @brief événements liés à la classe sociale des personnages
  */
 class ClasseSociale
@@ -41,12 +30,10 @@ public:
     static void GenererNoeudsClasseSociale(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
 
-    static e_ClasseSociale GetClasseSocialeAleatoire(QString typeMonde);
-
-    static QString GetClasseSocialeAsStr(e_ClasseSociale classSociale, QString typeMonde);
+    static QString GetClasseSocialeAleatoire(QString typeMonde);
 
     // caracs :
-    static QString ID_CLASSE_SOCIALE;
+    static QString C_CLASSE_SOCIALE;
     // valeurs de caracs :
     static QString MISERABLES;
     static QString PAUVRES;
