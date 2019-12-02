@@ -14,6 +14,7 @@
 #include "../actions/combat.h"
 #include "pbsante.h"
 #include "../destinLib/gestionnairecarac.h"
+#include "humain.h"
 
 int MondeRuche::COMPTEUR = 0;
 
@@ -21,18 +22,6 @@ MondeRuche::MondeRuche()
 {
     switch (MondeRuche::COMPTEUR) {
     case 0 : {
-        m_Nom = "repas_bouillie";
-        // seulement pour les pauvres :
-        m_Conditions = { new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different),
-                         new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Different)
-                       };
-        m_ConditionSelecteurProba = new Condition(1, p_Relative);
-        m_Description = "Encore une bonne bouillie de déchets organiques recyclés comme repas";
-        //Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
-        //m_ModificateursCaracs[Inquisition::RANG] = Administratum::GRADE_SCRIBE;
-
-    }break;
-    case 1 : {
         m_Nom = "voyage_train_des_cendres";
         // pas pour les très pauvres :
         m_Conditions = { new Condition(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
@@ -47,10 +36,10 @@ MondeRuche::MondeRuche()
                 int resCombat = Combat::JouerCombat(3);
                 if ( resCombat < -2) {
                     effetActuel->m_Texte += "\nVous êtes tué dans l'attaque";
-                    GestionnaireCarac::SetValeurACaracId(PbSante::SANTE, PbSante::MORT);
+                    Humain::GetHumainJoue()->SetValeurACaracId(PbSante::SANTE, PbSante::MORT);
                 } else if ( resCombat == -1) {
                     effetActuel->m_Texte += "\nVous êtes capturé par les infâmes mutants !";
-                    GestionnaireCarac::SetValeurACaracId(GenVieHumain::C_LIBERTE, "Capturé par les mutants rebelles des sables.");
+                    Humain::GetHumainJoue()->SetValeurACaracId(GenVieHumain::C_LIBERTE, "Capturé par les mutants rebelles des sables.");
                 } else if ( resCombat < 2) {
                     effetActuel->m_Texte += "\nLes pillards volent une bonne partie de la cargaison puis s'enfuient. Vous êtes sauf.";
                 } else {
@@ -66,7 +55,7 @@ MondeRuche::MondeRuche()
     // tous ces événements ne peuvent se produire que sur un monde ruche :
     m_Conditions.push_back(
                 new Condition(Planete::C_TYPE_PLANETE,
-                              Planete::GetTypeMondeAsStr(TypePlanete::MondeRuche),
+                              Planete::PLANETE_RUCHE,
                               Comparateur::c_Egal));
 
     MondeRuche::COMPTEUR++;

@@ -10,7 +10,7 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
 
     effetNarrationVide->m_Texte = "Vous êtes nés sur " +
             planete->m_Nom +
-            (planete->GetTypeMondeAsStr() == "" ? "" : ", " + planete->GetTypeMondeAsStr());
+            (planete->m_TypePlanete == "" ? "" : ", " + planete->m_TypePlanete);
 
     if ( planete->m_TitheGrade != nullptr) {
         effetNarrationVide->m_Texte += " (" + planete->m_TitheGrade->GetIntitule() + ")";
@@ -22,7 +22,7 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     }
 
     effetNarrationVide->AjouterChangeurDeCarac(Planete::C_PLANETE, planete->m_Nom);
-    effetNarrationVide->AjouterChangeurDeCarac(Planete::C_TYPE_PLANETE, planete->GetTypeMondeAsStr());
+    effetNarrationVide->AjouterChangeurDeCarac(Planete::C_TYPE_PLANETE, planete->m_TypePlanete);
     effetNarrationVide->m_ImgPath = planete->m_Image;
     effetNarrationVide->m_GoToEffetId = "finNaissance";
 

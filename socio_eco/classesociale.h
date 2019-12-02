@@ -41,9 +41,9 @@ public:
     static void GenererNoeudsClasseSociale(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
 
-    static e_ClasseSociale GetClasseSocialeAleatoire(TypePlanete typeMonde);
+    static e_ClasseSociale GetClasseSocialeAleatoire(QString typeMonde);
 
-    static QString GetClasseSocialeAsStr(e_ClasseSociale classSociale, TypePlanete typeMonde);
+    static QString GetClasseSocialeAsStr(e_ClasseSociale classSociale, QString typeMonde);
 
     // caracs :
     static QString ID_CLASSE_SOCIALE;

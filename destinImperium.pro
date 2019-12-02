@@ -65,6 +65,7 @@ SOURCES += \
     humain.cpp \
     identite.cpp \
     imperium.cpp \
+    jourapresjour.cpp \
     main.cpp \
     metier.cpp \
     naissance.cpp \
@@ -106,6 +107,7 @@ HEADERS += \
     humain.h \
     identite.h \
     imperium.h \
+    jourapresjour.h \
     metier.h \
     naissance.h \
     pbsante.h \

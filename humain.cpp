@@ -2,6 +2,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "actions/combat.h"
+#include "jourapresjour.h"
 
 Humain* Humain::ME = nullptr;
 
@@ -47,3 +48,9 @@ int Humain::GetValeurCaracAsInt(QString id)
 
     return DPerso::GetValeurCaracAsInt(id);
 }
+
+void Humain::ExecutionPostChangeCarac()
+{
+    JourApresJour::RafraichirPhrases();
+}
+

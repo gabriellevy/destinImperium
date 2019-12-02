@@ -86,11 +86,10 @@ void ClasseSociale::GenererNoeudsClasseSociale(GenEvt* genEvt, QVector<NoeudProb
 QString ClasseSociale::ID_CLASSE_SOCIALE = "Classe sociale";
 
 
-e_ClasseSociale ClasseSociale::GetClasseSocialeAleatoire(TypePlanete typeMonde)
+e_ClasseSociale ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
 {
     double proba = Aleatoire::GetAl()->Entre0Et1();
-    switch (typeMonde) {
-    case TypePlanete::MondeRuche :
+    if (typeMonde == Planete::PLANETE_RUCHE) {
         if ( proba < 0.01)
             return Miserable;
         else if (proba < 0.7)
@@ -102,7 +101,7 @@ e_ClasseSociale ClasseSociale::GetClasseSocialeAleatoire(TypePlanete typeMonde)
         else {
             return Maitres;
         }
-    default :
+    } else {
         if ( proba < 0.01)
             return Miserable;
         else if (proba < 0.7)
@@ -114,7 +113,6 @@ e_ClasseSociale ClasseSociale::GetClasseSocialeAleatoire(TypePlanete typeMonde)
         else {
             return Maitres;
         }
-
     }
 }
 
@@ -125,33 +123,18 @@ QString ClasseSociale::CLASSE_MOYENNE = "Classe moyenne";
 QString ClasseSociale::INFLUENTS = "Classe dominante";
 QString ClasseSociale::MAITRES = "Classe dirigeante";
 
-QString ClasseSociale::GetClasseSocialeAsStr(e_ClasseSociale classeSociale, TypePlanete typeMonde)
+QString ClasseSociale::GetClasseSocialeAsStr(e_ClasseSociale classeSociale, QString typeMonde)
 {
     switch (classeSociale) {
     case Miserable :
-        switch (typeMonde) {
-        //case TypePlanete::MondeRuche : return "Très pauvre habitant du sous-monde"; // ou nomade des cendres ?
-        default : return ClasseSociale::MISERABLES;
-        }
+        return ClasseSociale::MISERABLES;
     case Pauvre :
-        switch (typeMonde) {
-        //case TypePlanete::MondeRuche : return "Ouvrier pauvre"; // ou Ganger
-        default : return ClasseSociale::PAUVRES;
-        }
+        return ClasseSociale::PAUVRES;
     case ClasseMoyenne :
-        switch (typeMonde) {
-        //case TypePlanete::MondeRuche : return "Classe moyenne";
-        default : return ClasseSociale::CLASSE_MOYENNE;
-        }
+        return ClasseSociale::CLASSE_MOYENNE;
     case Influents :
-        switch (typeMonde) {
-        //case TypePlanete::MondeRuche : return "Riche";
-        default : return ClasseSociale::INFLUENTS;
-        }
+        return ClasseSociale::INFLUENTS;
     case Maitres :
-        switch (typeMonde) {
-        //case TypePlanete::MondeRuche : return "Noble";
-        default : return ClasseSociale::MAITRES;
-        }
+        return ClasseSociale::MAITRES;
     }
 }

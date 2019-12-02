@@ -17,6 +17,7 @@ public:
 
     virtual QString GetValeurCarac(QString id);
     virtual int GetValeurCaracAsInt(QString id);
+    virtual void ExecutionPostChangeCarac();
 };
 
 #endif // HUMAIN_H

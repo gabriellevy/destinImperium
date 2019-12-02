@@ -11,17 +11,6 @@ class NoeudProbable;
 class GenEvt;
 class Condition;
 
-enum TypePlanete {
-    Divers,
-    MondeAgricole,
-    MondeForge,
-    MondeFeral,
-    MondeChevalier,
-    MondeFeodal,
-    MondeCivilise,
-    MondeRuche
-};
-
 enum Xenos { // présence xénos sur la planète
     ex_MondeTombe, // contient des nécrons en sous-sol
     ex_SuivivantsTyranides, // pas une flotte complète : des survivants d'une invasion ratée
@@ -56,7 +45,7 @@ public:
     QString m_Nom = "";
     QString m_Image = "";
     double m_Population = -1;// en milliards
-    TypePlanete m_TypePlanete = Divers;
+    QString m_TypePlanete = Planete::PLANETE_DIVERS;
     Climat m_Climat = Tempere;
     Factions* m_Faction = nullptr;// qui contrôle la planète
     TitheGrade* m_TitheGrade = nullptr;
@@ -67,10 +56,6 @@ public:
     static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false);
     static QVector<NoeudProbable*> ConstruireToutePlanetes();
 
-    QString GetTypeMondeAsStr();
-
-    static QString GetTypeMondeAsStr(TypePlanete typePlanete);
-
     // modificateurs de condition standards :
     static Condition* AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
@@ -80,6 +65,15 @@ public:
     // caracs associées :
     static QString C_PLANETE;
     static QString C_TYPE_PLANETE;
+    // valeurs de carac associées :
+    static QString PLANETE_DIVERS;
+    static QString PLANETE_AGRICOLE;
+    static QString PLANETE_FORGE;
+    static QString PLANETE_FERAL;
+    static QString PLANETE_CHEVALIER;
+    static QString PLANETE_FEODAL;
+    static QString PLANETE_CIVILISE;
+    static QString PLANETE_RUCHE;
 };
 
 #endif // PLANET_H

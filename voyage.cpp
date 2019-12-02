@@ -29,7 +29,7 @@ Voyage::Voyage()
             Effet* effetActuel = Univers::ME->GetExecHistoire()->EffetActuel();
             effetActuel->m_ImgPath = nouvellePlanete->m_Image;
             effetActuel->m_Texte = "Vos avez été réaffecté vers la planète " + nouvellePlanete->m_Nom + ".";
-            GestionnaireCarac::SetValeurACaracId(Voyage::DESTINATION_PLANETE, nouvellePlanete->m_Nom);
+            IPerso::GetPersoCourant()->SetValeurACaracId(Voyage::DESTINATION_PLANETE, nouvellePlanete->m_Nom);
         };
     }break;
 

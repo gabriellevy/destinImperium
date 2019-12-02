@@ -21,6 +21,7 @@
 #include "actions/combat.h"
 #include "naissance.h"
 #include "chaos/sectechaos.h"
+#include "jourapresjour.h"
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::METIER = "Métier";
@@ -71,49 +72,23 @@ void GenVieHumain::GenererPersos()
 
 void GenVieHumain::GenererCaracs()
 {
-    Carac* caracPlanete = new Carac(Planete::C_PLANETE, Planete::C_PLANETE,"",
-                                    "", Planete::C_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(caracPlanete);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_PLANETE);
 
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(GenVieHumain::METIER, GenVieHumain::METIER,"",
-                   "", GenVieHumain::METIER, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Administratum::C_DIVISION, Administratum::C_DIVISION,"",
-                   "", Administratum::C_DIVISION, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Administratum::RANG, Administratum::RANG,"",
-                   "", Administratum::RANG, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Inquisition::C_ORDO, Inquisition::C_ORDO,"",
-                   "", Inquisition::C_ORDO, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(ClasseSociale::ID_CLASSE_SOCIALE, ClasseSociale::ID_CLASSE_SOCIALE,"",
-                   "", ClasseSociale::ID_CLASSE_SOCIALE, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::ID_CLASSE_SOCIALE);
 
     // temp test :
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Voyage::REAFFECTATION_PLANETE, Voyage::REAFFECTATION_PLANETE,"",
-                   "", Voyage::REAFFECTATION_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Voyage::DESTINATION_PLANETE, Voyage::DESTINATION_PLANETE,"",
-                   "", Voyage::DESTINATION_PLANETE, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Voyage::VOYAGE_WARP, Voyage::VOYAGE_WARP,"",
-                   "", Voyage::VOYAGE_WARP, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(Combat::C_FORCE_COMBAT, Combat::C_FORCE_COMBAT,"",
-                   "", Combat::C_FORCE_COMBAT, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(SecteChaos::C_SECTE_CHAOS, SecteChaos::C_SECTE_CHAOS,"",
-                   "", SecteChaos::C_SECTE_CHAOS, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(SecteChaos::C_DIEU, SecteChaos::C_DIEU,"",
-                   "", SecteChaos::C_DIEU, MODE_AFFICHAGE::ma_Texte, nullptr));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Carac(GenVieHumain::C_LIBERTE, GenVieHumain::C_LIBERTE,"",
-                   "", GenVieHumain::C_LIBERTE, MODE_AFFICHAGE::ma_Texte, nullptr));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::REAFFECTATION_PLANETE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::DESTINATION_PLANETE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::VOYAGE_WARP);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_FORCE_COMBAT);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_SECTE_CHAOS);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_DIEU);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -128,8 +103,11 @@ void GenVieHumain::GenererEvtsAccueil()
 void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
 {
     Evt* evtRien = AjouterEvt("evtRien");
-    Effet* effetRien = AjouterEffetNarration("Il ne se passe rien.");
+    Effet* effetRien = AjouterEffetNarration("Il ne se passe rien. => à régénérer");
     effetRien = TransformerEffetEnEffetMoisDeVie(effetRien);
+    effetRien->m_CallbackDisplay = [] {
+        ExecHistoire::GetEffetActuel()->m_Texte = JourApresJour::ExtrairePhrase();
+    };
     NoeudProbable* noeudEvtRien = new NoeudProbable(
                 evtRien,
                 new Condition(1, p_Relative));

@@ -53,7 +53,7 @@ SecteChaos::SecteChaos()
                 m_Image = ":/images/organisations/Nurgle.png";
                 break;
             }
-            GestionnaireCarac::SetValeurACaracId(SecteChaos::C_DIEU, dieu);
+            Humain::GetHumainJoue()->SetValeurACaracId(SecteChaos::C_DIEU, dieu);
         };
 
     }break;
