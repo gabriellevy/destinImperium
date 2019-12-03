@@ -46,37 +46,46 @@ Administratum::Administratum()
     switch (Administratum::COMPTEUR) {
     case 0 : {
         m_Nom = Administratum::ID_AFFECTATION_DIVISION;
-        m_Condition = new Condition(0, p_Pure);
-        Administratum::AjouterModifProbaSiADivision(m_Condition, -1);
-        Administratum::AjouterModifProbaSiAdepteAdministratum(m_Condition, 0.1);
+        m_ConditionSelecteurProba = new Condition(0, p_Pure);
+        Administratum::AjouterModifProbaSiADivision(m_ConditionSelecteurProba, -1);
+        Administratum::AjouterModifProbaSiAdepteAdministratum(m_ConditionSelecteurProba, 0.1);
         m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_SCRIBE;
 
     }break;
     case 1 : {
         m_Nom = Administratum::GRADE_ORDINATE;
-        m_Condition = new Condition(0, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0, p_Relative);
         m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_ORDINATE;
         m_Image = ":/images/metier/Metallic_Scribe.jpg";
         m_Description = "Vous avez l'insigne honneur de devenir Ordinate mécaniquement augmenté.";
-        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_Condition, 0.15);
+        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_ConditionSelecteurProba, 0.15);
 
     }break;
     case 2 : {
         m_Nom = Administratum::GRADE_PREFET;
-        m_Condition = new Condition(0, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0, p_Relative);
         m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_PREFET;
         m_Image = ":/images/metier/Prefet.jpg";
         m_Description = "Vous avez l'insigne honneur de devenir Préfet de l'Administratum.";
-        Administratum::AjouterModifProbaSiOrdinateAdministratum50Ans(m_Condition, 0.05);
+        Administratum::AjouterModifProbaSiOrdinateAdministratum50Ans(m_ConditionSelecteurProba, 0.05);
 
     }break;
     case 3 : {
         m_Nom = Administratum::GRADE_MAITRE;
-        m_Condition = new Condition(0, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0, p_Relative);
         m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_MAITRE;
         m_Image = ":/images/metier/Maitre.jpg";
         m_Description = "Vous avez l'insigne honneur de devenir Maître de votre division.";
-        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_Condition, 0.01);
+        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_ConditionSelecteurProba, 0.01);
+
+    }break;
+    case 4 : {
+        m_Nom = "Approvisionnement régiment";
+        m_ConditionSelecteurProba = new Condition(0, p_Relative);
+        m_ModificateursCaracs[Administratum::RANG] = Administratum::GRADE_MAITRE;
+        m_Image = ":/images/metier/Maitre.jpg";
+        m_Description = "Vous avez l'insigne honneur de devenir Maître de votre division.";
+        Administratum::AjouterModifProbaSiScribeAdministratum40Ans(m_ConditionSelecteurProba, 0.01);
 
     }break;
     }
@@ -147,6 +156,7 @@ Effet* Administratum::GenererEffet(GenEvt* genEvt)
         effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
     }
+    effet->m_Conditions = m_Conditions;
 
     // modificateurs de carac :
     QMapIterator<QString, QString> it(m_ModificateursCaracs);
@@ -165,7 +175,7 @@ void Administratum::GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProb
 
         Effet* effet = evt->GenererEffet(genEvt);
 
-        Condition* cond = evt->m_Condition;
+        Condition* cond = evt->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effet,

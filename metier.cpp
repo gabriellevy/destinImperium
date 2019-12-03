@@ -28,34 +28,34 @@ Metier::Metier()
     switch (Metier::COMPTEUR) {
     case 0 : {
         m_Nom = Metier::PAYSAN;
-        m_Condition = new Condition(0.1 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
-        Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
-        Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
+        Planete::AjouterModifProbaSiMondeAgricole(m_ConditionSelecteurProba, 0.8);
+        Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.6);
     }break;
     case 1 : {
         m_Nom = Metier::ADEPTE_ADMINISTRATUM;
         m_Image = ":/images/metier/Administratum Adept.png";
-        m_Condition = new Condition(0.15 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.15 - tmpFavoriseur, p_Relative);
     }break;
     case 2 : {
         m_Nom = Metier::NOBLE_CHEVALIER;
-        m_Condition = new Condition(0 - tmpFavoriseur, p_Relative);
-        Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
+        m_ConditionSelecteurProba = new Condition(0 - tmpFavoriseur, p_Relative);
+        Planete::AjouterModifProbaSiMondeChevalier(m_ConditionSelecteurProba, 0.01);
     }break;
     case 3 : {
         m_Nom = Metier::GARDE_IMPERIAL;
         m_Image = ":/images/metier/garde-imperial.jpg";
-        m_Condition = new Condition(0.02 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.02 - tmpFavoriseur, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
-        Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.2);
-        Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
+        Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.2);
+        Planete::AjouterModifProbaSiMondeFeral(m_ConditionSelecteurProba, 0.2);
     }break;
     case 4 : {
         m_Nom = Metier::ARBITES;
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_Condition = new Condition(0.01 + tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
@@ -63,19 +63,19 @@ Metier::Metier()
         m_Nom = Metier::INQUISITEUR;
         m_Description = "Agent de l'Inquisition, une organisation secrète chargée de traquer les ennemis de l'imperium.";
         m_Image = ":/images/metier/inquisiteur.jpg";
-        m_Condition = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
+        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
     }
 
-    if ( m_Condition!= nullptr) {
+    if ( m_ConditionSelecteurProba!= nullptr) {
         // si on a un métier les chances qu'on s'en voit affecter un sont très faibles :
-        m_Condition->AjouterModifProba(-1.0, {new Condition(Metier::C_METIER, "", Comparateur::c_Different)});
+        m_ConditionSelecteurProba->AjouterModifProba(-1.0, {new Condition(Metier::C_METIER, "", Comparateur::c_Different)});
         // et si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
         // mais affectation de métier plus rapide sur monde féodal :
-        m_Condition->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
-        m_Condition->AjouterModifProba(-2.3,
+        m_ConditionSelecteurProba->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
+        m_ConditionSelecteurProba->AjouterModifProba(-2.3,
             {new Condition(GenVieHumain::AGE, "180", Comparateur::c_Inferieur),
              new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Different)
                                        });
@@ -112,7 +112,7 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
             effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
         }
 
-        Condition* cond = metier->m_Condition;
+        Condition* cond = metier->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effetAffectation,

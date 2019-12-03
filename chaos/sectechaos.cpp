@@ -27,7 +27,7 @@ SecteChaos::SecteChaos()
     switch (SecteChaos::COMPTEUR) {
     case 0 : {
         m_Nom = "Entrée dans secte du chaos";
-        m_Condition = new Condition(0.001, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.001, p_Relative);
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
         //Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
         m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
@@ -74,6 +74,7 @@ Effet* SecteChaos::GenererEffet(GenEvt* genEvt)
         effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
         effet->m_CallbackDisplay = m_CallbackDisplay;
+        effet->m_Conditions = m_Conditions;
 
     // modificateurs de carac :
     QMapIterator<QString, QString> it(m_ModificateursCaracs);
@@ -93,7 +94,7 @@ void SecteChaos::GenererNoeudsSecteChaos(GenEvt* genEvt, QVector<NoeudProbable*>
 
         Effet* effet = evt->GenererEffet(genEvt);
 
-        Condition* cond = evt->m_Condition;
+        Condition* cond = evt->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effet,

@@ -24,7 +24,8 @@ class PbSante
 public:
     PbSante();
 
-    Condition* m_Condition = nullptr;
+    Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
+    QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QString m_Intitule = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant le problème de santé
     QMap<QString, QString> m_ModificateursCaracs; // ce que le problèmed e santé change comme carac

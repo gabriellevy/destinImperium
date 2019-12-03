@@ -17,7 +17,8 @@ public:
     QString m_Nom = ""; // et id
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant le métier
-    Condition* m_Condition = nullptr; // proba de se voir affecter ce métier
+    Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
+    QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QMap<QString, QString> m_ModificateursCaracs;
 
     static void GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);

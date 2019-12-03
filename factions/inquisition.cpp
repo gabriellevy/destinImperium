@@ -35,9 +35,9 @@ Inquisition::Inquisition()
     switch (Inquisition::COMPTEUR) {
     case 0 : {
         m_Nom = Inquisition::ID_AFFECTATION_ORDO;
-        m_Condition = new Condition(0, p_Pure);
-        Inquisition::AjouterModifProbaSiAOrdo(m_Condition, -1);
-        Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
+        m_ConditionSelecteurProba = new Condition(0, p_Pure);
+        Inquisition::AjouterModifProbaSiAOrdo(m_ConditionSelecteurProba, -1);
+        Inquisition::AjouterModifProbaSiInquisiteur(m_ConditionSelecteurProba, 0.1);
         //m_ModificateursCaracs[Inquisition::RANG] = Administratum::GRADE_SCRIBE;
 
     }break;
@@ -84,6 +84,7 @@ Effet* Inquisition::GenererEffet(GenEvt* genEvt)
         effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
     }
+    effet->m_Conditions = m_Conditions;
 
     // modificateurs de carac :
     QMapIterator<QString, QString> it(m_ModificateursCaracs);
@@ -103,7 +104,7 @@ void Inquisition::GenererNoeudsInquisition(GenEvt* genEvt, QVector<NoeudProbable
 
         Effet* effet = evt->GenererEffet(genEvt);
 
-        Condition* cond = evt->m_Condition;
+        Condition* cond = evt->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effet,

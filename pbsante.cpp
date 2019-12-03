@@ -17,30 +17,30 @@ PbSante::PbSante()
     switch (PbSante::COMPTEUR) {
     case 0 : {
         m_IdPbSante = MortVieillesse;
-        m_Condition = new Condition(0.0, p_Pure);
+        m_ConditionSelecteurProba = new Condition(0.0, p_Pure);
         m_Intitule = "Vous êtes mort de vieillesse.";
         // déclenchable quand on vieillit (et de plus en plus probable au fur et à mesure)
-        m_Condition->AjouterModifProba(0.0002,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0002,
             {new Condition(GenVieHumain::AGE, "600", Comparateur::c_Superieur)}); // 50 ans
-        m_Condition->AjouterModifProba(0.001,
+        m_ConditionSelecteurProba->AjouterModifProba(0.001,
             {new Condition(GenVieHumain::AGE, "720", Comparateur::c_Superieur)}); // 60 ans
-        m_Condition->AjouterModifProba(0.005,
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
             {new Condition(GenVieHumain::AGE, "840", Comparateur::c_Superieur)}); // 70 ans
-        m_Condition->AjouterModifProba(0.01,
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
             {new Condition(GenVieHumain::AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
-        m_Condition->AjouterModifProba(0.05,
+        m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
-        m_Condition->AjouterModifProba(0.05,
+        m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});
-        PbSante::AjouterModifProbaSiMort(m_Condition, -1.0);
+        PbSante::AjouterModifProbaSiMort(m_ConditionSelecteurProba, -1.0);
         m_ModificateursCaracs[PbSante::SANTE] = PbSante::MORT;
 
     }break;
     case 1 : {
         m_IdPbSante = PesteNoire;
-        m_Condition = new Condition(0.0, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
         m_Intitule = "Vous avez contracté la peste noire.";
-        Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.1);
+        Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.1);
         m_ModificateursCaracs[PbSante::PESTE] = "1";
 
     }break;
@@ -69,7 +69,7 @@ void PbSante::GenererNoeudsSelectionPbSante(GenEvt* genEvt, QVector<NoeudProbabl
             effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
         }
 
-        Condition* cond = pbSante->m_Condition;
+        Condition* cond = pbSante->m_ConditionSelecteurProba;
 
         NoeudProbable* noeud = new NoeudProbable(
                     effetAffectation,
