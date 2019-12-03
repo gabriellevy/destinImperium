@@ -32,5 +32,7 @@
         <file>images/planetes/Macragge.png</file>
         <file>images/socio_eco/FemmeNobleApparat.jpg</file>
         <file>images/socio_eco/GrosNoble.png</file>
+        <file>images/metier/Arbite_aboard_vessel.jpg</file>
+        <file>images/metier/Female_Arbiter_2.jpg</file>
     </qresource>
 </RCC>

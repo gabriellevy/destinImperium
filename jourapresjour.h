@@ -21,8 +21,12 @@ struct Phrase {
 class JourApresJour
 {
     static QVector<Phrase> PHRASES;
+    void RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString metier);
+    void RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier);
 public:
-    static void RafraichirPhrases();
+    JourApresJour();
+
+    void RafraichirPhrases();
 
     static Phrase ExtrairePhrase();
 

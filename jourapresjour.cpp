@@ -3,14 +3,15 @@
 #include "humain.h"
 #include "types_planete/planet.h"
 #include "socio_eco/classesociale.h"
+#include "metier.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
-void JourApresJour::RafraichirPhrases()
+JourApresJour::JourApresJour()
+{}
+
+void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString metier)
 {
-    // extraire les critères qui influent sur les textes/événements possibles :
-    QString typePlanete = Humain::GetHumainJoue()->GetValeurCarac(Planete::C_TYPE_PLANETE);
-    QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
 
     if ( typePlanete == Planete::PLANETE_RUCHE) {
         if ( classeSociale == ClasseSociale::MISERABLES ) {
@@ -63,7 +64,33 @@ void JourApresJour::RafraichirPhrases()
     {
 
     }
+}
 
+void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier)
+{
+    if ( metier == Metier::ARBITES) {
+        JourApresJour::PHRASES.push_back(
+            Phrase(
+                "Encore une patrouille tranquille autour de la fortresse de circonscription.",
+                ":/images/metier/Arbite_aboard_vessel.jpg"
+                ));
+        JourApresJour::PHRASES.push_back(
+            Phrase(
+                "Rien de particulier. Juste quelques coups de matraque énergétique pour calmer les délinquants des environs.",
+                ":/images/metier/Female_Arbiter_2.jpg"
+                ));
+    }
+}
+
+void JourApresJour::RafraichirPhrases()
+{
+    // extraire les critères qui influent sur les textes/événements possibles :
+    QString typePlanete = Humain::GetHumainJoue()->GetValeurCarac(Planete::C_TYPE_PLANETE);
+    QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
+    QString metier = Humain::GetHumainJoue()->GetValeurCarac(Metier::C_METIER);
+
+    RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
+    RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
 
     if ( PHRASES.length() == 0 )
         JourApresJour::PHRASES.push_back(

@@ -10,8 +10,6 @@
 class Identite
 {
 public:
-    Identite();
-
     static QVector<QString> PRENOMS;
     static QVector<QString> PRENOMS_FEMININS;
     static QVector<QString> NOMS;

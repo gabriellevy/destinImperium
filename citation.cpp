@@ -9,5 +9,8 @@ QVector<Citation> Citation::CITATIONS = {
     Citation("Savoir sa place est d'un grand confort, y exceller est le plus grand réconfort, et la satisfaction d'un maître est la plus grande récompense.", "Codex Administratum Edition XXIIVC"),
     Citation("Nous déterminons le coupable. Nous fixons la punition.", "Lex Imperialis"),
     Citation("Vous ne pouvez comprendre les mystères de l'univers, vous ne devez que faire confiance à la vérité des ordres de l'empereur.",
-        "Édits de la guilde des navigateurs de Calixis")
+        "Édits de la guilde des navigateurs de Calixis"),
+    Citation("Vous avez été accusé, au nom de l'empereur, du crime de piraterie. Vous avez le droit de confesser vos crimes et de chercher l'absolution pour vos péchés. Les demandes de clémence ne seront pas entendues.",
+        "Maître châtisseur Grigor Cardainn")
 };
+

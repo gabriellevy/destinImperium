@@ -59,7 +59,6 @@ SOURCES += \
     ../destinLib/dbmanager.cpp \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
-    aspectratiolabel.cpp \
     citation.cpp \
     genviehumain.cpp \
     humain.cpp \
@@ -101,7 +100,6 @@ HEADERS += \
     ../destinLib/dbmanager.h \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
-    aspectratiolabel.h \
     citation.h \
     genviehumain.h \
     humain.h \

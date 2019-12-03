@@ -8,7 +8,7 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     // 1 : déterminer planète de naissance :
     Planete* planete = Planete::GetPlaneteAleatoire(true);
 
-    effetNarrationVide->m_Texte = "Vous êtes nés sur " +
+    effetNarrationVide->m_Texte = "Vous êtes né sur " +
             planete->m_Nom +
             (planete->m_TypePlanete == "" ? "" : ", " + planete->m_TypePlanete);
 

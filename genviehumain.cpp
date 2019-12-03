@@ -22,9 +22,9 @@
 #include "naissance.h"
 #include "chaos/sectechaos.h"
 #include "jourapresjour.h"
+#include "factions/arbites.h"
 
 QString GenVieHumain::AGE = "Age";
-QString GenVieHumain::METIER = "Métier";
 QString GenVieHumain::C_LIBERTE = "Liberté";
 
 GenVieHumain::GenVieHumain():GenHistoire ("Vive l'Imperium") {}
@@ -73,7 +73,7 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_PLANETE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::METIER);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
@@ -124,6 +124,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
     ClasseSociale::GenererNoeudsClasseSociale(m_GenerateurEvt, noeuds);
     SecteChaos::GenererNoeudsSecteChaos(m_GenerateurEvt, noeuds);
+    Arbites::GenererNoeudsArbites(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

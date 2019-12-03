@@ -8,27 +8,13 @@ class NoeudProbable;
 class GenEvt;
 class Condition;
 
-enum e_Metier {
-    Paysan,
-    GardeImperial,
-    AdepteAdministratum,
-    // Adeptus Arbites :
-    Arbitrator, // Adeptus Arbites
-    AdeptusArbitesJuge, //  => inateignable pour l'instant
-    GrandPrevotMarechal, // chef de tout l'adeptus => innateignable pour l'instant
-    // mondes chevaliers :
-    NobleChevalier,
-    Inquisiteur
-};
-
 class Metier
 {
-    e_Metier m_Metier;
     static int COMPTEUR;
 public:
     Metier();
 
-    QString m_Nom = "";
+    QString m_Nom = ""; // et id
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant le métier
     Condition* m_Condition = nullptr; // proba de se voir affecter ce métier
@@ -36,8 +22,18 @@ public:
 
     static void GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
-    static QMap<e_Metier, Metier*> METIERS;
-    static QString GetMetierAsStr(e_Metier metier);
+    static QMap<QString, Metier*> METIERS;
+
+    static QString C_METIER;
+    // valeurs de métiers :
+    static QString PAYSAN;
+    static QString GARDE_IMPERIAL;
+    static QString ADEPTE_ADMINISTRATUM;
+    // Adeptus Arbites :
+    static QString ARBITES; // Adeptus Arbites
+    // mondes chevaliers :
+    static QString NOBLE_CHEVALIER;
+    static QString INQUISITEUR;
 };
 
 #endif // METIER_H

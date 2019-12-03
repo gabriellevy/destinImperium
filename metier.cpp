@@ -9,35 +9,42 @@
 #include "voyage.h"
 
 int Metier::COMPTEUR = 0;
-QMap<e_Metier, Metier*> Metier::METIERS;
+
+QString Metier::C_METIER = "Métier";
+
+QString Metier::PAYSAN = "Paysan";
+QString Metier::GARDE_IMPERIAL = "Garde Imperial";
+QString Metier::ADEPTE_ADMINISTRATUM = "Adepte Administratum";
+QString Metier::ARBITES = "Arbitrator"; // Adeptus Arbites
+// mondes chevaliers :
+QString Metier::NOBLE_CHEVALIER = "Noble Chevalier";
+QString Metier::INQUISITEUR = "Inquisiteur";
+
+QMap<QString, Metier*> Metier::METIERS;
 
 Metier::Metier()
 {
     double tmpFavoriseur = 0.0; // valeur servant à tester => à mettre à 0 pour un test final
     switch (Metier::COMPTEUR) {
     case 0 : {
-        m_Nom = "Paysan";
-        m_Metier = Paysan;
+        m_Nom = Metier::PAYSAN;
         m_Condition = new Condition(0.1 - tmpFavoriseur, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
         Planete::AjouterModifProbaSiMondeAgricole(m_Condition, 0.8);
         Planete::AjouterModifProbaSiMondeFeodal(m_Condition, 0.6);
     }break;
     case 1 : {
-        m_Nom = "Adepte Administratum";
-        m_Metier = AdepteAdministratum;
+        m_Nom = Metier::ADEPTE_ADMINISTRATUM;
         m_Image = ":/images/metier/Administratum Adept.png";
         m_Condition = new Condition(0.15 - tmpFavoriseur, p_Relative);
     }break;
     case 2 : {
-        m_Nom = "Noble Chevalier";
-        m_Metier = NobleChevalier;
+        m_Nom = Metier::NOBLE_CHEVALIER;
         m_Condition = new Condition(0 - tmpFavoriseur, p_Relative);
         Planete::AjouterModifProbaSiMondeChevalier(m_Condition, 0.01);
     }break;
     case 3 : {
-        m_Nom = "Garde Imperial";
-        m_Metier = GardeImperial;
+        m_Nom = Metier::GARDE_IMPERIAL;
         m_Image = ":/images/metier/garde-imperial.jpg";
         m_Condition = new Condition(0.02 - tmpFavoriseur, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
@@ -45,20 +52,18 @@ Metier::Metier()
         Planete::AjouterModifProbaSiMondeFeral(m_Condition, 0.2);
     }break;
     case 4 : {
-        m_Nom = "Arbitrator";
+        m_Nom = Metier::ARBITES;
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
-        m_Metier = Arbitrator;
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_Condition = new Condition(0.01 - tmpFavoriseur, p_Relative);
+        m_Condition = new Condition(0.01 + tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
     case 5 : {
-        m_Nom = "Inquisiteur";
+        m_Nom = Metier::INQUISITEUR;
         m_Description = "Agent de l'Inquisition, une organisation secrète chargée de traquer les ennemis de l'imperium.";
-        m_Metier = Inquisiteur;
         m_Image = ":/images/metier/inquisiteur.jpg";
-        m_Condition = new Condition(0.001 + tmpFavoriseur, p_Relative); // 0.001
+        m_Condition = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
     }break;
@@ -66,7 +71,7 @@ Metier::Metier()
 
     if ( m_Condition!= nullptr) {
         // si on a un métier les chances qu'on s'en voit affecter un sont très faibles :
-        m_Condition->AjouterModifProba(-1.0, {new Condition(GenVieHumain::METIER, "", Comparateur::c_Different)});
+        m_Condition->AjouterModifProba(-1.0, {new Condition(Metier::C_METIER, "", Comparateur::c_Different)});
         // et si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
         // mais affectation de métier plus rapide sur monde féodal :
         m_Condition->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
@@ -76,15 +81,9 @@ Metier::Metier()
                                        });
     }
 
-    METIERS[m_Metier] = this;
+    METIERS[m_Nom] = this;
 
     Metier::COMPTEUR++;
-}
-
-
-QString Metier::GetMetierAsStr(e_Metier metier)
-{
-    return Metier::METIERS[metier]->m_Nom;
 }
 
 
@@ -106,7 +105,7 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
         effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
 
         // modificateurs de carac :
-        effetAffectation->AjouterChangeurDeCarac(GenVieHumain::METIER, metier->m_Nom);
+        effetAffectation->AjouterChangeurDeCarac(Metier::C_METIER, metier->m_Nom);
         QMapIterator<QString, QString> it(metier->m_ModificateursCaracs);
         while ( it.hasNext()) {
             it.next();

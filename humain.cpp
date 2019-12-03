@@ -9,6 +9,7 @@ Humain* Humain::ME = nullptr;
 Humain::Humain(QString nom):DPerso(nom, nom, nom, "")
 {
     Humain::ME = this;
+    m_JourApresJour = new JourApresJour();
 }
 
 Humain* Humain::GetHumainJoue()
@@ -51,6 +52,6 @@ int Humain::GetValeurCaracAsInt(QString id)
 
 void Humain::ExecutionPostChangeCarac()
 {
-    JourApresJour::RafraichirPhrases();
+    m_JourApresJour->RafraichirPhrases();
 }
 

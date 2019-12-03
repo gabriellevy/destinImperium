@@ -95,7 +95,7 @@ Condition* Administratum::AjouterModifProbaSiAdepteAdministratum(Condition* cond
 {
     cond->AjouterModifProba(poidsProba,
         {
-         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal)
+         new Condition(Metier::C_METIER, Metier::ADEPTE_ADMINISTRATUM, Comparateur::c_Egal)
         });
     return cond;
 }
@@ -104,7 +104,7 @@ Condition* Administratum::AjouterModifProbaSiScribeAdministratum40Ans(Condition*
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::AGE, "400", Comparateur::c_Superieur),
-         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Metier::C_METIER, Metier::ADEPTE_ADMINISTRATUM, Comparateur::c_Egal),
          new Condition(Administratum::RANG, Administratum::GRADE_SCRIBE, Comparateur::c_Egal)
         });
     return cond;
@@ -114,7 +114,7 @@ Condition* Administratum::AjouterModifProbaSiOrdinateAdministratum50Ans(Conditio
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::AGE, "520", Comparateur::c_Superieur),
-         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Metier::C_METIER, Metier::ADEPTE_ADMINISTRATUM, Comparateur::c_Egal),
          new Condition(Administratum::RANG, Administratum::GRADE_ORDINATE, Comparateur::c_Egal)
         });
     return cond;
@@ -124,7 +124,7 @@ Condition* Administratum::AjouterModifProbaSiPrefetAdministratum60Ans(Condition*
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(GenVieHumain::AGE, "640", Comparateur::c_Superieur),
-         new Condition(GenVieHumain::METIER, Metier::GetMetierAsStr(AdepteAdministratum), Comparateur::c_Egal),
+         new Condition(Metier::C_METIER, Metier::ADEPTE_ADMINISTRATUM, Comparateur::c_Egal),
          new Condition(Administratum::RANG, Administratum::GRADE_PREFET, Comparateur::c_Egal)
         });
     return cond;
