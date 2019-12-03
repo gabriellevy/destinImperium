@@ -34,5 +34,7 @@
         <file>images/socio_eco/GrosNoble.png</file>
         <file>images/metier/Arbite_aboard_vessel.jpg</file>
         <file>images/metier/Female_Arbiter_2.jpg</file>
+        <file>images/planetes/Gantz.png</file>
+        <file>images/planetes/Konor.png</file>
     </qresource>
 </RCC>

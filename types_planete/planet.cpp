@@ -210,6 +210,22 @@ Planete::Planete()
         m_PresenceNotableImperium = {ep_MondeMereSpaceMarine, ep_DefenseOrbitalesHautes};
         m_TitheGrade = new TitheGrade(AptusNon);
     }break;
+    case 23 : {
+        m_Nom = "Gantz";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(AdeptusMechanicus);
+        m_Image = ":/images/planetes/Gantz.png";
+        m_Climat = Climat::Tempere;
+    }break;
+    case 24 : {
+        m_Nom = "Konor";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(Ultramarines);
+        m_Image = ":/images/planetes/Konor.png";
+        m_Climat = Climat::Tempere;
+    }break;
     }
 
     Planete::COMPTEUR++;
