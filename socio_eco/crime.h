@@ -28,12 +28,19 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
+    // ajoute à la liste de conditions une condition validée seulement si on est une personne libre
+    static QList<Condition*> AjouterConditionSiLibre(QList<Condition*> conditions);
+    static QList<Condition*> AjouterConditionSiNonLibre(QList<Condition*> conditions);
+
 
     // caracs :
     static QString C_CRIMINEL;
-    //valeurs de criminel : ("" signifie innocent). Note : êre jugé innocent même si n est coupable remet en ""
+    //valeurs de C_CRIMINEL : ("" signifie innocent). Note : êre jugé innocent même si n est coupable remet en ""
     static QString DELINQUANT;
     static QString CRIMINEL;
+    // valeurs de GenVieHumain::C_LIBERTE :
+    static QString CAPTURE_POLICE;
+    static QString CAPTURE_ARBITES;
 };
 
 #endif // CRIME_H

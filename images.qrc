@@ -36,5 +36,7 @@
         <file>images/metier/Female_Arbiter_2.jpg</file>
         <file>images/planetes/Gantz.png</file>
         <file>images/planetes/Konor.png</file>
+        <file>images/metier/juge.jpg</file>
+        <file>images/metier/serviteur.jpg</file>
     </qresource>
 </RCC>
