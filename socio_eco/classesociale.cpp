@@ -65,7 +65,7 @@ Effet* ClasseSociale::GenererEffet(GenEvt* genEvt)
 }
 
 
-void ClasseSociale::GenererNoeudsClasseSociale(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+void ClasseSociale::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     ClasseSociale* evt = new ClasseSociale();
     while ( evt->m_Nom != "") {
@@ -89,6 +89,7 @@ QString ClasseSociale::C_CLASSE_SOCIALE = "Classe sociale";
 
 QString ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
 {
+    return ClasseSociale::MISERABLES;
     double proba = Aleatoire::GetAl()->Entre0Et1();
     if (typeMonde == Planete::PLANETE_RUCHE) {
         if ( proba < 0.01)

@@ -1,5 +1,5 @@
-#ifndef CLASSESOCIALE_H
-#define CLASSESOCIALE_H
+#ifndef CRIME_H
+#define CRIME_H
 
 #include <QString>
 #include <QMap>
@@ -10,14 +10,12 @@ class GenEvt;
 class Effet;
 class Condition;
 
-/**
- * @brief événements liés à la classe sociale des personnages
- */
-class ClasseSociale
+
+class Crime
 {
     static int COMPTEUR;
 public:
-    ClasseSociale();
+    Crime();
 
     QString m_Nom = "";
     QString m_Description = "";
@@ -31,17 +29,11 @@ public:
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
 
-    static QString GetClasseSocialeAleatoire(QString typeMonde);
-
     // caracs :
-    static QString C_CLASSE_SOCIALE;
-    // valeurs de caracs :
-    static QString MISERABLES;
-    static QString PAUVRES;
-    static QString CLASSE_MOYENNE;
-    static QString INFLUENTS;
-    static QString MAITRES;
-
+    static QString C_CRIMINEL;
+    //valeurs de criminel : ("" signifie innocent). Note : êre jugé innocent même si n est coupable remet en ""
+    static QString DELINQUANT;
+    static QString CRIMINEL;
 };
 
-#endif // CLASSESOCIALE_H
+#endif // CRIME_H

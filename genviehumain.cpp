@@ -18,6 +18,7 @@
 #include "factions/spacemarine.h"
 #include "types_planete/monderuche.h"
 #include "socio_eco/classesociale.h"
+#include "socio_eco/crime.h"
 #include "actions/combat.h"
 #include "naissance.h"
 #include "chaos/sectechaos.h"
@@ -89,6 +90,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_DIEU);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_TYPE_PLANETE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -122,7 +124,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
     Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
     MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
-    ClasseSociale::GenererNoeudsClasseSociale(m_GenerateurEvt, noeuds);
+    ClasseSociale::GenererNoeuds(m_GenerateurEvt, noeuds);
+    Crime::GenererNoeuds(m_GenerateurEvt, noeuds);
     SecteChaos::GenererNoeudsSecteChaos(m_GenerateurEvt, noeuds);
     Arbites::GenererNoeudsArbites(m_GenerateurEvt, noeuds);
 
