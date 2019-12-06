@@ -25,6 +25,8 @@
 #include "warp/psyker.h"
 #include "jourapresjour.h"
 #include "factions/arbites.h"
+#include "factions/assassinorum.h"
+#include "factions/ministorum.h"
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
@@ -93,6 +95,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_TYPE_PLANETE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Psyker::C_PSYKER);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_TYPE_PLANETE);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -131,6 +134,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     SecteChaos::GenererNoeuds(m_GenerateurEvt, noeuds);
     Psyker::GenererNoeuds(m_GenerateurEvt, noeuds);
     Arbites::GenererNoeuds(m_GenerateurEvt, noeuds);
+    Assassinorum::GenererNoeuds(m_GenerateurEvt, noeuds);
+    Ministorum::GenererNoeuds(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

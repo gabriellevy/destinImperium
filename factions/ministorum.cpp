@@ -1,4 +1,4 @@
-#include "assassinorum.h"
+#include "ministorum.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/evt.h"
 #include "../destinLib/genevt.h"
@@ -12,21 +12,15 @@
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
 
-int Assassinorum::COMPTEUR = 0;
+int Ministorum::COMPTEUR = 0;
 
 // caracs
-QString Assassinorum::C_TEMPLE = "Temple";
-// valeurs de C_TEMPLE
-QString Assassinorum::EVERSOR = "Eversor";
-QString Assassinorum::CALLIDUS = "Callidus";
-QString Assassinorum::VINDICARE = "Vindicare";
-QString Assassinorum::CULEXUS = "Culexus";
 
-Assassinorum::Assassinorum()
+Ministorum::Ministorum()
 {
-    switch (Assassinorum::COMPTEUR) {
+    switch (Ministorum::COMPTEUR) {
     case 0 : {
-        m_Nom = "youpi Assassinorum";
+        m_Nom = "youpi Ministorum";
         m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
@@ -37,11 +31,10 @@ Assassinorum::Assassinorum()
     }break;
     }
 
-    Assassinorum::COMPTEUR++;
-
+    Ministorum::COMPTEUR++;
 }
 
-Effet* Assassinorum::GenererEffet(GenEvt* genEvt)
+Effet* Ministorum::GenererEffet(GenEvt* genEvt)
 {
     Effet* effet = genEvt->AjouterEffetNarration(
             m_Description,
@@ -62,26 +55,9 @@ Effet* Assassinorum::GenererEffet(GenEvt* genEvt)
     return effet;
 }
 
-QString Assassinorum::DeterminerTempleAleatoire()
+void Ministorum::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
-    double proba = Aleatoire::GetAl()->Entre0Et1();
-
-    if ( proba < 0.25) {
-        return Assassinorum::EVERSOR;
-    }
-    else if ( proba < 0.5) {
-        return Assassinorum::CULEXUS;
-    }
-    if ( proba < 0.75) {
-        return Assassinorum::CALLIDUS;
-    }
-    return Assassinorum::VINDICARE;
-}
-
-
-void Assassinorum::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Assassinorum* evt = new Assassinorum();
+    Ministorum* evt = new Ministorum();
     while ( evt->m_Nom != "") {
 
         Effet* effet = evt->GenererEffet(genEvt);
@@ -94,6 +70,6 @@ void Assassinorum::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds
 
         noeuds.push_back(noeud);
 
-        evt = new Assassinorum();
+        evt = new Ministorum();
     }
 }

@@ -24,6 +24,7 @@ QString Metier::NOBLE_CHEVALIER = "Noble Chevalier";
 QString Metier::INQUISITEUR = "Inquisiteur";
 QString Metier::SERVANT_ADEPTUS_ASTRONOMICA = "Servant Adeptus Astronomica";
 QString Metier::ADEPTUS_ASSASSINORUM = "Adeptus Assassinorum";
+QString Metier::ADEPTUS_MINISTORUM = "Adeptus Ministorum";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -95,6 +96,12 @@ Metier::Metier()
         };
         m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
         m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+    }break;
+    case 8 : {
+        m_Nom = Metier::ADEPTUS_MINISTORUM;
+        m_Description = "Vous êtes maintenant un fonctionnaire dévoué du très saint Adeptus Ministorum.";
+        m_Image = ":/images/organisations/Adeptus_Ministorum_Icon.jpg";
+        m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
     }break;
     }
 

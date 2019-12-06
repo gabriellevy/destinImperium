@@ -38,6 +38,7 @@ public:
     static QString INQUISITEUR;
     static QString SERVANT_ADEPTUS_ASTRONOMICA;
     static QString ADEPTUS_ASSASSINORUM;
+    static QString ADEPTUS_MINISTORUM;
 };
 
 #endif // METIER_H
