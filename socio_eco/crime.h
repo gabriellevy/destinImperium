@@ -23,6 +23,7 @@ public:
     Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
     QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QMap<QString, QString> m_ModificateursCaracs;
+    std::function<void()> m_CallbackDisplay = nullptr;
 
     Effet* GenererEffet(GenEvt* genEvt);
 
@@ -31,6 +32,7 @@ public:
     // ajoute à la liste de conditions une condition validée seulement si on est une personne libre
     static QList<Condition*> AjouterConditionSiLibre(QList<Condition*> conditions);
     static QList<Condition*> AjouterConditionSiNonLibre(QList<Condition*> conditions);
+    static QList<Condition*> AjouterConditionSiJamaisCriminel(QList<Condition*> conditions);
 
 
     // caracs :

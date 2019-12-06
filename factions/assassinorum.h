@@ -1,5 +1,5 @@
-#ifndef ARBITES_H
-#define ARBITES_H
+#ifndef ASSASSINORUM_H
+#define ASSASSINORUM_H
 
 #include <QString>
 #include <QMap>
@@ -10,14 +10,12 @@ class GenEvt;
 class Effet;
 class Condition;
 
-/**
- * @brief événements de l'Adeptus Arbites
- */
-class Arbites
+
+class Assassinorum
 {
     static int COMPTEUR;
 public:
-    Arbites();
+    Assassinorum();
 
     QString m_Nom = "";
     QString m_Description = "";
@@ -31,9 +29,16 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
-    // grades :
-    static QString JUGE_ARBITES; //  => inateignable pour l'instant
-    static QString PREVOT_MARECHAL; // chef de tout l'adeptus => innateignable pour l'instant
+    static QString DeterminerTempleAleatoire();
+
+    // caracs
+    static QString C_TEMPLE;
+    // valeurs de C_TEMPLE
+    static QString EVERSOR;
+    static QString CALLIDUS;
+    static QString VINDICARE;
+    static QString CULEXUS;
+
 };
 
-#endif // ARBITES_H
+#endif // ASSASSINORUM_H

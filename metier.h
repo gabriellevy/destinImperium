@@ -20,6 +20,7 @@ public:
     Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
     QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
     QMap<QString, QString> m_ModificateursCaracs;
+    std::function<void()> m_CallbackDisplay = nullptr;
 
     static void GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
@@ -36,6 +37,7 @@ public:
     static QString NOBLE_CHEVALIER;
     static QString INQUISITEUR;
     static QString SERVANT_ADEPTUS_ASTRONOMICA;
+    static QString ADEPTUS_ASSASSINORUM;
 };
 
 #endif // METIER_H

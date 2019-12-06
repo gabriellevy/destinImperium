@@ -1,4 +1,4 @@
-#include "arbites.h"
+#include "assassinorum.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/evt.h"
 #include "../destinLib/genevt.h"
@@ -12,17 +12,21 @@
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
 
-int Arbites::COMPTEUR = 0;
+int Assassinorum::COMPTEUR = 0;
 
-// grades
-QString Arbites::JUGE_ARBITES = "Juge"; //  => inateignable pour l'instant
-QString Arbites::PREVOT_MARECHAL = "Prévôt maréchal"; // chef de tout l'adeptus => innateignable pour l'instant
+// caracs
+QString Assassinorum::C_TEMPLE = "Temple";
+// valeurs de C_TEMPLE
+QString Assassinorum::EVERSOR = "Eversor";
+QString Assassinorum::CALLIDUS = "Callidus";
+QString Assassinorum::VINDICARE = "Vindicare";
+QString Assassinorum::CULEXUS = "Culexus";
 
-Arbites::Arbites()
+Assassinorum::Assassinorum()
 {
-    switch (Arbites::COMPTEUR) {
+    switch (Assassinorum::COMPTEUR) {
     case 0 : {
-        m_Nom = "Entrée dans secte du chaos";
+        m_Nom = "youpi Assassinorum";
         m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
@@ -33,12 +37,12 @@ Arbites::Arbites()
     }break;
     }
 
-    Arbites::COMPTEUR++;
+    Assassinorum::COMPTEUR++;
 
 }
 
 
-Effet* Arbites::GenererEffet(GenEvt* genEvt)
+Effet* Assassinorum::GenererEffet(GenEvt* genEvt)
 {
     Effet* effet = genEvt->AjouterEffetNarration(
             m_Description,
@@ -59,10 +63,26 @@ Effet* Arbites::GenererEffet(GenEvt* genEvt)
     return effet;
 }
 
-
-void Arbites::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+QString Assassinorum::DeterminerTempleAleatoire()
 {
-    Arbites* evt = new Arbites();
+    double proba = Aleatoire::GetAl()->Entre0Et1();
+
+    if ( proba < 0.25) {
+        return Assassinorum::EVERSOR;
+    }
+    else if ( proba < 0.5) {
+        return Assassinorum::CULEXUS;
+    }
+    if ( proba < 0.75) {
+        return Assassinorum::CALLIDUS;
+    }
+    return Assassinorum::VINDICARE;
+}
+
+
+void Assassinorum::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+{
+    Assassinorum* evt = new Assassinorum();
     while ( evt->m_Nom != "") {
 
         Effet* effet = evt->GenererEffet(genEvt);
@@ -75,6 +95,6 @@ void Arbites::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 
         noeuds.push_back(noeud);
 
-        evt = new Arbites();
+        evt = new Assassinorum();
     }
 }

@@ -7,6 +7,9 @@
 #include "genviehumain.h"
 #include "types_planete/planet.h"
 #include "warp/voyage.h"
+#include "socio_eco/crime.h"
+#include "factions/assassinorum.h"
+#include "humain.h"
 
 int Metier::COMPTEUR = 0;
 
@@ -20,6 +23,7 @@ QString Metier::ARBITES = "Arbitrator"; // Adeptus Arbites
 QString Metier::NOBLE_CHEVALIER = "Noble Chevalier";
 QString Metier::INQUISITEUR = "Inquisiteur";
 QString Metier::SERVANT_ADEPTUS_ASTRONOMICA = "Servant Adeptus Astronomica";
+QString Metier::ADEPTUS_ASSASSINORUM = "Adeptus Assassinorum";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -56,24 +60,41 @@ Metier::Metier()
         m_Nom = Metier::ARBITES;
         m_Description = "Agent de l'Adeptus Arbites, l'agence chargée de faire respecter la loi impériale. Vous allez bientôt être affecté à votre planète de garnison.";
         m_Image = ":/images/metier/Arbitrator.jpg";
-        m_ConditionSelecteurProba = new Condition(0.01 + tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
     }break;
     case 5 : {
         m_Nom = Metier::INQUISITEUR;
         m_Description = "Agent de l'Inquisition, une organisation secrète chargée de traquer les ennemis de l'imperium.";
         m_Image = ":/images/metier/inquisiteur.jpg";
-        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
+        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
     }break;
     case 6 : {
         m_Nom = Metier::SERVANT_ADEPTUS_ASTRONOMICA;
         m_Description = "Vous êtes un servant dévoué héréditaire de l'Adeptus Astronomica. Comme vos parents avant vous et les parents de vos parents.";
         m_Image = ":/images/organisations/Adeptus_Astronomica_Icon_update.jpg";
-        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
+        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
+        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+    }break;
+    case 7 : {
+        m_Nom = Metier::ADEPTUS_ASSASSINORUM;
+        m_Description = "Vous êtes maintenant un fonctionnaire dévoué du très secret Officio Assassinorum.";
+        m_Image = ":/images/organisations/Officio_Assassinorum_symbol_2.png";
+        m_CallbackDisplay = [] {
+            QString temple = Assassinorum::DeterminerTempleAleatoire();
+            ExecHistoire::GetEffetActuel()->m_Texte = "Vous êtes maintenant un fonctionnaire dévoué du très secret"
+                     " Officio Assassinorum. Votre temple est le temple " + temple + ".";
+
+            Humain::GetHumainJoue()->SetValeurACaracId(Assassinorum::C_TEMPLE, temple);
+        };
+        m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
+        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
     }break;
     }
 
@@ -110,6 +131,7 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
                     metier->m_Image,
                     "affectation_metier_" + metier->m_Nom, GenVieHumain::EVT_SELECTEUR);
         effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
+        effetAffectation->m_CallbackDisplay = metier->m_CallbackDisplay;
         effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
 
         // modificateurs de carac :

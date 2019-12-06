@@ -130,7 +130,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Crime::GenererNoeuds(m_GenerateurEvt, noeuds);
     SecteChaos::GenererNoeuds(m_GenerateurEvt, noeuds);
     Psyker::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Arbites::GenererNoeudsArbites(m_GenerateurEvt, noeuds);
+    Arbites::GenererNoeuds(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");

@@ -1,4 +1,4 @@
-#include "psyker.h"#include "crime.h"
+#include "psyker.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/evt.h"
 #include "../destinLib/genevt.h"
@@ -29,6 +29,7 @@ Psyker::Psyker()
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
         m_ConditionSelecteurProba = new Condition(0.005 + tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes identifié par les autorités locales comme un dangereux psyker et êtes emprisonné.";
+        m_Image = ":/images/metier/Primaris_Psyker.jpg";
         m_Conditions.push_back(
                     new Condition(Psyker::C_PSYKER,
                                   Psyker::POTENTIEL_PSY,
@@ -90,8 +91,9 @@ QString Psyker::GetNiveauPsykerNaissance()
     double proba = Aleatoire::GetAl()->Entre0Et1();
 
     if ( proba < 0.0001) {
+        return Psyker::SANS_AME;
 
-    }else if ( proba < 0.05) {
+    } else if ( proba < 0.05) {
         return Psyker::POTENTIEL_PSY;
     }
 

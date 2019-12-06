@@ -138,6 +138,13 @@ QList<Condition*> Crime::AjouterConditionSiNonLibre(QList<Condition*> conditions
     return conditions;
 }
 
+QList<Condition*> Crime::AjouterConditionSiJamaisCriminel(QList<Condition*> conditions)
+{
+    conditions.push_back(new Condition(Crime::C_CRIMINEL,
+                        "", Comparateur::c_Egal));
+    return conditions;
+}
+
 Effet* Crime::GenererEffet(GenEvt* genEvt)
 {
     Effet* effet = nullptr;
@@ -150,6 +157,7 @@ Effet* Crime::GenererEffet(GenEvt* genEvt)
     effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
 
     effet->m_Conditions = m_Conditions;
+    effet->m_CallbackDisplay = m_CallbackDisplay;
 
     // modificateurs de carac :
     QMapIterator<QString, QString> it(m_ModificateursCaracs);
