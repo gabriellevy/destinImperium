@@ -29,7 +29,7 @@ public:
 
     Effet* GenererEffet(GenEvt* genEvt);
 
-    static void GenererNoeudsSecteChaos(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
     // caracs :
     static QString C_SECTE_CHAOS;

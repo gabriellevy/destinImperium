@@ -17,7 +17,7 @@ int Crime::COMPTEUR = 0;
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
-//valeurs de criminel : ("" signifie innocent). Note : êre jugé innocent même si n est coupable remet en ""
+//valeurs de criminel : ("" signifie innocent). Note : être jugé innocent même si n est coupable remet en ""
 QString Crime::DELINQUANT = "Délinquant";
 QString Crime::CRIMINEL = "Criminel";
 // valeurs de GenVieHumain::C_LIBERTE :

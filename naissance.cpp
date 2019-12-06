@@ -2,6 +2,7 @@
 #include "../destinLib/aleatoire.h"
 #include "types_planete/planet.h"
 #include "socio_eco/classesociale.h"
+#include "warp/psyker.h"
 
 Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
 {
@@ -26,7 +27,11 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     effetNarrationVide->m_ImgPath = planete->m_Image;
     effetNarrationVide->m_GoToEffetId = "finNaissance";
 
-    //2. détermination classe sociale :
+    // 2. détermination classe sociale :
     QString classeSocialeStr = ClasseSociale::GetClasseSocialeAleatoire(planete->m_TypePlanete);
     effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, classeSocialeStr);
+
+    // 3. détermination si psyker
+    QString nivPsyker = Psyker::GetNiveauPsykerNaissance();
+    effetNarrationVide->AjouterChangeurDeCarac(Psyker::C_PSYKER, nivPsyker);
 }

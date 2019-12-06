@@ -87,7 +87,7 @@ Effet* SecteChaos::GenererEffet(GenEvt* genEvt)
 }
 
 
-void SecteChaos::GenererNoeudsSecteChaos(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+void SecteChaos::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     SecteChaos* evt = new SecteChaos();
     while ( evt->m_Nom != "") {

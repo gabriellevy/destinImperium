@@ -12,7 +12,7 @@
 #include "metier.h"
 #include "pbsante.h"
 #include "identite.h"
-#include "voyage.h"
+#include "warp/voyage.h"
 #include "factions/administratum.h"
 #include "factions/inquisition.h"
 #include "factions/spacemarine.h"
@@ -21,7 +21,8 @@
 #include "socio_eco/crime.h"
 #include "actions/combat.h"
 #include "naissance.h"
-#include "chaos/sectechaos.h"
+#include "warp/sectechaos.h"
+#include "warp/psyker.h"
 #include "jourapresjour.h"
 #include "factions/arbites.h"
 
@@ -91,6 +92,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_TYPE_PLANETE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Psyker::C_PSYKER);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -126,7 +128,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
     ClasseSociale::GenererNoeuds(m_GenerateurEvt, noeuds);
     Crime::GenererNoeuds(m_GenerateurEvt, noeuds);
-    SecteChaos::GenererNoeudsSecteChaos(m_GenerateurEvt, noeuds);
+    SecteChaos::GenererNoeuds(m_GenerateurEvt, noeuds);
+    Psyker::GenererNoeuds(m_GenerateurEvt, noeuds);
     Arbites::GenererNoeudsArbites(m_GenerateurEvt, noeuds);
 
     Evt* evtFinVie = AjouterEvt("evtFinVie");

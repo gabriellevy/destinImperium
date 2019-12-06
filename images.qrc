@@ -38,5 +38,6 @@
         <file>images/planetes/Konor.png</file>
         <file>images/metier/juge.jpg</file>
         <file>images/metier/serviteur.jpg</file>
+        <file>images/metier/Primaris_Psyker.jpg</file>
     </qresource>
 </RCC>
