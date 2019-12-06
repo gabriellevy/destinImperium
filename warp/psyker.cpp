@@ -11,6 +11,7 @@
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "pbsante.h"
+#include "socio_eco/crime.h"
 
 int Psyker::COMPTEUR = 0;
 
@@ -25,14 +26,14 @@ Psyker::Psyker()
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (Psyker::COMPTEUR) {
     case 0 : {
-        m_Nom = Psyker::C_PSYKER;
-        m_ConditionSelecteurProba = new Condition(0 + tmp_Modificateur, p_Relative);
-        m_Description = "Vous vous mettez à voler à droite à gauche pour survivre";
-        /*m_Conditions.push_back(
-                    new Condition(Crime::C_CRIMINEL,
-                                  "",
+        m_Nom = Psyker::POTENTIEL_PSY + " élimination";
+        m_ConditionSelecteurProba = new Condition(0.005 + tmp_Modificateur, p_Relative);
+        m_Description = "Vous êtes identifié par les autorités locales comme un dangereux psyker et êtes emprisonné.";
+        m_Conditions.push_back(
+                    new Condition(Psyker::C_PSYKER,
+                                  Psyker::POTENTIEL_PSY,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;*/
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
     }

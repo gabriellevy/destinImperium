@@ -3,6 +3,8 @@
 #include "types_planete/planet.h"
 #include "socio_eco/classesociale.h"
 #include "warp/psyker.h"
+#include "genviehumain.h"
+#include "metier.h"
 
 Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
 {

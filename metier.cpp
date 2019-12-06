@@ -6,7 +6,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "types_planete/planet.h"
-#include "voyage.h"
+#include "warp/voyage.h"
 
 int Metier::COMPTEUR = 0;
 
@@ -19,6 +19,7 @@ QString Metier::ARBITES = "Arbitrator"; // Adeptus Arbites
 // mondes chevaliers :
 QString Metier::NOBLE_CHEVALIER = "Noble Chevalier";
 QString Metier::INQUISITEUR = "Inquisiteur";
+QString Metier::SERVANT_ADEPTUS_ASTRONOMICA = "Servant Adeptus Astronomica";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -66,6 +67,13 @@ Metier::Metier()
         m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+    }break;
+    case 6 : {
+        m_Nom = Metier::SERVANT_ADEPTUS_ASTRONOMICA;
+        m_Description = "Vous êtes un servant dévoué héréditaire de l'Adeptus Astronomica. Comme vos parents avant vous et les parents de vos parents.";
+        m_Image = ":/images/organisations/Adeptus_Astronomica_Icon_update.jpg";
+        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative); // 0.001
+        m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
     }break;
     }
 
@@ -123,4 +131,3 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
         metier = new Metier();
     }
 }
-

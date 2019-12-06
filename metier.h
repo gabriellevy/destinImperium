@@ -35,6 +35,7 @@ public:
     // mondes chevaliers :
     static QString NOBLE_CHEVALIER;
     static QString INQUISITEUR;
+    static QString SERVANT_ADEPTUS_ASTRONOMICA;
 };
 
 #endif // METIER_H

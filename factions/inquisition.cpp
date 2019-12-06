@@ -6,7 +6,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
-#include "voyage.h"
+#include "warp/voyage.h"
 #include "metier.h"
 #include "../destinLib/effet.h"
 

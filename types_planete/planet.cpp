@@ -26,12 +26,14 @@ QString Planete::PLANETE_CHEVALIER = "Monde chevalier";
 QString Planete::PLANETE_FEODAL = "Monde féodal";
 QString Planete::PLANETE_CIVILISE = "Monde civilisé";
 QString Planete::PLANETE_RUCHE = "Monde ruche";
+// valeurs de carac C_PLANETE
+QString Planete::TERRE = "Terre";
 
 Planete::Planete()
 {
     switch (Planete::COMPTEUR) {
     case 0 : {
-        m_Nom = "Terre";
+        m_Nom = Planete::TERRE;
         m_Population = 300;// sans doute plus...
         m_TypePlanete = Planete::PLANETE_RUCHE;
         m_Faction = new Factions(Imperium);

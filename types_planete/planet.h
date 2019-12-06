@@ -74,6 +74,8 @@ public:
     static QString PLANETE_FEODAL;
     static QString PLANETE_CIVILISE;
     static QString PLANETE_RUCHE;
+    // valeurs de carac C_PLANETE
+    static QString TERRE;
 };
 
 #endif // PLANET_H
