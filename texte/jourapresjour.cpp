@@ -46,7 +46,6 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
     }
     else if ( typePlanete == Planete::PLANETE_AGRICOLE)
     {
-
     }
     else if ( typePlanete == Planete::PLANETE_FORGE)
     {
@@ -96,6 +95,19 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
                     ":/images/socio_eco/UsineRuche.jpg"
                     ));
         }
+    } else if (metier == Metier::PAYSAN)
+    {
+        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de blé."));
+        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de riz."));
+        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de céréales."));
+        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de légumes."));
+        JourApresJour::PHRASES.push_back(Phrase("Vous avez essentiellement abattu des têtes de bétail ces jours-ci."));
+        JourApresJour::PHRASES.push_back(Phrase("Les Grox se tiennent à carreau et se nourrissent normalement."));
+        JourApresJour::PHRASES.push_back(Phrase("La ponte d'oeufs géants a été bonne."));
+        JourApresJour::PHRASES.push_back(Phrase("Vous avez récolté des champignons géants comestibles."));
+        JourApresJour::PHRASES.push_back(Phrase("Vous avez chargé des milliers de tonnes d'eau potable pour les mondes ruches."));
+        JourApresJour::PHRASES.push_back(Phrase("La pêche devrait suffire à remplir vos quotas du mois."));
+        JourApresJour::PHRASES.push_back(Phrase("La récolte d'algues nutritive est satisfaisante."));
     }
 
 }
