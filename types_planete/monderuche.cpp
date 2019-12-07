@@ -12,7 +12,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../socio_eco/classesociale.h"
 #include "../actions/combat.h"
-#include "pbsante.h"
+#include "humanite/pbsante.h"
 #include "../destinLib/gestionnairecarac.h"
 #include "humain.h"
 

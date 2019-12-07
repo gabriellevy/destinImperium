@@ -27,6 +27,8 @@ include(types_planete/types_planete.pri)
 include(socio_eco/socio_eco.pri)
 include(actions/actions.pri)
 include(warp/warp.pri)
+include(humanite/humanite.pri)
+include(texte/texte.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
@@ -59,17 +61,11 @@ SOURCES += \
     ../destinLib/dbmanager.cpp \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
-    citation.cpp \
     genviehumain.cpp \
     humain.cpp \
-    identite.cpp \
     imperium.cpp \
-    jourapresjour.cpp \
     main.cpp \
-    metier.cpp \
-    naissance.cpp \
-    pbsante.cpp \
-    tithegrade.cpp
+    metier.cpp
 
 HEADERS += \
     ../destinLib/execlancerde.h \
@@ -99,16 +95,10 @@ HEADERS += \
     ../destinLib/dbmanager.h \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
-    citation.h \
     genviehumain.h \
     humain.h \
-    identite.h \
     imperium.h \
-    jourapresjour.h \
-    metier.h \
-    naissance.h \
-    pbsante.h \
-    tithegrade.h
+    metier.h
 
 FORMS += \
     ../destinLib/univers.ui \

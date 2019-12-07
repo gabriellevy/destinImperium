@@ -11,7 +11,7 @@
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "classesociale.h"
-#include "pbsante.h"
+#include "humanite/pbsante.h"
 
 int Crime::COMPTEUR = 0;
 

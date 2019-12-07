@@ -10,7 +10,7 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
-#include "pbsante.h"
+#include "humanite/pbsante.h"
 #include "socio_eco/crime.h"
 
 int Psyker::COMPTEUR = 0;

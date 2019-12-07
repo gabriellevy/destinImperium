@@ -2,7 +2,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "actions/combat.h"
-#include "jourapresjour.h"
+#include "texte/jourapresjour.h"
 
 Humain* Humain::ME = nullptr;
 
