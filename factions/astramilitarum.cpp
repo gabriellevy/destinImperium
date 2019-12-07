@@ -28,7 +28,7 @@ AstraMilitarum::AstraMilitarum()
 {
     switch (AstraMilitarum::COMPTEUR) {
     case 0 : {
-        m_Nom = "youpi Ministorum";
+        m_Nom = AstraMilitarum::C_FONCTION_ASTRA_MILITARUM;
         m_ConditionSelecteurProba = new Condition(1.0, p_Relative);
         m_Description = "???";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";

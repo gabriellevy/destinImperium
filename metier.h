@@ -30,6 +30,7 @@ public:
     // valeurs de métiers :
     static QString PAYSAN;
     static QString GARDE_IMPERIAL;
+    static QString MARIN_IMPERIAL;
     static QString ADEPTE_ADMINISTRATUM;
     // Adeptus Arbites :
     static QString ARBITES; // Adeptus Arbites

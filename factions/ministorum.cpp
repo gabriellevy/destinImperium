@@ -20,7 +20,7 @@ Ministorum::Ministorum()
 {
     switch (Ministorum::COMPTEUR) {
     case 0 : {
-        m_Nom = "youpi Ministorum";
+        m_Nom = "";
         m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
         m_Description = "??? Ministorum";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";

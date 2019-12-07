@@ -44,5 +44,17 @@
         <file>images/organisations/Adeptus_Ministorum_Icon.jpg</file>
         <file>images/guerre/Cadian.jpg</file>
         <file>images/guerre/Legion-D-Acier.jpg</file>
+        <file>images/vaisseaux/Agripinaa.jpg</file>
+        <file>images/vaisseaux/Armageddon.jpg</file>
+        <file>images/vaisseaux/Bakka.jpg</file>
+        <file>images/vaisseaux/Cadia.jpg</file>
+        <file>images/vaisseaux/Calixis.jpg</file>
+        <file>images/vaisseaux/Corona.jpg</file>
+        <file>images/vaisseaux/Corribra.jpg</file>
+        <file>images/vaisseaux/Gothic.jpg</file>
+        <file>images/vaisseaux/Koronus.jpg</file>
+        <file>images/vaisseaux/Orpheus.jpg</file>
+        <file>images/vaisseaux/Scarus.jpg</file>
+        <file>images/vaisseaux/Solar.jpg</file>
     </qresource>
 </RCC>

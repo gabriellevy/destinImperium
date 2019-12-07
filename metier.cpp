@@ -9,6 +9,7 @@
 #include "warp/voyage.h"
 #include "socio_eco/crime.h"
 #include "factions/assassinorum.h"
+#include "factions/marineimperiale.h"
 #include "humain.h"
 
 int Metier::COMPTEUR = 0;
@@ -17,6 +18,7 @@ QString Metier::C_METIER = "Métier";
 
 QString Metier::PAYSAN = "Paysan";
 QString Metier::GARDE_IMPERIAL = "Garde Imperial";
+QString Metier::MARIN_IMPERIAL = "Marin Imperial";
 QString Metier::ADEPTE_ADMINISTRATUM = "Adepte Administratum";
 QString Metier::ARBITES = "Arbitrator"; // Adeptus Arbites
 // mondes chevaliers :
@@ -52,7 +54,7 @@ Metier::Metier()
     case 3 : {
         m_Nom = Metier::GARDE_IMPERIAL;
         m_Image = ":/images/metier/garde-imperial.jpg";
-        m_ConditionSelecteurProba = new Condition(0.02 + tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.02 - tmpFavoriseur, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
         Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.2);
         Planete::AjouterModifProbaSiMondeFeral(m_ConditionSelecteurProba, 0.2);
@@ -102,6 +104,12 @@ Metier::Metier()
         m_Description = "Vous êtes maintenant un fonctionnaire dévoué du très saint Adeptus Ministorum.";
         m_Image = ":/images/organisations/Adeptus_Ministorum_Icon.jpg";
         m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
+    }break;
+    case 9 : {
+        m_Nom = Metier::MARIN_IMPERIAL;
+        m_Description = "Vous vous engagez dans la marine impériale.";
+        m_Image = ":/images/organisations/FlotteImperialeDeGuerre.jpg";
+        m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
     }break;
     }
 
