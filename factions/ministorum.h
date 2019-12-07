@@ -29,8 +29,6 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
-    static QString DeterminerTempleAleatoire();
-
     // caracs
 };
 

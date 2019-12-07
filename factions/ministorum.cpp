@@ -22,7 +22,7 @@ Ministorum::Ministorum()
     case 0 : {
         m_Nom = "youpi Ministorum";
         m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
-        m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
+        m_Description = "??? Ministorum";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
         /*m_CallbackDisplay = [] {
 

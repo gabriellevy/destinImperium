@@ -52,7 +52,7 @@ Metier::Metier()
     case 3 : {
         m_Nom = Metier::GARDE_IMPERIAL;
         m_Image = ":/images/metier/garde-imperial.jpg";
-        m_ConditionSelecteurProba = new Condition(0.02 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.02 + tmpFavoriseur, p_Relative);
         // plus de chances de devenir garde sur les mondes férals et médiévaux
         Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.2);
         Planete::AjouterModifProbaSiMondeFeral(m_ConditionSelecteurProba, 0.2);
