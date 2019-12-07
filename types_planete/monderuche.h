@@ -28,7 +28,7 @@ public:
 
     Effet* GenererEffet(GenEvt* genEvt);
 
-    static void GenererNoeudsMondeRuche(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
 
 

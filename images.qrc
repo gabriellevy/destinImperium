@@ -56,5 +56,7 @@
         <file>images/vaisseaux/Orpheus.jpg</file>
         <file>images/vaisseaux/Scarus.jpg</file>
         <file>images/vaisseaux/Solar.jpg</file>
+        <file>images/socio_eco/UsineRuche.jpg</file>
+        <file>images/ruche/Ruche.png</file>
     </qresource>
 </RCC>

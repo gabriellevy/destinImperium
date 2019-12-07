@@ -34,9 +34,11 @@ public:
     static QList<Condition*> AjouterConditionSiNonLibre(QList<Condition*> conditions);
     static QList<Condition*> AjouterConditionSiJamaisCriminel(QList<Condition*> conditions);
 
+    static QString GenererNomGang();
 
     // caracs :
     static QString C_CRIMINEL;
+    static QString C_GANG;
     //valeurs de C_CRIMINEL : ("" signifie innocent). Note : êre jugé innocent même si n est coupable remet en ""
     static QString DELINQUANT;
     static QString CRIMINEL;

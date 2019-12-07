@@ -27,6 +27,7 @@ MondeRuche::MondeRuche()
         m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
         m_ConditionSelecteurProba = new Condition(0.01, p_Relative); // 0.01
         m_Description = "Vous prenez ne train des cendres pour rendre une visite dans une ruche voisine.";
+        m_Image = ":/images/ruche/Ruche.png";
         m_CallbackDisplay = [] {
             // selon les proba il peut se passer plus de choses durant ce voyage :
             if ( Aleatoire::GetAl()->EntierInferieurA(10) == 0) {
@@ -36,7 +37,7 @@ MondeRuche::MondeRuche()
                 int resCombat = Combat::JouerCombat(3);
                 if ( resCombat < -2) {
                     effetActuel->m_Texte += "\nVous êtes tué dans l'attaque";
-                    Humain::GetHumainJoue()->SetValeurACaracId(PbSante::SANTE, PbSante::MORT);
+                    Humain::GetHumainJoue()->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
                 } else if ( resCombat == -1) {
                     effetActuel->m_Texte += "\nVous êtes capturé par les infâmes mutants !";
                     Humain::GetHumainJoue()->SetValeurACaracId(GenVieHumain::C_LIBERTE, "Capturé par les mutants rebelles des sables.");
@@ -48,6 +49,15 @@ MondeRuche::MondeRuche()
             }
 
         };
+
+    }break;
+    case 1 : {
+        m_Nom = "réaffectation planète";
+        // pas pour les très riches :
+        m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different)};
+        m_ConditionSelecteurProba = new Condition(0.0001, p_Relative);
+        m_Description = "Vous avez été choisis pour aller peupler une distante planète récemment découverte. Vous avez un mois pour préparer vos affaires.";
+        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
 
     }break;
     }
@@ -99,7 +109,7 @@ Effet* MondeRuche::GenererEffet(GenEvt* genEvt)
 }
 
 
-void MondeRuche::GenererNoeudsMondeRuche(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+void MondeRuche::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     MondeRuche* evt = new MondeRuche();
     while ( evt->m_Nom != "") {

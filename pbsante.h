@@ -34,7 +34,8 @@ public:
 
     // caracs liées :
     static QString PESTE;
-    static QString SANTE;
+    static QString C_SANTE;
+    // valeurs de C_SANTE
     static QString MORT;
 
     static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);

@@ -43,15 +43,9 @@ GenVieHumain* GenVieHumain::GetGenVieHumain()
 Hist* GenVieHumain::GenererHistoire()
 {
     GenererDataUnivers();
-
     GenererPersos();
-
-    //GenererFonctionsCallback();
-
     GenererEvtsAccueil();
-
     GenererCaracs();
-
     GenererPrincipalSelectionneurDEffet();
 
     m_HistoireGeneree->m_ModeDeroulement = ModeDeroulement::Automatique;
@@ -102,6 +96,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(AstraMilitarum::C_REGIMENT_ASTRA_MILITARUM);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MarineImperiale::C_FLOTTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MarineImperiale::C_FONCTION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -110,7 +105,7 @@ void GenVieHumain::GenererEvtsAccueil()
     Effet* effet1 = AjouterEffetNarration("", "");
     Naissance::GenererEffetNaissance(effet1);
 
-    AjouterEffetGoToEvt("PrincipalSelecteur", "finNaissance");
+    AjouterEffetGoToEvt(GenVieHumain::EVT_SELECTEUR_ID, "finNaissance");
 }
 
 void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
@@ -134,7 +129,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
     Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
     Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
-    MondeRuche::GenererNoeudsMondeRuche(m_GenerateurEvt, noeuds);
+    MondeRuche::GenererNoeuds(m_GenerateurEvt, noeuds);
     ClasseSociale::GenererNoeuds(m_GenerateurEvt, noeuds);
     Crime::GenererNoeuds(m_GenerateurEvt, noeuds);
     SecteChaos::GenererNoeuds(m_GenerateurEvt, noeuds);
@@ -144,21 +139,12 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Ministorum::GenererNoeuds(m_GenerateurEvt, noeuds);
     AstraMilitarum::GenererNoeuds(m_GenerateurEvt, noeuds);
     MarineImperiale::GenererNoeuds(m_GenerateurEvt, noeuds);
-
-    Evt* evtFinVie = AjouterEvt("evtFinVie");
-    Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...");
-    effetFinVie->m_ChangeurModeDeroulement = ModeDeroulement::Fini;
-    Condition* condMort = new Condition(0, p_Pure);
-    PbSante::AjouterModifProbaSiMort(condMort, 1.0);
-    noeuds.push_back( new NoeudProbable(
-                           evtFinVie,
-                           condMort));
 }
 
 Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)
 {
     // ne se déclenche que si le personnage est encore en vie :
-    effet->AjouterCondition(PbSante::SANTE, Comparateur::c_Different, PbSante::MORT);
+    effet->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Different, PbSante::MORT);
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
@@ -172,14 +158,27 @@ Evt* GenVieHumain::EVT_SELECTEUR = nullptr;
 void GenVieHumain::GenererPrincipalSelectionneurDEffet()
 {
     GenVieHumain::EVT_SELECTEUR = this->AjouterEvt(GenVieHumain::EVT_SELECTEUR_ID, "Principal sélecteur");
-    /*Effet* effetDebut = */AjouterEffetGoToEffet(GenVieHumain::EFFET_SELECTEUR_ID);
+    /*Effet* effetDebut = */AjouterEffetGoToEffet(GenVieHumain::EFFET_SELECTEUR_ID, "effet_go_to_" + GenVieHumain::EFFET_SELECTEUR_ID);
     // ce vector doit contenir tous les noeuds de base déclenchant des effets et événements à partir du cours normal de la vie
     // en dehors de lui les sélections de noeuds ne sont qu'à la création du personnage et quand un événement particulier est en cours d'exécution
     // à sa fin on doit avoir un goto qui ramène à cet événement/effet "sélecteur"
     QVector<NoeudProbable*> tousLesNoeudsDeBase;
     GenererEvtsDeBase(tousLesNoeudsDeBase);
 
+    /*Effet* effetDebutBoucle = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID);
+    effetDebutBoucle->m_Texte = "blablablabla";*/
+
+    Effet* effetTestMort = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID);
+    effetTestMort->m_GoToEffetId = "effetFinVie";
+    effetTestMort->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Egal, PbSante::MORT);
+
+    /*Effet* effetDebutBoucle2 = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID + "hbjk");
+    effetDebutBoucle2->m_Texte = "blablablabla2";*/
+
     Effet* effetSelecteur = m_GenerateurEvt->AjouterEffetSelecteurDEvt(
-                tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID, "", GenVieHumain::EVT_SELECTEUR);
+                tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID + "_selecteur", "", GenVieHumain::EVT_SELECTEUR);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
+
+    Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...", "", "effetFinVie", GenVieHumain::EVT_SELECTEUR);
+    effetFinVie->m_ChangeurModeDeroulement = ModeDeroulement::Fini;
 }

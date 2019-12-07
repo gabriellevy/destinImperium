@@ -9,7 +9,7 @@
 
 int PbSante::COMPTEUR = 0;
 QString PbSante::PESTE = "Peste";
-QString PbSante::SANTE = "Sante";
+QString PbSante::C_SANTE = "Sante";
 QString PbSante::MORT = "Mort";
 
 PbSante::PbSante()
@@ -33,7 +33,7 @@ PbSante::PbSante()
         m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});
         PbSante::AjouterModifProbaSiMort(m_ConditionSelecteurProba, -1.0);
-        m_ModificateursCaracs[PbSante::SANTE] = PbSante::MORT;
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
 
     }break;
     case 1 : {
@@ -84,6 +84,6 @@ void PbSante::GenererNoeudsSelectionPbSante(GenEvt* genEvt, QVector<NoeudProbabl
 Condition* PbSante::AjouterModifProbaSiMort(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(PbSante::SANTE, PbSante::MORT, Comparateur::c_Egal)});
+        {new Condition(PbSante::C_SANTE, PbSante::MORT, Comparateur::c_Egal)});
     return cond;
 }

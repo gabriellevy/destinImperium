@@ -17,6 +17,7 @@ int Crime::COMPTEUR = 0;
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
+QString Crime::C_GANG = "Gang";
 //valeurs de criminel : ("" signifie innocent). Note : être jugé innocent même si n est coupable remet en ""
 QString Crime::DELINQUANT = "Délinquant";
 QString Crime::CRIMINEL = "Criminel";
@@ -42,10 +43,11 @@ Crime::Crime()
                                   Comparateur::c_Egal));
         m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
+        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
 
     }break;
     case 1 : {
-        m_Nom = Crime::CRIMINEL;
+        m_Nom = Crime::CRIMINEL + "_1";
         m_ConditionSelecteurProba = new Condition(0.0001 + tmp_Modificateur, p_Relative);
         m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
@@ -53,7 +55,7 @@ Crime::Crime()
 
     }break;
     case 2 : {
-        m_Nom = Crime::CRIMINEL;
+        m_Nom = Crime::CRIMINEL + "_2";
         m_ConditionSelecteurProba = new Condition(0.0001 + tmp_Modificateur, p_Relative);
         m_Description = "Votre soif de richesse fait de vous un criminel de plus en plus violent.";
         m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
@@ -93,7 +95,7 @@ Crime::Crime()
                     new Condition(GenVieHumain::C_LIBERTE,
                                   Crime::CAPTURE_ARBITES,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[PbSante::SANTE] = PbSante::MORT;
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
 
     }break;
     case 6 : {
@@ -104,7 +106,7 @@ Crime::Crime()
                     new Condition(GenVieHumain::C_LIBERTE,
                                   Crime::CAPTURE_POLICE,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[PbSante::SANTE] = PbSante::MORT;
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
 
     }break;
     case 7 : {
@@ -116,12 +118,51 @@ Crime::Crime()
                     new Condition(GenVieHumain::C_LIBERTE,
                                   Crime::CAPTURE_POLICE,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[PbSante::SANTE] = PbSante::MORT;
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+
+    }break;
+    case 8 : {
+        m_Nom = Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
+        m_ConditionSelecteurProba = new Condition(0.002 + tmp_Modificateur, p_Relative);
+        m_Description = "Vous prenez l'habitude de vous battre et de voler.";
+        m_Conditions.push_back(
+                    new Condition(Crime::C_CRIMINEL,
+                                  "",
+                                  Comparateur::c_Egal));
+        m_Conditions.push_back(
+                    new Condition(ClasseSociale::C_CLASSE_SOCIALE,
+                                  ClasseSociale::PAUVRES,
+                                  Comparateur::c_Egal));
+        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
+        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
+
+    }break;
+    case 9 : {
+        m_Nom = "joint_" + Crime::C_GANG;
+        m_ConditionSelecteurProba = new Condition(0.002 + tmp_Modificateur, p_Relative);
+        QString gang = Crime::GenererNomGang();
+        m_Description = "Vous rejoignez le gang " + gang + ".";
+        m_Conditions.push_back(
+                    new Condition(Crime::C_CRIMINEL,
+                                  Crime::DELINQUANT,
+                                  Comparateur::c_Egal));
+        m_Conditions.push_back(
+                    new Condition(Crime::C_GANG,
+                                  "",
+                                  Comparateur::c_Egal));
+        m_ModificateursCaracs[Crime::C_GANG] = gang;
+        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
 
     }break;
     }
 
     Crime::COMPTEUR++;
+}
+
+QString Crime::GenererNomGang()
+{
+    return "Hell's Angels";
 }
 
 QList<Condition*> Crime::AjouterConditionSiLibre(QList<Condition*> conditions)

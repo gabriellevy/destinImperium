@@ -50,7 +50,15 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
     }
     else if ( typePlanete == Planete::PLANETE_FORGE)
     {
+        if ( classeSociale == ClasseSociale::MISERABLES ) {
+            JourApresJour::PHRASES.push_back(
+                        Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
 
+        } else if ( classeSociale == ClasseSociale::PAUVRES) {
+            JourApresJour::PHRASES.push_back(
+                        Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
+
+        }
     }
     else if ( typePlanete == Planete::PLANETE_FERAL)
     {
@@ -79,7 +87,17 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
                 "Rien de particulier. Juste quelques coups de matraque énergétique pour calmer les délinquants des environs.",
                 ":/images/metier/Female_Arbiter_2.jpg"
                 ));
+    } else if ( metier == Metier::OUVRIER)
+    {
+        if ( typePlanete == Planete::PLANETE_RUCHE) {
+            JourApresJour::PHRASES.push_back(
+                Phrase(
+                    "Encore une dure journée de travail à l'usine de la ruche.",
+                    ":/images/socio_eco/UsineRuche.jpg"
+                    ));
+        }
     }
+
 }
 
 void JourApresJour::RafraichirPhrases()

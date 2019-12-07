@@ -61,6 +61,8 @@ public:
     static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba);
 
     // caracs associées :
     static QString C_PLANETE;

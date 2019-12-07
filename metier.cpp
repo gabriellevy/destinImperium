@@ -17,6 +17,7 @@ int Metier::COMPTEUR = 0;
 QString Metier::C_METIER = "Métier";
 
 QString Metier::PAYSAN = "Paysan";
+QString Metier::OUVRIER = "Ouvrier";
 QString Metier::GARDE_IMPERIAL = "Garde Imperial";
 QString Metier::MARIN_IMPERIAL = "Marin Imperial";
 QString Metier::ADEPTE_ADMINISTRATUM = "Adepte Administratum";
@@ -110,6 +111,13 @@ Metier::Metier()
         m_Description = "Vous vous engagez dans la marine impériale.";
         m_Image = ":/images/organisations/FlotteImperialeDeGuerre.jpg";
         m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
+    }break;
+    case 10 : {
+        m_Nom = Metier::OUVRIER;
+        m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
+        // plus de chances d'êtres ouvrier sur les mondes ruches et forges
+        Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 0.8);
+        Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.5);
     }break;
     }
 

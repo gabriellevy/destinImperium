@@ -282,6 +282,20 @@ Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poids
     return cond;
 }
 
+Condition* Planete::AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal)});
+    return cond;
+}
+
+Condition* Planete::AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal)});
+    return cond;
+}
+
 Condition* Planete::AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
