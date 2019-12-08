@@ -34,6 +34,7 @@ public:
     static QList<Condition*> AjouterConditionSiNonLibre(QList<Condition*> conditions);
     static QList<Condition*> AjouterConditionSiJamaisCriminel(QList<Condition*> conditions);
 
+    static QList<QString> NOMS_GANGS;
     static QString GenererNomGang();
 
     // caracs :

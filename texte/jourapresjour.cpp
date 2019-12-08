@@ -4,11 +4,11 @@
 #include "types_planete/planet.h"
 #include "socio_eco/classesociale.h"
 #include "metier.h"
+#include "genviehumain.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
-JourApresJour::JourApresJour()
-{}
+JourApresJour::JourApresJour(){}
 
 void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString metier)
 {
@@ -118,9 +118,11 @@ void JourApresJour::RafraichirPhrases()
     QString typePlanete = Humain::GetHumainJoue()->GetValeurCarac(Planete::C_TYPE_PLANETE);
     QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
     QString metier = Humain::GetHumainJoue()->GetValeurCarac(Metier::C_METIER);
+    QString liberte = Humain::GetHumainJoue()->GetValeurCarac(GenVieHumain::C_LIBERTE);
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
-    RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
+    if ( liberte != "" ) // pas d'actions de métier si on est enfermé
+        RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
 
     if ( PHRASES.length() == 0 )
         JourApresJour::PHRASES.push_back(
