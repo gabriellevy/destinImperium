@@ -30,7 +30,8 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
-
+    static QList<QString> RUCHES; // noms de ruche stockés en vrac peu importe leur monde originel
+    static QString GetNomRucheAleatoire();
 
 };
 

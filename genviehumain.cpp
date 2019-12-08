@@ -42,6 +42,7 @@ GenVieHumain* GenVieHumain::GetGenVieHumain()
 
 Hist* GenVieHumain::GenererHistoire()
 {
+    GenHistoire::GenererHistoire();
     GenererDataUnivers();
     GenererPersos();
     GenererEvtsAccueil();
@@ -180,5 +181,5 @@ void GenVieHumain::GenererPrincipalSelectionneurDEffet()
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
 
     Effet* effetFinVie = AjouterEffetNarration("Cette vie est terminée...", "", "effetFinVie", GenVieHumain::EVT_SELECTEUR);
-    effetFinVie->m_ChangeurModeDeroulement = ModeDeroulement::Fini;
+    effetFinVie->m_ChangeurPhaseDeroulement = PhaseDeroulement::epd_Fini;
 }

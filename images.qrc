@@ -58,5 +58,6 @@
         <file>images/vaisseaux/Solar.jpg</file>
         <file>images/socio_eco/UsineRuche.jpg</file>
         <file>images/ruche/Ruche.png</file>
+        <file>images/planetes/Armageddon.jpg</file>
     </qresource>
 </RCC>

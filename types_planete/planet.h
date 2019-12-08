@@ -14,6 +14,7 @@ class Condition;
 enum Xenos { // présence xénos sur la planète
     ex_MondeTombe, // contient des nécrons en sous-sol
     ex_SuivivantsTyranides, // pas une flotte complète : des survivants d'une invasion ratée
+    ex_OrksSauvagesSurvivants, // orks survivants d'une guerre passée qui survivent en relativement petits nombres sur la planète
     ex_Ogryn // monde de recrutement Ogryn
 };
 

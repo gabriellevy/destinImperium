@@ -9,7 +9,8 @@ QString TitheGrade::GetIntitule()
     QString texte = "";
     switch (m_TitheGrade) {
     case AptusNon : texte += "Aptus Non"; break;
-    case Exactis_Tertius : texte += "Exactis Tertius"; break;
+    case Exactis : texte += "Exactis"; break;
+    case Solutio : texte += "Solutio"; break;
 
     }
 

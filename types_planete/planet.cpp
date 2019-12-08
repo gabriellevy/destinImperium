@@ -86,7 +86,7 @@ Planete::Planete()
         m_Faction = new Factions(AdeptusMechanicus);
         m_Image = ":/images/planetes/Agripinaa.jpg";
         m_Climat = Froid;
-        m_TitheGrade = new TitheGrade(Exactis_Tertius, I_Extremis);
+        m_TitheGrade = new TitheGrade(Exactis, I_Extremis);
     }break;
     case 7 : {
         m_Nom = "Alaric Prime";
@@ -227,6 +227,16 @@ Planete::Planete()
         m_Faction = new Factions(Ultramarines);
         m_Image = ":/images/planetes/Konor.png";
         m_Climat = Climat::Tempere;
+    }break;
+    case 25 : {
+        m_Nom = "Armageddon";
+        m_Population = 100;
+        m_TypePlanete = Planete::PLANETE_RUCHE;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/Armageddon.jpg";
+        m_Climat = Climat::AtmosphereQuasiMorte;
+        m_TitheGrade = new TitheGrade(Exactis, IV_Extremis);
+        this->m_Xenos = {Xenos::ex_OrksSauvagesSurvivants};
     }break;
     }
 

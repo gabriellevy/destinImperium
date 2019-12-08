@@ -5,7 +5,8 @@
 
 enum e_TitheGrade {
     AptusNon,
-    Exactis_Tertius
+    Solutio,
+    Exactis
 };
 
 enum e_ProductionGrade { //  niveau de production indutrielle du monde
