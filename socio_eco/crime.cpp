@@ -143,6 +143,7 @@ Crime::Crime()
         m_ConditionSelecteurProba = new Condition(0.002 + tmp_Modificateur, p_Relative);
         QString gang = Crime::GenererNomGang();
         m_Description = "Vous rejoignez le gang " + gang + ".";
+        m_Image = ":/images/crime/gang.PNG";
         m_Conditions.push_back(
                     new Condition(Crime::C_CRIMINEL,
                                   Crime::DELINQUANT,

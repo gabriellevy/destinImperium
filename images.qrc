@@ -59,5 +59,7 @@
         <file>images/socio_eco/UsineRuche.jpg</file>
         <file>images/ruche/Ruche.png</file>
         <file>images/planetes/Armageddon.jpg</file>
+        <file>images/crime/gang.PNG</file>
+        <file>images/ruche/usine.PNG</file>
     </qresource>
 </RCC>

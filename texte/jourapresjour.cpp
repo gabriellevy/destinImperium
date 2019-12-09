@@ -17,10 +17,27 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
         if ( classeSociale == ClasseSociale::MISERABLES ) {
             JourApresJour::PHRASES.push_back(
                         Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
+            JourApresJour::PHRASES.push_back(
+                        Phrase("La fatigue et la déprime est telle après cette journée épuisante que vous vous laissez aller à boire de l'immonde Torboyo. "
+                               "Eespérons que vous ne serez pas aveugle demain.",
+                               ""));
 
-        } else if ( classeSociale == ClasseSociale::PAUVRES) {
+        } else
+        {
+            // les non misérables :
+            JourApresJour::PHRASES.push_back(
+                        Phrase("Plaisir rare dans votre vie harassante : vous partagez une bonne bouteille de Whiskar avec vos amis. "
+                               "Le serpent mort qui s'y trouve prouve que c'est de la qualité",
+                               ""));
+
+        }
+        if ( classeSociale == ClasseSociale::PAUVRES) {
             JourApresJour::PHRASES.push_back(
                         Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
+            JourApresJour::PHRASES.push_back(
+                        Phrase("La fatigue et la déprime est telle après cette journée épuisante que vous vous laissez aller à boire de l'immonde Torboyo. "
+                               "Eespérons que vous ne serez pas aveugle demain.",
+                               ""));
 
         } else if ( classeSociale == ClasseSociale::CLASSE_MOYENNE ) {
             JourApresJour::PHRASES.push_back(
@@ -93,6 +110,11 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
                 Phrase(
                     "Encore une dure journée de travail à l'usine de la ruche.",
                     ":/images/socio_eco/UsineRuche.jpg"
+                    ));
+            JourApresJour::PHRASES.push_back(
+                Phrase(
+                    "Vous allez au travail dans le labyrinthe chaothique de la ruche.",
+                    ":/images/ruche/usine.PNG"
                     ));
         }
     } else if (metier == Metier::PAYSAN)
