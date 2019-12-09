@@ -61,5 +61,12 @@
         <file>images/planetes/Armageddon.jpg</file>
         <file>images/crime/gang.PNG</file>
         <file>images/ruche/usine.PNG</file>
+        <file>images/crime/Cawdor.PNG</file>
+        <file>images/crime/Delaque.PNG</file>
+        <file>images/crime/Esher.PNG</file>
+        <file>images/crime/Goliath.PNG</file>
+        <file>images/crime/Goliath2.PNG</file>
+        <file>images/crime/Orlock.PNG</file>
+        <file>images/crime/VanSaar.PNG</file>
     </qresource>
 </RCC>

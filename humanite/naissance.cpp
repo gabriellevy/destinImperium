@@ -2,6 +2,7 @@
 #include "../destinLib/aleatoire.h"
 #include "types_planete/planet.h"
 #include "socio_eco/classesociale.h"
+#include "socio_eco/maison.h"
 #include "warp/psyker.h"
 #include "genviehumain.h"
 #include "metier.h"
@@ -33,7 +34,14 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     QString classeSocialeStr = ClasseSociale::GetClasseSocialeAleatoire(planete->m_TypePlanete);
     effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, classeSocialeStr);
 
-    // 3. détermination si psyker
+    // 3. détermination de maison éventuelle
+    QString maisonStr = Maison::AssignerMaison(classeSocialeStr, planete->m_TypePlanete);
+    effetNarrationVide->AjouterChangeurDeCarac(Maison::C_MAISON, maisonStr);
+    if ( maisonStr != "") {
+        effetNarrationVide->m_Texte += "\nVous êtes de la maison " + maisonStr + ".";
+    }
+
+    // 4. détermination si psyker
     QString nivPsyker = Psyker::GetNiveauPsykerNaissance();
     effetNarrationVide->AjouterChangeurDeCarac(Psyker::C_PSYKER, nivPsyker);
 }

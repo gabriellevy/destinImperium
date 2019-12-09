@@ -19,6 +19,7 @@
 #include "types_planete/monderuche.h"
 #include "socio_eco/classesociale.h"
 #include "socio_eco/crime.h"
+#include "socio_eco/maison.h"
 #include "actions/combat.h"
 #include "humanite/naissance.h"
 #include "warp/sectechaos.h"
@@ -80,6 +81,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Maison::C_MAISON);
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::REAFFECTATION_PLANETE);
