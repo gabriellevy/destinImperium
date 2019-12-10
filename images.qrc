@@ -68,5 +68,7 @@
         <file>images/crime/Goliath2.PNG</file>
         <file>images/crime/Orlock.PNG</file>
         <file>images/crime/VanSaar.PNG</file>
+        <file>images/crime/Delaque2.PNG</file>
+        <file>images/crime/VanSaar2.PNG</file>
     </qresource>
 </RCC>

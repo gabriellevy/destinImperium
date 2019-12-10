@@ -61,7 +61,8 @@ public:
     QString m_Nom = "";
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant la division
-    Condition* m_Condition = nullptr; // proba de se voir affecter à cette diviion
+    Condition* m_ConditionSelecteurProba = nullptr; // proba de se voir affecter à cette diviion
+    QList<Condition*> m_Conditions;
     QMap<QString, QString> m_ModificateursCaracs;
 
     static void GenererOrdos();

@@ -48,6 +48,7 @@ QString Maison::GetImageAleatoire()
     QList<QString> imgs = {};
     if (m_Id == Maison::VANSAAR) {
         imgs.push_back(":/images/crime/VanSaar.PNG");
+        imgs.push_back(":/images/crime/VanSaar2.PNG");
     }
     else if (m_Id == Maison::ORLOCK) {
         imgs.push_back(":/images/crime/Orlock.PNG");
@@ -61,6 +62,7 @@ QString Maison::GetImageAleatoire()
     }
     else if (m_Id == Maison::DELAQUE) {
         imgs.push_back(":/images/crime/Delaque.PNG");
+        imgs.push_back(":/images/crime/Delaque2.PNG");
     }
     else if (m_Id == Maison::CAWDOR) {
         imgs.push_back(":/images/crime/Cawdor.PNG");

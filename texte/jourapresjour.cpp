@@ -143,7 +143,7 @@ void JourApresJour::RafraichirPhrases()
     QString liberte = Humain::GetHumainJoue()->GetValeurCarac(GenVieHumain::C_LIBERTE);
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
-    if ( liberte != "" ) // pas d'actions de métier si on est enfermé
+    if ( liberte == "" ) // pas d'actions de métier si on est enfermé
         RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
 
     if ( PHRASES.length() == 0 )
