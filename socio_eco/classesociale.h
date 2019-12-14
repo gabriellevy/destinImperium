@@ -30,17 +30,18 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
+    static Condition* AjouterConditionSiCetteClasseSociale(QString classeSociale);
 
     static QString GetClasseSocialeAleatoire(QString typeMonde);
 
     // caracs :
     static QString C_CLASSE_SOCIALE;
     // valeurs de caracs :
-    static QString MISERABLES;
-    static QString PAUVRES;
-    static QString CLASSE_MOYENNE;
-    static QString INFLUENTS;
-    static QString MAITRES;
+    static QString MISERABLES; // dépourvus de logement et de métier, mendiants...
+    static QString PAUVRES; // travaillerrs non qualifiés
+    static QString CLASSE_MOYENNE;// travailleurs qualifiés
+    static QString INFLUENTS; // commerçants, financiers, trafiqueurs d'inflence
+    static QString MAITRES; // gouverneurs impériaux, maîtres de la ruche, planète etc..
 
 };
 

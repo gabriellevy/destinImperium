@@ -70,5 +70,13 @@
         <file>images/crime/VanSaar.PNG</file>
         <file>images/crime/Delaque2.PNG</file>
         <file>images/crime/VanSaar2.PNG</file>
+        <file>images/organisations/Cawdor.PNG</file>
+        <file>images/organisations/Delaque.PNG</file>
+        <file>images/organisations/Esher.PNG</file>
+        <file>images/organisations/Goliath.PNG</file>
+        <file>images/organisations/Orlock.PNG</file>
+        <file>images/organisations/VanSaar.PNG</file>
+        <file>images/crime/Goliath3.PNG</file>
+        <file>images/crime/Goliath4.PNG</file>
     </qresource>
 </RCC>

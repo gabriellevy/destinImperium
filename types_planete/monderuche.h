@@ -32,6 +32,16 @@ public:
 
     static QList<QString> RUCHES; // noms de ruche stockés en vrac peu importe leur monde originel
     static QString GetNomRucheAleatoire();
+    static void AssignerCaracsDeNaissance(QString classeSociale, Effet* effetAffectation);
+
+    // caracs
+    static QString C_ZONE_DHABITATION;
+    // valeurs de C_ZONE_DHABITATION
+    static QString POINTE;
+    static QString RUCHE;
+    static QString SOUSMONDE;
+    static QString BASFONDS;
+    static QString DESERT_DE_CENDRES;
 
 };
 

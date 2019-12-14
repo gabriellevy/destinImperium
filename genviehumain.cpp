@@ -20,6 +20,7 @@
 #include "socio_eco/classesociale.h"
 #include "socio_eco/crime.h"
 #include "socio_eco/maison.h"
+#include "socio_eco/economieevt.h"
 #include "actions/combat.h"
 #include "humanite/naissance.h"
 #include "warp/sectechaos.h"
@@ -100,6 +101,8 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MarineImperiale::C_FLOTTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MarineImperiale::C_FONCTION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MondeRuche::C_ZONE_DHABITATION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -142,6 +145,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     Ministorum::GenererNoeuds(m_GenerateurEvt, noeuds);
     AstraMilitarum::GenererNoeuds(m_GenerateurEvt, noeuds);
     MarineImperiale::GenererNoeuds(m_GenerateurEvt, noeuds);
+    EconomieEvt::GenererNoeuds(m_GenerateurEvt, noeuds);
 }
 
 Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)

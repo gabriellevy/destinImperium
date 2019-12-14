@@ -18,6 +18,15 @@
 
 int MondeRuche::COMPTEUR = 0;
 
+// caracs
+QString MondeRuche::C_ZONE_DHABITATION = "Zone habitation";
+// valeurs de C_ZONE_DHABITATION
+QString MondeRuche::POINTE = "Pointe";
+QString MondeRuche::RUCHE = "Cité Ruche";
+QString MondeRuche::SOUSMONDE = "Sous-monde";
+QString MondeRuche::BASFONDS = "Bas-fonds";
+QString MondeRuche::DESERT_DE_CENDRES = "Déserts de cendres";
+
 MondeRuche::MondeRuche()
 {
     switch (MondeRuche::COMPTEUR) {
@@ -132,10 +141,48 @@ void MondeRuche::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 
 
 QList<QString> MondeRuche::RUCHES = {
-    "Tempestora", "Death Mire", "Volcanus", "Infernus", "Hades", "Acheron", "Helsreach", "Tartarus" // ruches armageddon
+    "Tempestora", "Death Mire", "Volcanus", "Infernus", "Hades", "Acheron", "Helsreach", "Tartarus", // ruches armageddon
+    "Primus" // nécromunda
 };
+
 QString MondeRuche::GetNomRucheAleatoire()
 {
     return MondeRuche::RUCHES[Aleatoire::GetAl()->EntierInferieurA(MondeRuche::RUCHES.length())];
+}
+
+void MondeRuche::AssignerCaracsDeNaissance(QString classeSociale, Effet* effetAffectation)
+{
+    // zone d'habitation dans le monde ruche :
+    QString zoneHab = MondeRuche::RUCHE;
+    double val = Aleatoire::GetAl()->Entre0Et1();
+    if ( classeSociale == ClasseSociale::MAITRES)
+    {
+        zoneHab = MondeRuche::POINTE;
+    } else if ( classeSociale == ClasseSociale::INFLUENTS)
+    {
+        zoneHab = MondeRuche::POINTE;
+    }
+    if ( classeSociale == ClasseSociale::CLASSE_MOYENNE)
+    {
+        zoneHab = MondeRuche::RUCHE;
+    } else if (classeSociale == ClasseSociale::PAUVRES ) {
+        if ( val < 0.92)
+            zoneHab = MondeRuche::RUCHE;
+        else if ( val < 0.98)
+            zoneHab = MondeRuche::SOUSMONDE;
+        else if ( val < 1)
+            zoneHab = MondeRuche::DESERT_DE_CENDRES;
+
+    } else if (classeSociale == ClasseSociale::MISERABLES ) {
+        if ( val < 0.5)
+            zoneHab = MondeRuche::RUCHE;
+        else if ( val < 0.9)
+            zoneHab = MondeRuche::SOUSMONDE;
+        else if ( val < 0.95)
+            zoneHab = MondeRuche::BASFONDS;
+        else if ( val < 1)
+            zoneHab = MondeRuche::DESERT_DE_CENDRES;
+    }
+    effetAffectation->AjouterChangeurDeCarac(MondeRuche::C_ZONE_DHABITATION, zoneHab);
 }
 

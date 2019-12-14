@@ -31,7 +31,16 @@ public:
     static QString DELAQUE;
     static QString CAWDOR;
 
-    // maisons influentes et maîtres
+    // maisons influentes
+    static QString GREIM;
+    static QString ULANTI;
+    static QString TY;
+    static QString RAN_LO;
+    static QString CATALLUS;
+    static QString KOIRON;
+
+    // maisons maîtres
+    static QString HELMAWR;
 
 };
 

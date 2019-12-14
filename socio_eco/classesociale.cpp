@@ -10,6 +10,7 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
+#include "economieevt.h"
 
 int ClasseSociale::COMPTEUR = 0;
 
@@ -17,11 +18,64 @@ ClasseSociale::ClasseSociale()
 {
     switch (ClasseSociale::COMPTEUR) {
     case 0 : {
-        m_Nom = "test temp";
-        m_ConditionSelecteurProba = new Condition(0, p_Pure);
-        m_Description = "blablabla ClasseSociale";
-        //Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
-        //m_ModificateursCaracs[Inquisition::RANG] = Administratum::GRADE_SCRIBE;
+        m_Nom = "promotion classe sociale des pauvres vers moyenne";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Description = "Vous avez amassé une telle fortune que vous parvenez à vous hisser dans la classe moyenne.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+
+    }break;
+    case 1 : {
+        m_Nom = "promotion classe sociale des moyens vers influents";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Description = "Vous avez amassé une telle fortune et noué tellement de contacts avec les classes dirigeants "
+                "que vous parvenez à vous hisser parmi les maisons nobles de la ruche.";
+        m_Image = ":/images/socio_eco/FemmeNobleApparat.jpg";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::INFLUENTS;
+        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
+
+    }break;
+    case 2 : {
+        m_Nom = "descente classe sociale des pauvres vers misérables";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez dans la misèr la plus totale.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
+        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+
+    }break;
+    case 3 : {
+        m_Nom = "descente classe sociale des moyens vers pauvres";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez licencié et projeté parmi les classes pauvres.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
+        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
+
+    }break;
+    case 4 : {
+        m_Nom = "descente classe sociale des influents vers moyens";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez expulsé de votre maison noble et déshonoré. "
+                "Vous allez devoir maintenant survivre parmi les classes inférieures.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::INFLUENTS));
 
     }break;
     }
@@ -30,6 +84,11 @@ ClasseSociale::ClasseSociale()
 
 }
 
+Condition* ClasseSociale::AjouterConditionSiCetteClasseSociale(QString classeSociale)
+{
+    Condition* cond = new Condition(ClasseSociale::C_CLASSE_SOCIALE, classeSociale, Comparateur::c_Egal);
+    return cond;
+}
 
 Effet* ClasseSociale::GenererEffet(GenEvt* genEvt)
 {

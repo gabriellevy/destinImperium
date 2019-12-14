@@ -6,6 +6,7 @@
 #include "warp/psyker.h"
 #include "genviehumain.h"
 #include "metier.h"
+#include "types_planete/monderuche.h"
 
 Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
 {
@@ -33,6 +34,11 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     // 2. détermination classe sociale :
     QString classeSocialeStr = ClasseSociale::GetClasseSocialeAleatoire(planete->m_TypePlanete);
     effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, classeSocialeStr);
+
+    // 2b. détermination de la zone d'habitation (sur sa planète)
+    if ( planete->m_TypePlanete == Planete::PLANETE_RUCHE) {
+        MondeRuche::AssignerCaracsDeNaissance(classeSocialeStr, effetNarrationVide);
+    }
 
     // 3. détermination de maison éventuelle
     QString maisonStr = Maison::AssignerMaison(classeSocialeStr, planete->m_TypePlanete);
