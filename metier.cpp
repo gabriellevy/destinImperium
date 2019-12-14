@@ -17,6 +17,7 @@ int Metier::COMPTEUR = 0;
 QString Metier::C_METIER = "Métier";
 
 QString Metier::PAYSAN = "Paysan";
+QString Metier::CLASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
 QString Metier::OUVRIER = "Ouvrier";
 QString Metier::GARDE_IMPERIAL = "Garde Imperial";
 QString Metier::MARIN_IMPERIAL = "Marin Imperial";
@@ -51,6 +52,7 @@ Metier::Metier()
         m_Nom = Metier::NOBLE_CHEVALIER;
         m_ConditionSelecteurProba = new Condition(0 - tmpFavoriseur, p_Relative);
         Planete::AjouterModifProbaSiMondeChevalier(m_ConditionSelecteurProba, 0.01);
+        m_Conditions.push_back( Planete::AjouterConditionSiMondeChevalier() );
     }break;
     case 3 : {
         m_Nom = Metier::GARDE_IMPERIAL;
@@ -85,6 +87,7 @@ Metier::Metier()
         m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
         m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 7 : {
         m_Nom = Metier::ADEPTUS_ASSASSINORUM;
@@ -99,6 +102,7 @@ Metier::Metier()
         };
         m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
         m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 8 : {
         m_Nom = Metier::ADEPTUS_MINISTORUM;
@@ -111,6 +115,7 @@ Metier::Metier()
         m_Description = "Vous vous engagez dans la marine impériale.";
         m_Image = ":/images/organisations/FlotteImperialeDeGuerre.jpg";
         m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
+        m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;
@@ -118,6 +123,13 @@ Metier::Metier()
         // plus de chances d'êtres ouvrier sur les mondes ruches et forges
         Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 0.8);
         Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.5);
+        m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
+    }break;
+    case 11 : {
+        m_Nom = Metier::CLASSEUR_CUEILLEUR_NOMADE;
+        m_ConditionSelecteurProba = new Condition(0.5 - tmpFavoriseur, p_Relative);
+        // uniquement sur les mondes férals
+        m_Conditions.push_back( Planete::AjouterConditionSiMondeFeral() );
     }break;
     }
 
@@ -155,6 +167,7 @@ void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*
                     "affectation_metier_" + metier->m_Nom, GenVieHumain::EVT_SELECTEUR);
         effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
         effetAffectation->m_CallbackDisplay = metier->m_CallbackDisplay;
+        effetAffectation->m_Conditions = metier->m_Conditions;
         effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
 
         // modificateurs de carac :

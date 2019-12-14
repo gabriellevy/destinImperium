@@ -10,6 +10,7 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
+#include "../destinLib/execeffet.h"
 #include "humain.h"
 
 int SecteChaos::COMPTEUR = 0;
@@ -31,29 +32,10 @@ SecteChaos::SecteChaos()
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
         //Inquisition::AjouterModifProbaSiInquisiteur(m_Condition, 0.1);
         m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
-        // techniquement on pourra faire une fonction spéciale qui affecte un dieu selon le perso en question mais en attendant :
         m_CallbackDisplay = [this] {
-            int val = Aleatoire::GetAl()->EntierInferieurA(4);
-            QString dieu = "";
-            switch(val) {
-            case 0 :
-                dieu = SecteChaos::KHORNE;
-                m_Image = ":/images/organisations/Khorne.png";
-                break;
-            case 1 :
-                dieu = SecteChaos::TZEENTCH;
-                m_Image = ":/images/organisations/Tzeentch.png";
-                break;
-            case 2 :
-                dieu = SecteChaos::SLAANESH;
-                m_Image = ":/images/organisations/Slaanesh.png";
-                break;
-            case 3 :
-                dieu = SecteChaos::NURGLE;
-                m_Image = ":/images/organisations/Nurgle.png";
-                break;
-            }
-            Humain::GetHumainJoue()->SetValeurACaracId(SecteChaos::C_DIEU, dieu);
+            QPair<QString, QString> dieu = SecteChaos::DeterminerDieuVenere();
+            ExecHistoire::GetExecEffetActuel()->ChargerImage(dieu.second);
+            Humain::GetHumainJoue()->SetValeurACaracId(SecteChaos::C_DIEU, dieu.first);
         };
 
     }break;
@@ -62,6 +44,37 @@ SecteChaos::SecteChaos()
     SecteChaos::COMPTEUR++;
 
 
+}
+
+
+QPair<QString, QString> SecteChaos::DeterminerDieuVenere()
+{
+    QPair<QString, QString> dieu;
+    Humain* humain = Humain::GetHumainJoue();
+    double probaKhorne = 0.25;
+    if ( humain->GetValeurCarac(Planete::C_TYPE_PLANETE) == Planete::PLANETE_FERAL )
+        probaKhorne += 0.8;
+    double probaTzeentch = 0.25;
+    double probaSlaanesh = 0.25;
+    double probaNurgle = 0.25;
+
+    double probaTotale = probaKhorne + probaTzeentch + probaSlaanesh + probaNurgle;
+    double val = Aleatoire::GetAl()->Entre0Et1() * probaTotale;
+    if ( val < probaKhorne) {
+        dieu.first = SecteChaos::KHORNE;
+        dieu.second = ":/images/organisations/Khorne.png";
+    } if ( val < probaKhorne + probaTzeentch) {
+        dieu.first = SecteChaos::TZEENTCH;
+        dieu.second = ":/images/organisations/Tzeentch.png";
+    } if ( val < probaKhorne + probaTzeentch + probaSlaanesh) {
+        dieu.first = SecteChaos::SLAANESH;
+        dieu.second = ":/images/organisations/Slaanesh.png";
+    } if ( val < probaKhorne + probaTzeentch + probaSlaanesh + probaNurgle) {
+        dieu.first = SecteChaos::NURGLE;
+        dieu.second = ":/images/organisations/Nurgle.png";
+    }
+
+    return dieu;
 }
 
 

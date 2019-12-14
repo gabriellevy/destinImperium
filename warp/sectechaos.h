@@ -31,6 +31,8 @@ public:
 
     static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
+    static QPair<QString, QString>  DeterminerDieuVenere();
+
     // caracs :
     static QString C_SECTE_CHAOS;
     static QString C_DIEU; // dieu vénéré

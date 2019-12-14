@@ -29,6 +29,7 @@ public:
     static QString C_METIER;
     // valeurs de métiers :
     static QString PAYSAN;
+    static QString CLASSEUR_CUEILLEUR_NOMADE;
     static QString OUVRIER;
     static QString GARDE_IMPERIAL;
     static QString MARIN_IMPERIAL;

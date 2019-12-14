@@ -64,6 +64,18 @@ public:
     static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba);
+    static Condition* AjouterConditionSiMondeFeral();
+    static Condition* AjouterConditionSiMondeAgricole();
+    static Condition* AjouterConditionSiMondeFeodal();
+    static Condition* AjouterConditionSiMondeChevalier();
+    static Condition* AjouterConditionSiMondeForge();
+    static Condition* AjouterConditionSiMondeRuche();
+    static Condition* AjouterConditionSiPasMondeFeral();
+    static Condition* AjouterConditionSiPasMondeAgricole();
+    static Condition* AjouterConditionSiPasMondeFeodal();
+    static Condition* AjouterConditionSiPasMondeChevalier();
+    static Condition* AjouterConditionSiPasMondeForge();
+    static Condition* AjouterConditionSiPasMondeRuche();
 
     // caracs associées :
     static QString C_PLANETE;

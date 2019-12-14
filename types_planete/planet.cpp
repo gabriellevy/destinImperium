@@ -108,6 +108,7 @@ Planete::Planete()
         m_Nom = "Anark Zeta";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
+        m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
         m_Faction = new Factions(Imperium);
         m_Climat = Froid;
         m_Xenos = {ex_Ogryn};
@@ -137,6 +138,7 @@ Planete::Planete()
         m_Nom = "Birmingham";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
+        m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
         m_Faction = new Factions(Imperium);
         m_Climat = Tempere;
     }break;
@@ -144,6 +146,7 @@ Planete::Planete()
         m_Nom = "Kaledon";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
+        m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
         m_Faction = new Factions(Imperium);
         m_Climat = Tempere;
     }break;
@@ -151,6 +154,7 @@ Planete::Planete()
         m_Nom = "Attila";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
+        m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
         m_Faction = new Factions(Imperium);
         m_Climat = Tempere;
     }break;
@@ -158,6 +162,7 @@ Planete::Planete()
         m_Nom = "Dreer";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
+        m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
         m_Faction = new Factions(Imperium);
         m_Climat = Tempere;
     }break;
@@ -319,6 +324,42 @@ Condition* Planete::AjouterModifProbaSiMondeChevalier(Condition* cond, double po
         {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal)});
     return cond;
 }
+
+Condition* Planete::AjouterConditionSiMondeFeral()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiMondeAgricole()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiMondeFeodal()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiMondeChevalier()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiMondeForge()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiMondeRuche()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal);}
+
+Condition* Planete::AjouterConditionSiPasMondeFeral()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Different);}
+
+Condition* Planete::AjouterConditionSiPasMondeAgricole()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Different);}
+
+Condition* Planete::AjouterConditionSiPasMondeFeodal()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Different);}
+
+Condition* Planete::AjouterConditionSiPasMondeChevalier()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Different);}
+
+Condition* Planete::AjouterConditionSiPasMondeForge()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Different);}
+
+Condition* Planete::AjouterConditionSiPasMondeRuche()
+{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Different);}
 
 QVector<NoeudProbable*> Planete::ConstruireToutePlanetes()
 {
