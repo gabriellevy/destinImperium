@@ -31,6 +31,7 @@
 #include "factions/ministorum.h"
 #include "factions/astramilitarum.h"
 #include "factions/marineimperiale.h"
+#include "age.h"
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
@@ -77,7 +78,8 @@ void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Planete::C_PLANETE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(GenVieHumain::AGE, 180); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
+                new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
