@@ -5,12 +5,13 @@
 #include "socio_eco/classesociale.h"
 #include "metier.h"
 #include "genviehumain.h"
+#include "factions/inquisition.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
 JourApresJour::JourApresJour(){}
 
-void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString metier)
+void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString /*metier*/)
 {
 
     if ( typePlanete == Planete::PLANETE_RUCHE) {
@@ -90,7 +91,7 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
     }
 }
 
-void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier)
+void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*classeSociale*/, QString metier)
 {
     if ( metier == Metier::ARBITES) {
         JourApresJour::PHRASES.push_back(
@@ -130,6 +131,16 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
         JourApresJour::PHRASES.push_back(Phrase("Vous avez chargé des milliers de tonnes d'eau potable pour les mondes ruches."));
         JourApresJour::PHRASES.push_back(Phrase("La pêche devrait suffire à remplir vos quotas du mois."));
         JourApresJour::PHRASES.push_back(Phrase("La récolte d'algues nutritive est satisfaisante."));
+    } else if ( metier == Metier::INQUISITEUR)
+    {
+        QString ordo = Humain::GetHumainJoue()->GetValeurCarac(Inquisition::C_ORDO);
+        if ( ordo == Inquisition::ORDO_XENOS) {
+            JourApresJour::PHRASES.push_back(
+                  Phrase(
+                     "Vous avez capturé un recelleur d'artefacts xenos prohibés puis l'avez exécuté.",
+                     ":/images/inquisition/élimination_contrebandier.jpg"));
+        }
+
     }
 
 }

@@ -50,4 +50,6 @@ Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
     // 4. détermination si psyker
     QString nivPsyker = Psyker::GetNiveauPsykerNaissance();
     effetNarrationVide->AjouterChangeurDeCarac(Psyker::C_PSYKER, nivPsyker);
+
+    return effetNarrationVide;
 }

@@ -16,6 +16,9 @@ public:
 
     static QMap<QString, Metier*> METIERS;
 
+    static Condition* AjouterConditionSiAMetier();
+    static Condition* AjouterConditionSiAPasMetier();
+
     static QString C_METIER;
     // valeurs de métiers :
     static QString PAYSAN;

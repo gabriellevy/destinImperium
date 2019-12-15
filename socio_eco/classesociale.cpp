@@ -21,7 +21,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Vous avez amassé une telle fortune que vous parvenez à vous hisser dans la classe moyenne.";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
-        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
 
@@ -34,7 +34,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Image = ":/images/socio_eco/FemmeNobleApparat.jpg";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::INFLUENTS;
-        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
 
@@ -46,7 +46,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[Metier::C_METIER] = "";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
-        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
 
@@ -58,7 +58,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[Metier::C_METIER] = "";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
-        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
 
@@ -71,7 +71,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[Metier::C_METIER] = "";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
-        m_Conditions.push_back(EconomieEvt::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::INFLUENTS));
 

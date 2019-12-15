@@ -137,10 +137,17 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     }
 
+    if ( m_Description == "" ) {
+        m_Description = "Vous êtes maintenant " +
+                        m_Nom;
+        m_Description += ".";
+    }
+    m_ModificateursCaracs[C_METIER] = m_Nom;
+
+    m_Conditions.push_back(Metier::AjouterConditionSiAPasMetier());
+
     if ( m_ConditionSelecteurProba!= nullptr) {
-        // si on a un métier les chances qu'on s'en voit affecter un sont très faibles :
-        m_ConditionSelecteurProba->AjouterModifProba(-1.0, {new Condition(Metier::C_METIER, "", Comparateur::c_Different)});
-        // et si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
+        // si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
         // mais affectation de métier plus rapide sur monde féodal :
         m_ConditionSelecteurProba->AjouterModifProba(-2.3, {new Condition(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
         m_ConditionSelecteurProba->AjouterModifProba(-2.3,
@@ -150,4 +157,17 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 
     METIERS[m_Nom] = this;
+}
+
+
+Condition* Metier::AjouterConditionSiAMetier()
+{
+    Condition* cond = new Condition(Metier::C_METIER, "", Comparateur::c_Different);
+    return cond;
+}
+
+Condition* Metier::AjouterConditionSiAPasMetier()
+{
+    Condition* cond = new Condition(Metier::C_METIER, "", Comparateur::c_Egal);
+    return cond;
 }

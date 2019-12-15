@@ -15,8 +15,6 @@ class EconomieEvt : public GenerateurNoeudsProbables
 public:
     EconomieEvt(int indexEvt);
 
-    static Condition* AjouterConditionSiAMetier();
-
     // caracs :
     // valeur int approximant la réputation et le niveau de salaire du personnage dans son métier (relativement à sa classe sociale).
     // une très forte valeur pourrait lui voir arriver des promotions voire changer de classe sociale

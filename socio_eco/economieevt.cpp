@@ -21,7 +21,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.03, p_Relative);
         m_Description = "Votre excellent travail est apprécié de tous.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
-        m_Conditions.push_back(AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
 
     }break;
     case 1 : {
@@ -29,15 +29,8 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
-        m_Conditions.push_back(AjouterConditionSiAMetier());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
 
     }break;
     }
-}
-
-
-Condition* EconomieEvt::AjouterConditionSiAMetier()
-{
-    Condition* cond = new Condition(Metier::C_METIER, "", Comparateur::c_Different);
-    return cond;
 }
