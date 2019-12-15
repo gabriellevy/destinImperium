@@ -161,6 +161,19 @@ QString ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
         else {
             return ClasseSociale::MAITRES;
         }
+    } else if ( typeMonde == Planete::PLANETE_MINIERE) {
+        // essentiellement des escalves et des travaiolleurs pénaux
+        if ( proba < 0.9)
+            return ClasseSociale::MISERABLES;
+        else if (proba < 0.98)
+            return ClasseSociale::PAUVRES;
+        else if ( proba < 0.99)
+            return ClasseSociale::CLASSE_MOYENNE;
+        else if ( proba < 0.9999)
+            return ClasseSociale::INFLUENTS;
+        else {
+            return ClasseSociale::MAITRES;
+        }
     } else {
         if ( proba < 0.01)
             return ClasseSociale::MISERABLES;

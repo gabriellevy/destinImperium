@@ -156,6 +156,19 @@ Crime::Crime()
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
 
     }break;
+    case 10 : {
+        m_Nom = "Envoyé en travail forcé en monde minier";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_Description = "Vous êtes jugé et condamné à travailler dans la colonie pénale d'un monde minier.";
+        m_Conditions.push_back(
+                    new Condition(GenVieHumain::C_LIBERTE,
+                                  Crime::CAPTURE_ARBITES,
+                                  Comparateur::c_Egal));
+        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Planete::GetPlaneteAleatoire(false, false, Planete::PLANETE_MINIERE)->m_Nom;
+        m_ModificateursCaracs[Metier::C_METIER] = Metier::MINEUR;
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
+
+    }break;
     }
 
     Crime::COMPTEUR++;

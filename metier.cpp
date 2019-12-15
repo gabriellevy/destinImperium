@@ -17,7 +17,8 @@ int Metier::COMPTEUR = 0;
 QString Metier::C_METIER = "Métier";
 
 QString Metier::PAYSAN = "Paysan";
-QString Metier::CLASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
+QString Metier::MINEUR = "Mineur";
+QString Metier::CHASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
 QString Metier::OUVRIER = "Ouvrier";
 QString Metier::GARDE_IMPERIAL = "Garde Imperial";
 QString Metier::MARIN_IMPERIAL = "Marin Imperial";
@@ -126,10 +127,15 @@ Metier::Metier()
         m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 11 : {
-        m_Nom = Metier::CLASSEUR_CUEILLEUR_NOMADE;
+        m_Nom = Metier::CHASSEUR_CUEILLEUR_NOMADE;
         m_ConditionSelecteurProba = new Condition(0.5 - tmpFavoriseur, p_Relative);
         // uniquement sur les mondes férals
         m_Conditions.push_back( Planete::AjouterConditionSiMondeFeral() );
+    }break;
+    case 12 : {
+        m_Nom = Metier::MINEUR;
+        m_ConditionSelecteurProba = new Condition(0.005 - tmpFavoriseur, p_Relative);
+        Planete::AjouterModifProbaSiMondeMinier(m_ConditionSelecteurProba, 3.0);
     }break;
     }
 

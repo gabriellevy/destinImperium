@@ -54,13 +54,14 @@ public:
     QVector<PresenceNotableImperium> m_PresenceNotableImperium;
 
     static QMap<QString, Planete*> PLANETES;
-    static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false);
+    static Planete* GetPlaneteAleatoire(bool usePopulationCommePoids = true, bool ignorePlaneteActuelle = false, QString typePlanete = "");
     static QVector<NoeudProbable*> ConstruireToutePlanetes();
 
     // modificateurs de condition standards :
     static Condition* AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiMondeMinier(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba);
@@ -89,6 +90,7 @@ public:
     static QString PLANETE_FEODAL;
     static QString PLANETE_CIVILISE;
     static QString PLANETE_RUCHE;
+    static QString PLANETE_MINIERE;
     // valeurs de carac C_PLANETE
     static QString TERRE;
 };

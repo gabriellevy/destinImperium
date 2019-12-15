@@ -26,6 +26,7 @@ QString Planete::PLANETE_CHEVALIER = "Monde chevalier";
 QString Planete::PLANETE_FEODAL = "Monde féodal";
 QString Planete::PLANETE_CIVILISE = "Monde civilisé";
 QString Planete::PLANETE_RUCHE = "Monde ruche";
+QString Planete::PLANETE_MINIERE = "Monde minier";
 // valeurs de carac C_PLANETE
 QString Planete::TERRE = "Terre";
 
@@ -243,12 +244,21 @@ Planete::Planete()
         m_TitheGrade = new TitheGrade(Exactis, IV_Extremis);
         this->m_Xenos = {Xenos::ex_OrksSauvagesSurvivants};
     }break;
+    case 26 : {
+        m_Nom = "Betalis III";
+        m_Population = 1;
+        m_TypePlanete = Planete::PLANETE_MINIERE;
+        m_Faction = new Factions(Imperium);
+        m_Image = ":/images/planetes/BetalisIII.jpg";
+        m_Climat = Climat::Froid;
+        this->m_Xenos = {Xenos::ex_OrksSauvagesSurvivants};
+    }break;
     }
 
     Planete::COMPTEUR++;
 }
 
-Planete* Planete::GetPlaneteAleatoire(bool usePopulationCommePoids, bool ignorePlaneteActuelle)
+Planete* Planete::GetPlaneteAleatoire(bool usePopulationCommePoids, bool ignorePlaneteActuelle, QString typePlanete)
 {
     Planete* planeteCourante = nullptr;
     if ( ignorePlaneteActuelle)
@@ -257,7 +267,8 @@ Planete* Planete::GetPlaneteAleatoire(bool usePopulationCommePoids, bool ignoreP
     double poidsTotal = 0;
     QMap<QString, Planete*>::iterator i = Planete::PLANETES.begin();
     while (i != Planete::PLANETES.end()) {
-        if ( planeteCourante != i.value()) {
+        if ( planeteCourante != i.value() &&
+             (typePlanete == "" || typePlanete == i.value()->m_TypePlanete)) {
             if ( usePopulationCommePoids)
                 poidsTotal += i.value()->m_Population;
             else poidsTotal += 1;
@@ -301,6 +312,13 @@ Condition* Planete::AjouterModifProbaSiMondeForge(Condition* cond, double poidsP
 {
     cond->AjouterModifProba(poidsProba,
         {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal)});
+    return cond;
+}
+
+Condition* Planete::AjouterModifProbaSiMondeMinier(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_MINIERE, Comparateur::c_Egal)});
     return cond;
 }
 
