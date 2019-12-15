@@ -21,7 +21,8 @@ QString Crime::DELINQUANT = "Délinquant";
 QString Crime::CRIMINEL = "Criminel";
 // valeurs de GenVieHumain::C_LIBERTE :
 QString Crime::CAPTURE_POLICE = "Capturé par la police";
-QString Crime::CAPTURE_ARBITES = "Capturé par l'a police'Adeptus Arbites";
+QString Crime::CAPTURE_ARBITES = "Capturé par l'Adeptus Arbites";
+QString Crime::CAPTURE_ORDO_HERETICUS = "Capturé par l'Ordo Hereticus";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {

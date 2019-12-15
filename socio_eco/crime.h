@@ -31,6 +31,7 @@ public:
     static QString CRIMINEL;
     // valeurs de GenVieHumain::C_LIBERTE :
     static QString CAPTURE_POLICE;
+    static QString CAPTURE_ORDO_HERETICUS;
     static QString CAPTURE_ARBITES;
 };
 

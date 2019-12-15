@@ -26,16 +26,28 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 0 : {
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
         m_ConditionSelecteurProba = new Condition(0.005 + tmp_Modificateur, p_Relative);
-        m_Description = "Vous êtes identifié par les autorités locales comme un dangereux psyker et êtes emprisonné.";
-        m_Image = ":/images/metier/Primaris_Psyker.jpg";
+        m_Description = "Vous êtes identifié par l'Ordo Hereticus comme un dangereux psyker et êtes emprisonné.";
+        m_Image = ":/images/inquisition/Inquisitor_Ordo_Hereticus.png";
         m_Conditions.push_back(
                     new Condition(Psyker::C_PSYKER,
                                   Psyker::POTENTIEL_PSY,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_ORDO_HERETICUS;
 
     }break;
     }
+}
+
+
+Condition* Psyker::AjouterConditionSiPsyker()
+{
+    return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Different);
+}
+
+
+Condition* Psyker::AjouterConditionSiNonPsyker()
+{
+    return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Egal);
 }
 
 QString Psyker::GetNiveauPsykerNaissance()

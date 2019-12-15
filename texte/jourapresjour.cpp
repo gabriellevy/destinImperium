@@ -140,9 +140,7 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*
                      "Vous avez capturé un recelleur d'artefacts xenos prohibés puis l'avez exécuté.",
                      ":/images/inquisition/élimination_contrebandier.jpg"));
         }
-
     }
-
 }
 
 void JourApresJour::RafraichirPhrases()

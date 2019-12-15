@@ -9,6 +9,9 @@
 #include "warp/voyage.h"
 #include "metier.h"
 #include "../destinLib/effet.h"
+#include "socio_eco/crime.h"
+#include "humanite/pbsante.h"
+#include "warp/psyker.h"
 
 QString Inquisition::C_ORDO = "Ordo";
 
@@ -29,6 +32,7 @@ QString Inquisition::ID_AFFECTATION_ORDO = "Affectation Ordo";
 
 Inquisition::Inquisition(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    double tmp_Modificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = Inquisition::ID_AFFECTATION_ORDO;
@@ -39,6 +43,34 @@ Inquisition::Inquisition(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             new Condition(Metier::C_METIER, Metier::INQUISITEUR, Comparateur::c_Egal),
             new Condition(Inquisition::C_ORDO, "", Comparateur::c_Egal)
         };
+
+    }break;
+    case 1 : {
+        m_Nom = "Exécuté par l'ordo Hereticus";
+        m_ConditionSelecteurProba = new Condition(0.05 + tmp_Modificateur, p_Relative);
+        m_Description = "L'Ordo Hereticus vous juge trop instable pour être gardé en vie mais vous accordent néanmoins un grand honneur. "
+                "Vous êtes convoyé par les vaisseaux noirs de l'inquisition jusqu'au Trône d'Or de l'Empereur et lui êtes sacrifié pour nourrir son esprit en perpétuelle souffrance.";
+        m_Image = ":/images/inquisition/OrdoHereticus_Inquisitor.jpg";
+        m_Conditions.push_back(
+                    new Condition(GenVieHumain::C_LIBERTE,
+                                  Crime::CAPTURE_ORDO_HERETICUS,
+                                  Comparateur::c_Egal));
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+
+    }break;
+    case 2 : {
+        m_Nom = "Renvoyé à la justice par l'ordo Hereticus";
+        m_ConditionSelecteurProba = new Condition(0.05 + tmp_Modificateur, p_Relative);
+        m_Description = "L'Ordo Hereticus vous juge non coupable d'hérésie mais pas innocent pour autant. "
+                "Vous êtes déféré à la justice planétaire traditionelle";
+        m_Image = ":/images/inquisition/OrdoHereticus_Inquisitor.jpg";
+        m_Conditions.push_back(
+                    new Condition(GenVieHumain::C_LIBERTE,
+                                  Crime::CAPTURE_ORDO_HERETICUS,
+                                  Comparateur::c_Egal));
+        m_Conditions.push_back(Psyker::AjouterConditionSiNonPsyker());
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
     }

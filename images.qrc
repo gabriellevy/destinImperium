@@ -80,5 +80,7 @@
         <file>images/crime/Goliath4.PNG</file>
         <file>images/planetes/BetalisIII.jpg</file>
         <file>images/inquisition/élimination_contrebandier.jpg</file>
+        <file>images/inquisition/Inquisitor_Ordo_Hereticus.png</file>
+        <file>images/inquisition/OrdoHereticus_Inquisitor.jpg</file>
     </qresource>
 </RCC>

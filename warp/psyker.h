@@ -17,6 +17,9 @@ public:
 
     static QString GetNiveauPsykerNaissance();
 
+    static Condition* AjouterConditionSiPsyker();
+    static Condition* AjouterConditionSiNonPsyker();
+
     // caracs :
     static QString C_PSYKER;
     //valeurs de C_PSYKER
