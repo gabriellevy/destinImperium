@@ -139,6 +139,12 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*
                   Phrase(
                      "Vous avez capturé un recelleur d'artefacts xenos prohibés puis l'avez exécuté.",
                      ":/images/inquisition/élimination_contrebandier.jpg"));
+        } else if ( ordo == Inquisition::ORDO_SICARIUS) {
+            JourApresJour::PHRASES.push_back(
+                  Phrase(
+                     "Vous autorisez une mission d'assassinat sur un immonde traître en la faisant passer pour un ordre des hauts seigneurs de Terra."
+                     "\nBien qu'en théorie illégal cela est toléré quand le temps presse autant.",
+                     ":/images/metier/inquisiteur_ordo_sicarius.jpg"));
         }
     }
 }

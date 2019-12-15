@@ -50,7 +50,7 @@ Inquisition::Inquisition(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.05 + tmp_Modificateur, p_Relative);
         m_Description = "L'Ordo Hereticus vous juge trop instable pour être gardé en vie mais vous accordent néanmoins un grand honneur. "
                 "Vous êtes convoyé par les vaisseaux noirs de l'inquisition jusqu'au Trône d'Or de l'Empereur et lui êtes sacrifié pour nourrir son esprit en perpétuelle souffrance.";
-        m_Image = ":/images/inquisition/OrdoHereticus_Inquisitor.jpg";
+        m_Image = ":/images/warp/god-emperor.jpg";
         m_Conditions.push_back(
                     new Condition(GenVieHumain::C_LIBERTE,
                                   Crime::CAPTURE_ORDO_HERETICUS,
