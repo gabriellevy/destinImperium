@@ -16,8 +16,6 @@
 #include "../destinLib/gestionnairecarac.h"
 #include "humain.h"
 
-int MondeRuche::COMPTEUR = 0;
-
 // caracs
 QString MondeRuche::C_ZONE_DHABITATION = "Zone habitation";
 // valeurs de C_ZONE_DHABITATION
@@ -27,9 +25,9 @@ QString MondeRuche::SOUSMONDE = "Sous-monde";
 QString MondeRuche::BASFONDS = "Bas-fonds";
 QString MondeRuche::DESERT_DE_CENDRES = "Déserts de cendres";
 
-MondeRuche::MondeRuche()
+MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (MondeRuche::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = "voyage_train_des_cendres";
         // pas pour les très pauvres :
@@ -78,67 +76,7 @@ MondeRuche::MondeRuche()
                 new Condition(Planete::C_TYPE_PLANETE,
                               Planete::PLANETE_RUCHE,
                               Comparateur::c_Egal));
-
-    MondeRuche::COMPTEUR++;
-
 }
-
-
-Effet* MondeRuche::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = nullptr;
-    /*if ( m_Nom == Inquisition::ID_AFFECTATION_ORDO) {
-        // sélectionneur d'effets
-        QVector<NoeudProbable*> noeudsAffectation;
-        Ordo::GenererNoeudsAffectation(genEvt, noeudsAffectation);
-        effet = genEvt->AjouterEffetSelecteurDEvt(
-                    noeudsAffectation,
-                    Inquisition::ID_AFFECTATION_ORDO,
-                    "",
-                    GenVieHumain::EVT_SELECTEUR);
-    } else*/ {
-        // système de création d'effets de base :
-        effet = genEvt->AjouterEffetNarration(
-            m_Description,
-            m_Image,
-            "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effet->m_CallbackDisplay = m_CallbackDisplay;
-        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-    }
-
-    effet->m_Conditions = m_Conditions;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-
-void MondeRuche::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    MondeRuche* evt = new MondeRuche();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new MondeRuche();
-    }
-}
-
 
 QList<QString> MondeRuche::RUCHES = {
     "Tempestora", "Death Mire", "Volcanus", "Infernus", "Hades", "Acheron", "Helsreach", "Tartarus", // ruches armageddon

@@ -1,4 +1,5 @@
 #include "genviehumain.h"
+#include "generateurnoeudsprobables.h"
 #include "imperium.h"
 #include "../destinLib/gestionnairecarac.h"
 #include "../destinLib/aleatoire.h"
@@ -132,22 +133,43 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
                 new Condition(1, p_Relative));
     noeuds.push_back(noeudEvtRien);
 
-    Metier::GenererNoeudsSelectionMetier(m_GenerateurEvt, noeuds);
-    PbSante::GenererNoeudsSelectionPbSante(m_GenerateurEvt, noeuds);
-    Voyage::GenererNoeudsVoyage(m_GenerateurEvt, noeuds);
-    Administratum::GenererNoeudsAdministratum(m_GenerateurEvt, noeuds);
-    Inquisition::GenererNoeudsInquisition(m_GenerateurEvt, noeuds);
-    MondeRuche::GenererNoeuds(m_GenerateurEvt, noeuds);
-    ClasseSociale::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Crime::GenererNoeuds(m_GenerateurEvt, noeuds);
-    SecteChaos::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Psyker::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Arbites::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Assassinorum::GenererNoeuds(m_GenerateurEvt, noeuds);
-    Ministorum::GenererNoeuds(m_GenerateurEvt, noeuds);
-    AstraMilitarum::GenererNoeuds(m_GenerateurEvt, noeuds);
-    MarineImperiale::GenererNoeuds(m_GenerateurEvt, noeuds);
-    EconomieEvt::GenererNoeuds(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Metier>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<PbSante>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Voyage>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Administratum>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Inquisition>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<MondeRuche>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<ClasseSociale>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Crime>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<SecteChaos>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Psyker>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Arbites>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Assassinorum>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Ministorum>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<AstraMilitarum>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<MarineImperiale>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
+}
+
+template<class T>
+void GenVieHumain::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
+{
+    int indexEvt = 0;
+    T* evt = new T(indexEvt++);
+    while ( evt->m_Nom != "") {
+
+        Effet* effet = evt->GenererEffet(genEvt);
+
+        Condition* cond = evt->m_ConditionSelecteurProba;
+
+        NoeudProbable* noeud = new NoeudProbable(
+                    effet,
+                    cond);
+
+        noeuds.push_back(noeud);
+
+        evt = new T(indexEvt++);
+    }
 }
 
 Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)

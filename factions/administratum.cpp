@@ -10,8 +10,6 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 
-int Administratum::COMPTEUR = 0;
-
 // ids :
 QString Administratum::ID_AFFECTATION_DIVISION = "Affectation Division";
 
@@ -41,9 +39,9 @@ QString Administratum::GRADE_ORDINATE = "Ordinate";
 QString Administratum::GRADE_PREFET = "Préfet";
 QString Administratum::GRADE_MAITRE = "Maître";
 
-Administratum::Administratum()
+Administratum::Administratum(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (Administratum::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = Administratum::ID_AFFECTATION_DIVISION;
         m_ConditionSelecteurProba = new Condition(0, p_Pure);
@@ -89,8 +87,6 @@ Administratum::Administratum()
 
     }break;
     }
-
-    Administratum::COMPTEUR++;
 }
 
 Condition* Administratum::AjouterModifProbaSiADivision(Condition* cond, double poidsProba)
@@ -149,12 +145,7 @@ Effet* Administratum::GenererEffet(GenEvt* genEvt)
         effet = genEvt->AjouterEffetSelecteurDEvt(noeudsAffectation, Administratum::ID_AFFECTATION_DIVISION, "", GenVieHumain::EVT_SELECTEUR);
     } else {
         // système de création d'effets de base :
-        effet = genEvt->AjouterEffetNarration(
-            m_Description,
-            m_Image,
-            "avt_administratum_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
+        effet = GenerateurNoeudsProbables::GenererEffet(genEvt);
     }
     effet->m_Conditions = m_Conditions;
 
@@ -166,25 +157,6 @@ Effet* Administratum::GenererEffet(GenEvt* genEvt)
     }
 
     return effet;
-}
-
-void Administratum::GenererNoeudsAdministratum(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Administratum* evt = new Administratum();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new Administratum();
-    }
 }
 
 QVector<DivisionAdministratum*> DivisionAdministratum::DIVISIONS = {};

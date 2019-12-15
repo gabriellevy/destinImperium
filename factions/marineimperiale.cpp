@@ -13,8 +13,6 @@
 #include "humain.h"
 #include "../destinLib/execeffet.h"
 
-int MarineImperiale::COMPTEUR = 0;
-
 // caracs
 QString MarineImperiale::C_FLOTTE = "Flotte";
 QString MarineImperiale::C_FONCTION = "Fonction";
@@ -55,9 +53,9 @@ QString MarineImperiale::GetFlotteAlmatoire()
     return MarineImperiale::FLOTTES[Aleatoire::GetAl()->EntierInferieurA(MarineImperiale::FLOTTES.length())];
 }
 
-MarineImperiale::MarineImperiale()
+MarineImperiale::MarineImperiale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (MarineImperiale::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = MarineImperiale::C_FONCTION;
         m_ConditionSelecteurProba = new Condition(1.0, p_Relative);
@@ -88,8 +86,6 @@ MarineImperiale::MarineImperiale()
 
     }break;
     }
-
-    MarineImperiale::COMPTEUR++;
 }
 
 QList<Condition*> MarineImperiale::AjouterConditionSiMarineImperiale(QList<Condition*> conditions)
@@ -162,45 +158,4 @@ QString MarinImperial::DeterminerAffectationFonction()
     m_Fonction = MarineImperiale::OPERATEUR;
 
     return m_Fonction;
-}
-
-Effet* MarineImperiale::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = genEvt->AjouterEffetNarration(
-            m_Description,
-            m_Image,
-            "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-
-    effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-    effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-    effet->m_CallbackDisplay = m_CallbackDisplay;
-    effet->m_Conditions = m_Conditions;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-void MarineImperiale::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    MarineImperiale* evt = new MarineImperiale();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new MarineImperiale();
-    }
 }

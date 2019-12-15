@@ -9,15 +9,13 @@
 #include "types_planete/planet.h"
 #include "../destinLib/gestionnairecarac.h"
 
-int Voyage::COMPTEUR = 0;
-
-Voyage::Voyage()
+Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (Voyage::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = "Réaffectation vers une planète";
-        m_Condition = new Condition(0.0, p_Relative);
-        m_Condition->AjouterModifProba(2.0,
+        m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(2.0,
         {new Condition(Voyage::REAFFECTATION_PLANETE, "", Comparateur::c_Different)});
         m_Description = "Vos avez été réaffecté vers une nouvelle planète.";
         m_ModificateursCaracs[Voyage::VOYAGE_WARP] = "1";
@@ -34,45 +32,11 @@ Voyage::Voyage()
     }break;
 
     }
-
-    Voyage::COMPTEUR++;
 }
 
 QString Voyage::GetDescription()
 {
     return m_Description;
-}
-
-void Voyage::GenererNoeudsVoyage(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Voyage* voyage = new Voyage();
-    while ( voyage->m_Nom != "") {
-        Effet* effetAffectation = genEvt->AjouterEffetNarration(
-                    voyage->GetDescription(),
-                    voyage->m_Image,
-                    "voyage_" + voyage->m_Nom, GenVieHumain::EVT_SELECTEUR);
-
-        effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effetAffectation->m_CallbackDisplay = voyage->m_CallbackDisplay;
-
-        // modificateurs de carac :
-        effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
-        QMapIterator<QString, QString> it(voyage->m_ModificateursCaracs);
-        while ( it.hasNext()) {
-            it.next();
-            effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
-        }
-
-        Condition* cond = voyage->m_Condition;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effetAffectation,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        voyage = new Voyage();
-    }
 }
 
 QString Voyage::DESTINATION_PLANETE = "Destination planète";

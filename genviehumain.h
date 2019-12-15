@@ -32,6 +32,7 @@ protected:
     virtual void GenererCaracs();
     virtual void GenererPersos();
     void GenererDataUnivers();
+    template<class T>static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
 private:
     // génération des événement et effets de base

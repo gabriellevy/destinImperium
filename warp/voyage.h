@@ -3,9 +3,10 @@
 
 #include <QString>
 #include <QMap>
+#include "generateurnoeudsprobables.h"
 
-class NoeudProbable;
 class GenEvt;
+class Effet;
 class Condition;
 
 /*enum TypeVoyage {
@@ -16,22 +17,11 @@ class Condition;
  * @brief inclut les événements et effets liés aux voyages warp
  *  - réaffectation vers une planète
  */
-class Voyage
+class Voyage : public GenerateurNoeudsProbables
 {
-    static int COMPTEUR;
-    QString m_Description = "";
-
 public:
-    Voyage();
+    Voyage(int indexEvt);
     QString GetDescription();
-
-    QString m_Nom = "";
-    QMap<QString, QString> m_ModificateursCaracs;
-    QString m_Image = ""; // chemin vers une éventuelle image représentant le métier
-    Condition* m_Condition = nullptr; // proba de se voir affecter ce métier
-    std::function<void()> m_CallbackDisplay = nullptr;
-
-    static void GenererNoeudsVoyage(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
     static QString REAFFECTATION_PLANETE;
     static QString DESTINATION_PLANETE;

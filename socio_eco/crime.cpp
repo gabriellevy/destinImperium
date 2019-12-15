@@ -13,8 +13,6 @@
 #include "classesociale.h"
 #include "humanite/pbsante.h"
 
-int Crime::COMPTEUR = 0;
-
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
 QString Crime::C_GANG = "Gang";
@@ -25,10 +23,10 @@ QString Crime::CRIMINEL = "Criminel";
 QString Crime::CAPTURE_POLICE = "Capturé par la police";
 QString Crime::CAPTURE_ARBITES = "Capturé par l'a police'Adeptus Arbites";
 
-Crime::Crime()
+Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
-    switch (Crime::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = Crime::DELINQUANT;
         m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
@@ -170,8 +168,6 @@ Crime::Crime()
 
     }break;
     }
-
-    Crime::COMPTEUR++;
 }
 
 QList<QString> Crime::NOMS_GANGS = {
@@ -209,46 +205,3 @@ QList<Condition*> Crime::AjouterConditionSiJamaisCriminel(QList<Condition*> cond
     return conditions;
 }
 
-Effet* Crime::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = nullptr;
-    // système de création d'effets de base :
-    effet = genEvt->AjouterEffetNarration(
-        m_Description,
-        m_Image,
-        "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-    effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-    effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-
-    effet->m_Conditions = m_Conditions;
-    effet->m_CallbackDisplay = m_CallbackDisplay;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-
-void Crime::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Crime* evt = new Crime();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new Crime();
-    }
-}

@@ -12,8 +12,6 @@
 #include "factions/marineimperiale.h"
 #include "humain.h"
 
-int Metier::COMPTEUR = 0;
-
 QString Metier::C_METIER = "Métier";
 
 QString Metier::PAYSAN = "Paysan";
@@ -33,10 +31,10 @@ QString Metier::ADEPTUS_MINISTORUM = "Adeptus Ministorum";
 
 QMap<QString, Metier*> Metier::METIERS;
 
-Metier::Metier()
+Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmpFavoriseur = 0.0; // valeur servant à tester => à mettre à 0 pour un test final
-    switch (Metier::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = Metier::PAYSAN;
         m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
@@ -152,46 +150,4 @@ Metier::Metier()
     }
 
     METIERS[m_Nom] = this;
-
-    Metier::COMPTEUR++;
-}
-
-
-void Metier::GenererNoeudsSelectionMetier(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Metier* metier = new Metier();
-    while ( metier->m_Nom != "") {
-        QString texteAffectation = "Vous êtes maintenant " +
-                metier->m_Nom;
-        texteAffectation += ".";
-        if ( metier->m_Description != "" )
-            texteAffectation += " " + metier->m_Description;
-
-        Effet* effetAffectation = genEvt->AjouterEffetNarration(
-                    texteAffectation,
-                    metier->m_Image,
-                    "affectation_metier_" + metier->m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effetAffectation->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effetAffectation->m_CallbackDisplay = metier->m_CallbackDisplay;
-        effetAffectation->m_Conditions = metier->m_Conditions;
-        effetAffectation = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effetAffectation);
-
-        // modificateurs de carac :
-        effetAffectation->AjouterChangeurDeCarac(Metier::C_METIER, metier->m_Nom);
-        QMapIterator<QString, QString> it(metier->m_ModificateursCaracs);
-        while ( it.hasNext()) {
-            it.next();
-            effetAffectation->AjouterChangeurDeCarac(it.key(), it.value());
-        }
-
-        Condition* cond = metier->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effetAffectation,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        metier = new Metier();
-    }
 }

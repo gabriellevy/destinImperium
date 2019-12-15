@@ -3,8 +3,8 @@
 
 #include <QString>
 #include <QMap>
+#include "generateurnoeudsprobables.h"
 
-class NoeudProbable;
 class GenEvt;
 class Effet;
 class Condition;
@@ -12,18 +12,10 @@ class Condition;
 /**
  * @brief événements d'inquisition
  */
-class Inquisition
+class Inquisition : public GenerateurNoeudsProbables
 {
-    static int COMPTEUR;
 public:
-    Inquisition();
-
-    QString m_Nom = "";
-    QString m_Description = "";
-    QString m_Image = ""; // chemin vers une éventuelle image représentant le métier
-    Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
-    QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
-    QMap<QString, QString> m_ModificateursCaracs;
+    Inquisition(int indexEvt);
 
     Effet* GenererEffet(GenEvt* genEvt);
 
@@ -43,8 +35,6 @@ public:
     static QString ORDO_SICARIUS;
 
     static QString ID_AFFECTATION_ORDO;
-
-    static void GenererNoeudsInquisition(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
 
     Condition* AjouterModifProbaSiAOrdo(Condition* cond, double poidsProba);
 

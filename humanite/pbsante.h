@@ -3,9 +3,10 @@
 
 #include <QString>
 #include <QMap>
+#include "generateurnoeudsprobables.h"
 
-class NoeudProbable;
 class GenEvt;
+class Effet;
 class Condition;
 
 enum IdPbSante {
@@ -17,20 +18,10 @@ enum IdPbSante {
 /**
  * @brief Tout ce qui concerne la santé y compris la mort par vieillesse et les maladies
  */
-class PbSante
+class PbSante : public GenerateurNoeudsProbables
 {
-    IdPbSante m_IdPbSante;
-    static int COMPTEUR;
 public:
-    PbSante();
-
-    Condition* m_ConditionSelecteurProba = nullptr; // proba d'exécution de cet événement
-    QList<Condition*> m_Conditions; // éventuelle limitation bloquant ou activant l'exécution de cet événement
-    QString m_Intitule = "";
-    QString m_Image = ""; // chemin vers une éventuelle image représentant le problème de santé
-    QMap<QString, QString> m_ModificateursCaracs; // ce que le problèmed e santé change comme carac
-
-    static void GenererNoeudsSelectionPbSante(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    PbSante(int indexEvt);
 
     // caracs liées :
     static QString PESTE;

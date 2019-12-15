@@ -13,18 +13,16 @@
 #include "humanite/pbsante.h"
 #include "socio_eco/crime.h"
 
-int Psyker::COMPTEUR = 0;
-
 // caracs :
 QString Psyker::C_PSYKER = "Psyker";
 //valeurs de C_PSYKER
 QString Psyker::POTENTIEL_PSY = "Potentiel psy";
 QString Psyker::SANS_AME = "Sans âme";
 
-Psyker::Psyker()
+Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
-    switch (Psyker::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
         m_ConditionSelecteurProba = new Condition(0.005 + tmp_Modificateur, p_Relative);
@@ -37,52 +35,6 @@ Psyker::Psyker()
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
-    }
-
-    Psyker::COMPTEUR++;
-
-}
-
-Effet* Psyker::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = nullptr;
-    // système de création d'effets de base :
-    effet = genEvt->AjouterEffetNarration(
-        m_Description,
-        m_Image,
-        "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-    effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-    effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-
-    effet->m_Conditions = m_Conditions;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-
-void Psyker::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Psyker* evt = new Psyker();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new Psyker();
     }
 }
 

@@ -13,8 +13,6 @@
 #include "../destinLib/execeffet.h"
 #include "humain.h"
 
-int SecteChaos::COMPTEUR = 0;
-
 QString SecteChaos::C_SECTE_CHAOS = "Appartient à secte du chaos";
 QString SecteChaos::C_DIEU = "Dieu du chaos vénéré";
 
@@ -23,9 +21,9 @@ QString SecteChaos::TZEENTCH = "Tzeentch";
 QString SecteChaos::SLAANESH = "Slaanesh";
 QString SecteChaos::NURGLE = "Nurgle";
 
-SecteChaos::SecteChaos()
+SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (SecteChaos::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = "Entrée dans secte du chaos";
         m_ConditionSelecteurProba = new Condition(0.001, p_Relative);
@@ -40,10 +38,6 @@ SecteChaos::SecteChaos()
 
     }break;
     }
-
-    SecteChaos::COMPTEUR++;
-
-
 }
 
 
@@ -76,47 +70,3 @@ QPair<QString, QString> SecteChaos::DeterminerDieuVenere()
 
     return dieu;
 }
-
-
-Effet* SecteChaos::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = genEvt->AjouterEffetNarration(
-            m_Description,
-            m_Image,
-            "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-        effet->m_CallbackDisplay = m_CallbackDisplay;
-        effet->m_Conditions = m_Conditions;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-
-void SecteChaos::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    SecteChaos* evt = new SecteChaos();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new SecteChaos();
-    }
-}
-
-

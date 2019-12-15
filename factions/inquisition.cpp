@@ -10,9 +10,6 @@
 #include "metier.h"
 #include "../destinLib/effet.h"
 
-
-int Inquisition::COMPTEUR = 0;
-
 QString Inquisition::C_ORDO = "Ordo";
 
 QString Inquisition::ORDO_XENOS = "Ordo Xenos";
@@ -30,9 +27,9 @@ QString Inquisition::ORDO_SICARIUS = "Ordo Sicarius";
 // ids :
 QString Inquisition::ID_AFFECTATION_ORDO = "Affectation Ordo";
 
-Inquisition::Inquisition()
+Inquisition::Inquisition(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (Inquisition::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = Inquisition::ID_AFFECTATION_ORDO;
         m_ConditionSelecteurProba = new Condition(0, p_Pure);
@@ -45,8 +42,6 @@ Inquisition::Inquisition()
 
     }break;
     }
-
-    Inquisition::COMPTEUR++;
 
 }
 
@@ -97,26 +92,6 @@ Effet* Inquisition::GenererEffet(GenEvt* genEvt)
     }
 
     return effet;
-}
-
-
-void Inquisition::GenererNoeudsInquisition(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    Inquisition* evt = new Inquisition();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new Inquisition();
-    }
 }
 
 QVector<Ordo*> Ordo::ORDOS = {};

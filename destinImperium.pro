@@ -62,6 +62,7 @@ SOURCES += \
     ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aleatoire.cpp \
     age.cpp \
+    generateurnoeudsprobables.cpp \
     genviehumain.cpp \
     humain.cpp \
     imperium.cpp \
@@ -97,6 +98,7 @@ HEADERS += \
     ../destinLib/gestionnairecarac.h \
     ../destinLib/aleatoire.h \
     age.h \
+    generateurnoeudsprobables.h \
     genviehumain.h \
     humain.h \
     imperium.h \

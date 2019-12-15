@@ -12,11 +12,9 @@
 #include "../destinLib/aleatoire.h"
 #include "economieevt.h"
 
-int ClasseSociale::COMPTEUR = 0;
-
-ClasseSociale::ClasseSociale()
+ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    switch (ClasseSociale::COMPTEUR) {
+    switch (indexEvt) {
     case 0 : {
         m_Nom = "promotion classe sociale des pauvres vers moyenne";
         m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
@@ -79,68 +77,12 @@ ClasseSociale::ClasseSociale()
 
     }break;
     }
-
-    ClasseSociale::COMPTEUR++;
-
 }
 
 Condition* ClasseSociale::AjouterConditionSiCetteClasseSociale(QString classeSociale)
 {
     Condition* cond = new Condition(ClasseSociale::C_CLASSE_SOCIALE, classeSociale, Comparateur::c_Egal);
     return cond;
-}
-
-Effet* ClasseSociale::GenererEffet(GenEvt* genEvt)
-{
-    Effet* effet = nullptr;
-    /*if ( m_Nom == Inquisition::ID_AFFECTATION_ORDO) {
-        // sélectionneur d'effets
-        QVector<NoeudProbable*> noeudsAffectation;
-        Ordo::GenererNoeudsAffectation(genEvt, noeudsAffectation);
-        effet = genEvt->AjouterEffetSelecteurDEvt(
-                    noeudsAffectation,
-                    Inquisition::ID_AFFECTATION_ORDO,
-                    "",
-                    GenVieHumain::EVT_SELECTEUR);
-    } else*/ {
-        // système de création d'effets de base :
-        effet = genEvt->AjouterEffetNarration(
-            m_Description,
-            m_Image,
-            "evt_monde_ruche_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-        effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
-        effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
-    }
-    effet->m_Conditions = m_Conditions;
-
-    // modificateurs de carac :
-    QMapIterator<QString, QString> it(m_ModificateursCaracs);
-    while ( it.hasNext()) {
-        it.next();
-        effet->AjouterChangeurDeCarac(it.key(), it.value());
-    }
-
-    return effet;
-}
-
-
-void ClasseSociale::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
-{
-    ClasseSociale* evt = new ClasseSociale();
-    while ( evt->m_Nom != "") {
-
-        Effet* effet = evt->GenererEffet(genEvt);
-
-        Condition* cond = evt->m_ConditionSelecteurProba;
-
-        NoeudProbable* noeud = new NoeudProbable(
-                    effet,
-                    cond);
-
-        noeuds.push_back(noeud);
-
-        evt = new ClasseSociale();
-    }
 }
 
 QString ClasseSociale::C_CLASSE_SOCIALE = "Classe sociale";

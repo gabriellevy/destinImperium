@@ -3,6 +3,7 @@
 #include <QString>
 #include "../destinLib/aleatoire.h"
 #include "socio_eco/classesociale.h"
+#include "types_planete/planet.h"
 
 // valeurs statiques
 // caracs :
