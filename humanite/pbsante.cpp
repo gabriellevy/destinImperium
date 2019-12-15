@@ -6,6 +6,7 @@
 #include "imperium.h"
 #include "genviehumain.h"
 #include "types_planete/planet.h"
+#include "warp/sectechaos.h"
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
@@ -15,7 +16,7 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     switch (indexEvt) {
     case 0 : {
-        m_Nom = MortVieillesse;
+        m_Nom = "mort de vieillesse";
         m_ConditionSelecteurProba = new Condition(0.0, p_Pure);
         m_Description = "Vous êtes mort de vieillesse.";
         // déclenchable quand on vieillit (et de plus en plus probable au fur et à mesure)
@@ -36,11 +37,19 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     case 1 : {
-        m_Nom = PesteNoire;
-        m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
+        m_Nom = "attraper la peste noire";
+        m_ConditionSelecteurProba = new Condition(0.001, p_Relative);
         m_Description = "Vous avez contracté la peste noire.";
         Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.1);
         m_ModificateursCaracs[PbSante::PESTE] = "1";
+
+    }break;
+    case 2 : {
+        m_Nom = "mort de la lèpre de Nurgle";
+        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_Description = "Vous mourez des suites de votre maladie.";
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiLepreDeNurgle());
 
     }break;
     }

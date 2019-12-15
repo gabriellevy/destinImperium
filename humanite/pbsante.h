@@ -9,11 +9,6 @@ class GenEvt;
 class Effet;
 class Condition;
 
-enum IdPbSante {
-    MortVieillesse, // risque de mourir quand on dépasse 50 ans
-    PesteNoire // réservé aux mondes féodaux (réduit grandement l'espérance de vie générale)
-};
-
 
 /**
  * @brief Tout ce qui concerne la santé y compris la mort par vieillesse et les maladies

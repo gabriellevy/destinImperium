@@ -20,6 +20,8 @@ public:
 
     static QPair<QString, QString>  DeterminerDieuVenere();
 
+    static Condition* AjouterConditionSiLepreDeNurgle();
+
     // caracs :
     static QString C_SECTE_CHAOS;
     static QString C_DIEU; // dieu vénéré
@@ -28,6 +30,9 @@ public:
     static QString TZEENTCH;
     static QString SLAANESH;
     static QString NURGLE;
+    // valeurs de PbSante::SANTE liées à Nurgle
+    static QString LEPRE_DE_NURGLE;
+
 
 };
 

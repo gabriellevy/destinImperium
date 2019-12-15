@@ -50,6 +50,20 @@ Condition* Psyker::AjouterConditionSiNonPsyker()
     return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Egal);
 }
 
+Condition* Psyker::AjouterModifProbaSiPsyker(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {         new Condition(Psyker::C_PSYKER, "", Comparateur::c_Different)        });
+    return cond;
+}
+
+Condition* Psyker::AjouterModifProbaSiNonPsyker(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {         new Condition(Psyker::C_PSYKER, "", Comparateur::c_Egal)        });
+    return cond;
+}
+
 QString Psyker::GetNiveauPsykerNaissance()
 {
     double proba = Aleatoire::GetAl()->Entre0Et1();

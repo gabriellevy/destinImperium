@@ -13,5 +13,7 @@ QVector<Citation> Citation::CITATIONS = {
     Citation("Vous avez été accusé, au nom de l'empereur, du crime de piraterie. Vous avez le droit de confesser vos crimes et de chercher l'absolution pour vos péchés. Les demandes de clémence ne seront pas entendues.",
         "Maître châtisseur Grigor Cardainn"),
     Citation("Si l'Adeptus Astartes est la colère de l'empereur, la garde impériale son marteau, alors la sainte marine est son puissant bouclier",
-        "Cardinal Kregory Hestor")
+        "Cardinal Kregory Hestor"),
+    Citation("Je suis Tzeentch et tu es le pantin qui danse sur ma musique...",
+        "Extrait du livre de Tzeentch")
 };

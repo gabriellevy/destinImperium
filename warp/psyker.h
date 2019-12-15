@@ -19,6 +19,8 @@ public:
 
     static Condition* AjouterConditionSiPsyker();
     static Condition* AjouterConditionSiNonPsyker();
+    static Condition* AjouterModifProbaSiPsyker(Condition* cond, double poidsProba);
+    static Condition* AjouterModifProbaSiNonPsyker(Condition* cond, double poidsProba);
 
     // caracs :
     static QString C_PSYKER;

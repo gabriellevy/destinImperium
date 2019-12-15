@@ -87,9 +87,7 @@ Condition* Inquisition::AjouterModifProbaSiAOrdo(Condition* cond, double poidsPr
 Condition* Inquisition::AjouterModifProbaSiInquisiteur(Condition* cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {
-         new Condition(Metier::C_METIER, Metier::INQUISITEUR, Comparateur::c_Egal)
-        });
+        {         new Condition(Metier::C_METIER, Metier::INQUISITEUR, Comparateur::c_Egal)        });
     return cond;
 }
 
