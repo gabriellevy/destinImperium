@@ -25,6 +25,7 @@ public:
     static QString MORT;
 
     static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);
+    static Condition* AjouterConditionSiVivant();
 };
 
 #endif // SANTE_H

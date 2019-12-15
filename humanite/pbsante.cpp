@@ -7,6 +7,7 @@
 #include "genviehumain.h"
 #include "types_planete/planet.h"
 #include "warp/sectechaos.h"
+#include "socio_eco/classesociale.h"
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
@@ -32,8 +33,20 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});
-        PbSante::AjouterModifProbaSiMort(m_ConditionSelecteurProba, -1.0);
+
+        // espérance de vie différente selon la classe sociale... :
+        m_ConditionSelecteurProba->AjouterModifProba(0.02,
+            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::PAUVRES, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.001,
+            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.01,
+            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Egal)});
+
+
         m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Conditions.push_back(PbSante::AjouterConditionSiVivant());
 
     }break;
     case 1 : {
@@ -53,6 +66,11 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     }
+}
+
+Condition* PbSante::AjouterConditionSiVivant()
+{
+    return new Condition(PbSante::C_SANTE, PbSante::MORT, Comparateur::c_Different);
 }
 
 Condition* PbSante::AjouterModifProbaSiMort(Condition* cond, double poidsProba)
