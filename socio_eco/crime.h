@@ -16,9 +16,12 @@ public:
     Crime(int indexEvt);
 
     // ajoute à la liste de conditions une condition validée seulement si on est une personne libre
-    static QList<Condition*> AjouterConditionSiLibre(QList<Condition*> conditions);
-    static QList<Condition*> AjouterConditionSiNonLibre(QList<Condition*> conditions);
-    static QList<Condition*> AjouterConditionSiJamaisCriminel(QList<Condition*> conditions);
+    static Condition* AjouterConditionSiLibre();
+    static Condition* AjouterConditionSiNonLibre();
+    static Condition* AjouterConditionSiJamaisCriminel();
+    static Condition* AjouterConditionSiMalhonnete();
+    static Condition* AjouterModificateurDeProbaSiDelinquant(Condition* cond, double poidsProba);
+    static Condition* AjouterModificateurDeProbaSiCriminel(Condition* cond, double poidsProba);
 
     static QList<QString> NOMS_GANGS;
     static QString GenererNomGang();

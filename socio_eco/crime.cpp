@@ -12,6 +12,7 @@
 #include "../destinLib/aleatoire.h"
 #include "classesociale.h"
 #include "humanite/pbsante.h"
+#include "socio_eco/economieevt.h"
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
@@ -40,7 +41,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     new Condition(ClasseSociale::C_CLASSE_SOCIALE,
                                   ClasseSociale::MISERABLES,
                                   Comparateur::c_Egal));
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
 
@@ -48,7 +49,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 1 : {
         m_Nom = Crime::CRIMINEL + "_1";
         m_ConditionSelecteurProba = new Condition(0.0001 + tmp_Modificateur, p_Relative);
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
@@ -57,7 +58,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Crime::CRIMINEL + "_2";
         m_ConditionSelecteurProba = new Condition(0.0001 + tmp_Modificateur, p_Relative);
         m_Description = "Votre soif de richesse fait de vous un criminel de plus en plus violent.";
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
     }break;
@@ -69,7 +70,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     new Condition(Crime::C_CRIMINEL,
                                   "",
                                   Comparateur::c_Different));
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
@@ -81,7 +82,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     new Condition(Crime::C_CRIMINEL,
                                   Crime::CRIMINEL,
                                   Comparateur::c_Egal));
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_ARBITES;
 
     }break;
@@ -132,7 +133,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     new Condition(ClasseSociale::C_CLASSE_SOCIALE,
                                   ClasseSociale::PAUVRES,
                                   Comparateur::c_Egal));
-        m_Conditions = Crime::AjouterConditionSiLibre(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
 
@@ -168,7 +169,57 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
 
     }break;
+    case 11 : {
+        m_Nom = "Misérable qui devient pauvre par le crime";
+        m_ConditionSelecteurProba = new Condition(0.001 + tmp_Modificateur, p_Relative);
+        Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
+        Crime::AjouterModificateurDeProbaSiCriminel(m_ConditionSelecteurProba, 0.01);
+        m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
+
+    }break;
+    case 12 : {
+        m_Nom = "Pauvre qui devient classe moyenne par le crime";
+        m_ConditionSelecteurProba = new Condition(0.001 + tmp_Modificateur, p_Relative);
+        Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
+        Crime::AjouterModificateurDeProbaSiCriminel(m_ConditionSelecteurProba, 0.01);
+        m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+
+    }break;
+    case 13 : {
+        m_Nom = "Vendeur de drogue";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_Description = "VOus mettez en place un petit réseau de revente de drogue sur votre lieu "
+                "de travail qui vous fait très bien voir de vos collègues.";
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Crime::AjouterConditionSiMalhonnete());
+        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
+
+    }break;
     }
+}
+
+Condition* Crime::AjouterModificateurDeProbaSiDelinquant(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {         new Condition(Crime::C_CRIMINEL, Crime::DELINQUANT, Comparateur::c_Egal)        });
+    return cond;
+}
+
+Condition* Crime::AjouterModificateurDeProbaSiCriminel(Condition* cond, double poidsProba)
+{
+    cond->AjouterModifProba(poidsProba,
+        {         new Condition(Crime::C_CRIMINEL, Crime::CRIMINEL, Comparateur::c_Egal)        });
+    return cond;
 }
 
 QList<QString> Crime::NOMS_GANGS = {
@@ -185,24 +236,15 @@ QString Crime::GenererNomGang()
     return Crime::NOMS_GANGS[Aleatoire::GetAl()->EntierInferieurA(Crime::NOMS_GANGS.length())];
 }
 
-QList<Condition*> Crime::AjouterConditionSiLibre(QList<Condition*> conditions)
-{
-    conditions.push_back(new Condition(GenVieHumain::C_LIBERTE,
-                        "", Comparateur::c_Egal));
-    return conditions;
-}
+Condition* Crime::AjouterConditionSiLibre()
+{    return new Condition(GenVieHumain::C_LIBERTE, "", Comparateur::c_Egal);}
 
-QList<Condition*> Crime::AjouterConditionSiNonLibre(QList<Condition*> conditions)
-{
-    conditions.push_back(new Condition(GenVieHumain::C_LIBERTE,
-                        "", Comparateur::c_Different));
-    return conditions;
-}
+Condition* Crime::AjouterConditionSiNonLibre()
+{    return new Condition(GenVieHumain::C_LIBERTE, "", Comparateur::c_Different);}
 
-QList<Condition*> Crime::AjouterConditionSiJamaisCriminel(QList<Condition*> conditions)
-{
-    conditions.push_back(new Condition(Crime::C_CRIMINEL,
-                        "", Comparateur::c_Egal));
-    return conditions;
-}
+Condition* Crime::AjouterConditionSiJamaisCriminel()
+{    return new Condition(Crime::C_CRIMINEL, "", Comparateur::c_Egal);}
+
+Condition* Crime::AjouterConditionSiMalhonnete()
+{    return new Condition(Crime::C_CRIMINEL, "", Comparateur::c_Different);}
 

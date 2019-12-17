@@ -68,7 +68,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
-        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
     }break;
     case 5 : {
         m_Nom = Metier::INQUISITEUR;
@@ -77,7 +77,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
         m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
-        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
     }break;
     case 6 : {
         m_Nom = Metier::SERVANT_ADEPTUS_ASTRONOMICA;
@@ -85,7 +85,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Image = ":/images/organisations/Adeptus_Astronomica_Icon_update.jpg";
         m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
-        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
         m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 7 : {
@@ -100,7 +100,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             Humain::GetHumainJoue()->SetValeurACaracId(Assassinorum::C_TEMPLE, temple);
         };
         m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
-        m_Conditions = Crime::AjouterConditionSiJamaisCriminel(m_Conditions);
+        m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
         m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
     case 8 : {
