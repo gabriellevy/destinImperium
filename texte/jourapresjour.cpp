@@ -6,6 +6,7 @@
 #include "metier.h"
 #include "genviehumain.h"
 #include "factions/inquisition.h"
+#include "warp/sectechaos.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
@@ -151,11 +152,15 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*
 
 void JourApresJour::RafraichirPhrases()
 {
+    Humain* humain = Humain::GetHumainJoue();
     // extraire les critères qui influent sur les textes/événements possibles :
     QString typePlanete = Humain::GetHumainJoue()->GetValeurCarac(Planete::C_TYPE_PLANETE);
     QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
     QString metier = Humain::GetHumainJoue()->GetValeurCarac(Metier::C_METIER);
     QString liberte = Humain::GetHumainJoue()->GetValeurCarac(GenVieHumain::C_LIBERTE);
+
+    if ( humain->GetValeurCarac(SecteChaos::C_SECTE_CHAOS) == "1")
+        SecteChaos::RafraichirPhrases();
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
     if ( liberte == "" ) // pas d'actions de métier si on est enfermé

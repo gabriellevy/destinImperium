@@ -21,7 +21,9 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.0, p_Pure);
         m_Description = "Vous êtes mort de vieillesse.";
         // déclenchable quand on vieillit (et de plus en plus probable au fur et à mesure)
-        m_ConditionSelecteurProba->AjouterModifProba(0.0002,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0001,
+            {new Condition(GenVieHumain::AGE, "480", Comparateur::c_Superieur)}); // 40 ans
+        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
             {new Condition(GenVieHumain::AGE, "600", Comparateur::c_Superieur)}); // 50 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.001,
             {new Condition(GenVieHumain::AGE, "720", Comparateur::c_Superieur)}); // 60 ans
@@ -35,11 +37,9 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});
 
         // espérance de vie différente selon la classe sociale... :
-        m_ConditionSelecteurProba->AjouterModifProba(0.02,
-            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Egal)});
-        m_ConditionSelecteurProba->AjouterModifProba(0.01,
-            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::PAUVRES, Comparateur::c_Egal)});
         m_ConditionSelecteurProba->AjouterModifProba(-0.001,
+            {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::PAUVRES, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
             {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Egal)});
         m_ConditionSelecteurProba->AjouterModifProba(-0.01,
             {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Egal)});

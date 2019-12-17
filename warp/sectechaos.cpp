@@ -14,9 +14,12 @@
 #include "humain.h"
 #include "psyker.h"
 #include "humanite/pbsante.h"
+#include "texte/jourapresjour.h"
 
 QString SecteChaos::C_SECTE_CHAOS = "Appartient à secte du chaos";
 QString SecteChaos::C_INFLUENCE_CHAOS = "Influence du chaos";
+QString SecteChaos::C_DETECTION_SECTE = "Détection de la secte";
+QString SecteChaos::C_PUISSANCE_SECTE = "Puissance de la secte";
 QString SecteChaos::C_DIEU = "Dieu du chaos vénéré";
 
 QString SecteChaos::KHORNE = "Khorne";
@@ -32,10 +35,12 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Entrée dans secte du chaos";
-        m_ConditionSelecteurProba = new Condition(0.05, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.05 + tmpTestVal, p_Relative);
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
+        m_Image = ":/images/chaos/Chaos_Cultists2.jpg";
         m_Conditions.push_back(SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(5));
         m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiPasSecte());
         m_CallbackDisplay = [] {
             QPair<QString, QString> dieu = SecteChaos::DeterminerDieuVenere();
             ExecHistoire::GetExecEffetActuel()->ChargerImage(dieu.second);
@@ -66,11 +71,52 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 "Vous avez des hallucinations étranges et terrifiantes. Des créatures spectrales grimaçantes.",
                 "Un de vos amis vous confie aller souvent à des réunions sacrètes mystiques."
             };
-            ExecHistoire::GetEffetActuel()->m_Texte = textes[Aleatoire::GetAl()->EntierInferieurA(textes.length())];
+            int num = Aleatoire::GetAl()->EntierInferieurA(textes.length());
+            ExecHistoire::GetEffetActuel()->m_Texte = textes[num];
         };
 
     }break;
+    case 3 : {
+        m_Nom = "Détection de la secte";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpTestVal, p_Relative);
+        SecteChaos::AjouterModificateurProbaSiPuissanceSecteSuperieurA(m_ConditionSelecteurProba, 5, 0.02);
+        m_Description = "La puissance de votre secte et son influence attirent l'attention des autorités.";
+        m_IncrementeursCaracs[SecteChaos::C_DETECTION_SECTE] = 1;
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiSecte());
+
+    }break;
+    case 4 : {
+        m_Nom = "Gain de puissance de la secte";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpTestVal, p_Relative);
+        m_Description = "La puissance de votre secte grandit.";
+        m_IncrementeursCaracs[SecteChaos::C_PUISSANCE_SECTE] = 1;
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiSecte());
+
+    }break;
+    case 5 : {
+        m_Nom = "Révélation de la secte";
+        m_ConditionSelecteurProba = new Condition(0.001 + tmpTestVal, p_Relative);
+        SecteChaos::AjouterModificateurProbaSiDetectionSecteSuperieurA(m_ConditionSelecteurProba, 5, 0.02);
+        m_Description = "Les autorités ont découvert votre secte et tentent de la détruire. Il va falloir se défendre !.";
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiSecte());
+
+    }break;
+
     }
+}
+
+void SecteChaos::RafraichirPhrases()
+{
+    JourApresJour::PHRASES.push_back(Phrase("Vous recevez des tatouages de la confrérie du chaos."));
+    JourApresJour::PHRASES.push_back(Phrase("Les puissances de la ruine vous promettent gloire et pouvoir pour votre obéissance.",
+                                            ":/images/chaos/ff086889e09fac6503c6559082ffa50a.jpg"));
+}
+
+Condition* SecteChaos::AjouterModificateurProbaSiPuissanceSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba)
+{
+    condProba->AjouterModifProba(modifProba,
+        {         new Condition(SecteChaos::C_PUISSANCE_SECTE, QString::number(nivInfluence), Comparateur::c_Superieur)        });
+    return condProba;
 }
 
 Condition* SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condition* condProba, int nivInfluence, double modifProba)
@@ -80,15 +126,24 @@ Condition* SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condit
     return condProba;
 }
 
+Condition* SecteChaos::AjouterModificateurProbaSiDetectionSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba)
+{
+    condProba->AjouterModifProba(modifProba,
+        {         new Condition(SecteChaos::C_DETECTION_SECTE, QString::number(nivInfluence), Comparateur::c_Superieur)        });
+    return condProba;
+}
+
 Condition* SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence)
 {
     return new Condition(SecteChaos::C_INFLUENCE_CHAOS, QString::number(nivInfluence), Comparateur::c_Superieur);
 }
 
 Condition* SecteChaos::AjouterConditionSiLepreDeNurgle()
-{
-    return new Condition(PbSante::C_SANTE, SecteChaos::LEPRE_DE_NURGLE, Comparateur::c_Egal);
-}
+{    return new Condition(PbSante::C_SANTE, SecteChaos::LEPRE_DE_NURGLE, Comparateur::c_Egal);}
+Condition* SecteChaos::AjouterConditionSiSecte()
+{    return new Condition(SecteChaos::C_SECTE_CHAOS, "1", Comparateur::c_Egal);}
+Condition* SecteChaos::AjouterConditionSiPasSecte()
+{    return new Condition(SecteChaos::C_SECTE_CHAOS, "1", Comparateur::c_Different);}
 
 QPair<QString, QString> SecteChaos::DeterminerDieuVenere()
 {
@@ -108,13 +163,13 @@ QPair<QString, QString> SecteChaos::DeterminerDieuVenere()
     if ( val < probaKhorne) {
         dieu.first = SecteChaos::KHORNE;
         dieu.second = ":/images/organisations/Khorne.png";
-    } if ( val < probaKhorne + probaTzeentch) {
+    } else if ( val < probaKhorne + probaTzeentch) {
         dieu.first = SecteChaos::TZEENTCH;
         dieu.second = ":/images/organisations/Tzeentch.png";
-    } if ( val < probaKhorne + probaTzeentch + probaSlaanesh) {
+    } else if ( val < probaKhorne + probaTzeentch + probaSlaanesh) {
         dieu.first = SecteChaos::SLAANESH;
         dieu.second = ":/images/organisations/Slaanesh.png";
-    } if ( val < probaKhorne + probaTzeentch + probaSlaanesh + probaNurgle) {
+    } else if ( val < probaKhorne + probaTzeentch + probaSlaanesh + probaNurgle) {
         dieu.first = SecteChaos::NURGLE;
         dieu.second = ":/images/organisations/Nurgle.png";
     }
