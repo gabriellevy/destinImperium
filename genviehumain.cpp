@@ -106,6 +106,8 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MondeRuche::C_ZONE_DHABITATION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(PbSante::C_SANTE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_INFLUENCE_CHAOS);
 }
 
 void GenVieHumain::GenererEvtsAccueil()

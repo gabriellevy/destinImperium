@@ -16,6 +16,7 @@
 #include "humanite/pbsante.h"
 
 QString SecteChaos::C_SECTE_CHAOS = "Appartient à secte du chaos";
+QString SecteChaos::C_INFLUENCE_CHAOS = "Influence du chaos";
 QString SecteChaos::C_DIEU = "Dieu du chaos vénéré";
 
 QString SecteChaos::KHORNE = "Khorne";
@@ -27,12 +28,13 @@ QString SecteChaos::LEPRE_DE_NURGLE = "Lèpre de Nurgle";
 
 SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    double tmpTestVal = 0.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Entrée dans secte du chaos";
-        m_ConditionSelecteurProba = new Condition(0.001, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.05, p_Relative);
         m_Description = "Tenté par les dieux noirs, vous rejoignez une secte du chaos.";
-        Psyker::AjouterModifProbaSiPsyker(m_ConditionSelecteurProba, 0.01);
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(5));
         m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
         m_CallbackDisplay = [] {
             QPair<QString, QString> dieu = SecteChaos::DeterminerDieuVenere();
@@ -48,10 +50,39 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 "Vous êtes rapidement forcé à vous isoler et perdez votre travail et ebaucoup de vos relations.";
         m_ModificateursCaracs[PbSante::C_SANTE] = SecteChaos::LEPRE_DE_NURGLE;
         m_ModificateursCaracs[SecteChaos::C_DIEU] = SecteChaos::NURGLE;
+        m_IncrementeursCaracs[SecteChaos::C_INFLUENCE_CHAOS] = 3;
         m_ModificateursCaracs[Metier::C_METIER] = "";
 
     }break;
+    case 2 : {
+        m_Nom = "Influence du chaos";
+        m_ConditionSelecteurProba = new Condition(0.005 + tmpTestVal, p_Relative);
+        Psyker::AjouterModifProbaSiPsyker(m_ConditionSelecteurProba, 0.01);
+        SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(m_ConditionSelecteurProba, 1, 0.02);
+        m_Description = "remplacé à l'exécution";
+        m_IncrementeursCaracs[SecteChaos::C_INFLUENCE_CHAOS] = 1;
+        m_CallbackDisplay = [] {
+            QVector<QString> textes = {
+                "Vous avez des hallucinations étranges et terrifiantes. Des créatures spectrales grimaçantes.",
+                "Un de vos amis vous confie aller souvent à des réunions sacrètes mystiques."
+            };
+            ExecHistoire::GetEffetActuel()->m_Texte = textes[Aleatoire::GetAl()->EntierInferieurA(textes.length())];
+        };
+
+    }break;
     }
+}
+
+Condition* SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condition* condProba, int nivInfluence, double modifProba)
+{
+    condProba->AjouterModifProba(modifProba,
+        {         new Condition(SecteChaos::C_INFLUENCE_CHAOS, QString::number(nivInfluence), Comparateur::c_Superieur)        });
+    return condProba;
+}
+
+Condition* SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence)
+{
+    return new Condition(SecteChaos::C_INFLUENCE_CHAOS, QString::number(nivInfluence), Comparateur::c_Superieur);
 }
 
 Condition* SecteChaos::AjouterConditionSiLepreDeNurgle()

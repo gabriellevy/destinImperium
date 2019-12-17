@@ -21,8 +21,13 @@ public:
     static QPair<QString, QString>  DeterminerDieuVenere();
 
     static Condition* AjouterConditionSiLepreDeNurgle();
+    static Condition* AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence);
+    static Condition* AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
 
     // caracs :
+    // int augmentant quand le chaos gagne de l'influence sur vous.
+    // Il augmente les risques de rejoindre une secte, d'être possédé, d'être jugé hérétique...
+    static QString C_INFLUENCE_CHAOS;
     static QString C_SECTE_CHAOS;
     static QString C_DIEU; // dieu vénéré
     // valeurs caracs
