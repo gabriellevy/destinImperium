@@ -32,6 +32,7 @@
 #include "factions/ministorum.h"
 #include "factions/astramilitarum.h"
 #include "factions/marineimperiale.h"
+#include "factions/adeptusmechanicus.h"
 #include "age.h"
 
 QString GenVieHumain::AGE = "Age";
@@ -153,13 +154,14 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     GenererNoeuds<AstraMilitarum>(m_GenerateurEvt, noeuds);
     GenererNoeuds<MarineImperiale>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<AdeptusMechanicus>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
 void GenVieHumain::GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds)
 {
     int indexEvt = 0;
-    T* evt = new T(indexEvt++);
+    GenerateurNoeudsProbables* evt = new T(indexEvt++);
     while ( evt->m_Nom != "") {
 
         Effet* effet = evt->GenererEffet(genEvt);

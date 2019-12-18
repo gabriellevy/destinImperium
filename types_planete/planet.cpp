@@ -37,7 +37,7 @@ Planete::Planete()
         m_Nom = Planete::TERRE;
         m_Population = 300;// sans doute plus...
         m_TypePlanete = Planete::PLANETE_RUCHE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/Terra_And_Luna.jpg";
         m_Climat = Tempere;
         m_TitheGrade = new TitheGrade(AptusNon);
@@ -46,7 +46,7 @@ Planete::Planete()
         m_Nom = "Accatran";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Image = ":/images/planetes/Accatran.jpg";
         m_Climat = AtmosphereQuasiMorte;
         m_TitheGrade = new TitheGrade(AptusNon, IV_Secundi);
@@ -55,7 +55,7 @@ Planete::Planete()
         m_Nom = "Acreage";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FEODAL;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/Acreage.gif";
         m_Climat = Tempere;
     }break;
@@ -63,28 +63,28 @@ Planete::Planete()
         m_Nom = "Adrastapol";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_CHEVALIER;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 4 : {
         m_Nom = "Aerius";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_RUCHE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 5 : {
         m_Nom = "Aexe Cardinal";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_AGRICOLE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 6 : {
         m_Nom = "Agripinaa";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Image = ":/images/planetes/Agripinaa.jpg";
         m_Climat = Froid;
         m_TitheGrade = new TitheGrade(Exactis, I_Extremis);
@@ -93,7 +93,7 @@ Planete::Planete()
         m_Nom = "Alaric Prime";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_CHEVALIER;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/Agripinaa.jpg";
         m_Climat = Tempere;
     }break;
@@ -101,7 +101,7 @@ Planete::Planete()
         m_Nom = "Amontep II";
         m_Population = 20;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Climat = Aride;
         m_Xenos = {ex_MondeTombe};
     }break;
@@ -110,7 +110,7 @@ Planete::Planete()
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
         m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Froid;
         m_Xenos = {ex_Ogryn};
     }break;
@@ -118,21 +118,21 @@ Planete::Planete()
         m_Nom = "Antax";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 11 : {
         m_Nom = "Kronite";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FEODAL;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 12 : {
         m_Nom = "Ogris Major";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FEODAL;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 13 : {
@@ -140,7 +140,7 @@ Planete::Planete()
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
         m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 14 : {
@@ -148,7 +148,7 @@ Planete::Planete()
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
         m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 15 : {
@@ -156,7 +156,7 @@ Planete::Planete()
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
         m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 16 : {
@@ -164,28 +164,28 @@ Planete::Planete()
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_FERAL;
         m_TitheGrade = new TitheGrade(Solutio, IV_Tertius);
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
     case 17 : {
         m_Nom = "Anuaris";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Climat = Tempere;
     }break;
     case 18 : {
         m_Nom = "Ardium";
         m_Population = 100;
         m_TypePlanete = Planete::PLANETE_RUCHE;
-        m_Faction = new Factions(Ultramarines);
+        m_Faction = new Factions(ef_Ultramarines);
         m_Climat = Tempere;
     }break;
     case 19 : {
         m_Nom = "Calth";
         m_Population = 100;
         m_TypePlanete = Planete::PLANETE_CIVILISE;
-        m_Faction = new Factions(Ultramarines);
+        m_Faction = new Factions(ef_Ultramarines);
         m_Image = ":/images/planetes/Calth_1.png";
         m_Climat = Climat::AtmosphereQuasiMorte;
         m_Xenos = {ex_SuivivantsTyranides};
@@ -194,7 +194,7 @@ Planete::Planete()
         m_Nom = "Necromunda";
         m_Population = 150;
         m_TypePlanete = Planete::PLANETE_RUCHE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/Necromunda.jpg";
         m_Climat = Climat::AtmosphereQuasiMorte;
         m_PresenceNotableImperium = {ep_RecrutementSpaceMarine};
@@ -203,7 +203,7 @@ Planete::Planete()
         m_Nom = "Mars";
         m_Population = 20;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Image = ":/images/planetes/Mars_Red_Planet2.jpg";
         m_Climat = Climat::Aride;
         m_PresenceNotableImperium = {ep_HautAutelTechnologie};
@@ -212,7 +212,7 @@ Planete::Planete()
         m_Nom = "Macragge";
         m_Population = 0.4;
         m_TypePlanete = Planete::PLANETE_CIVILISE;
-        m_Faction = new Factions(Ultramarines);
+        m_Faction = new Factions(ef_Ultramarines);
         m_Image = ":/images/planetes/Mars_Red_Planet2.jpg";
         m_Climat = Climat::Tempere;
         m_PresenceNotableImperium = {ep_MondeMereSpaceMarine, ep_DefenseOrbitalesHautes};
@@ -222,7 +222,7 @@ Planete::Planete()
         m_Nom = "Gantz";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(AdeptusMechanicus);
+        m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Image = ":/images/planetes/Gantz.png";
         m_Climat = Climat::Tempere;
     }break;
@@ -230,7 +230,7 @@ Planete::Planete()
         m_Nom = "Konor";
         m_Population = 10;
         m_TypePlanete = Planete::PLANETE_FORGE;
-        m_Faction = new Factions(Ultramarines);
+        m_Faction = new Factions(ef_Ultramarines);
         m_Image = ":/images/planetes/Konor.png";
         m_Climat = Climat::Tempere;
     }break;
@@ -238,7 +238,7 @@ Planete::Planete()
         m_Nom = "Armageddon";
         m_Population = 100;
         m_TypePlanete = Planete::PLANETE_RUCHE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/Armageddon.jpg";
         m_Climat = Climat::AtmosphereQuasiMorte;
         m_TitheGrade = new TitheGrade(Exactis, IV_Extremis);
@@ -248,10 +248,18 @@ Planete::Planete()
         m_Nom = "Betalis III";
         m_Population = 1;
         m_TypePlanete = Planete::PLANETE_MINIERE;
-        m_Faction = new Factions(Imperium);
+        m_Faction = new Factions(ef_Imperium);
         m_Image = ":/images/planetes/BetalisIII.jpg";
         m_Climat = Climat::Froid;
         this->m_Xenos = {Xenos::ex_OrksSauvagesSurvivants};
+    }break;
+    case 27 : {
+        m_Nom = "Ryza";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(ef_AdeptusMechanicus);
+        m_Climat = Climat::Tempere;
+        m_TitheGrade = new TitheGrade(AptusNon, e_ProductionGrade::I_Prima);
     }break;
     }
 

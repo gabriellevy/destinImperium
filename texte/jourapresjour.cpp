@@ -147,6 +147,17 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*
                      "\nBien qu'en théorie illégal cela est toléré quand le temps presse autant.",
                      ":/images/metier/inquisiteur_ordo_sicarius.jpg"));
         }
+    } else if (metier == Metier::TECHNOPRETRE)
+    {
+        JourApresJour::PHRASES.push_back(
+              Phrase("Par vos rituels précis et vos discussions mystiques avec l'esprit de la machine, vous parvenez à réparer un char de combat.",
+                 ":/images/metier/Technopretre.jpg"));
+        JourApresJour::PHRASES.push_back(
+              Phrase("Vous travaillez sur un aliage amélioré. Pourvu que le conseil approuve vos recherches.",
+                 ":/images/mechanicus/Adeptus_Mechanicus_Tech-priest.jpg"));
+        JourApresJour::PHRASES.push_back(
+              Phrase("On vous amène un tank à réparer qui démarre mal. Probablement que l'équipage ne chante pas correctement les hymnes de démarrage.",
+                 ":/images/mechanicus/MagosExplorator.jpg"));
     }
 }
 

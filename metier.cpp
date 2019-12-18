@@ -10,6 +10,7 @@
 #include "socio_eco/crime.h"
 #include "factions/assassinorum.h"
 #include "factions/marineimperiale.h"
+#include "factions/adeptusmechanicus.h"
 #include "humain.h"
 
 QString Metier::C_METIER = "Métier";
@@ -139,8 +140,15 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 13 : {
         m_Nom = Metier::TECHNOPRETRE;
         m_Image = ":/images/metier/Technopretre.jpg";
-        m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.0001 + tmpFavoriseur, p_Relative);
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 0.01);
+        m_CallbackDisplay = [] {
+            QString division = AdeptusMechanicus::DeterminerDivisionAleatoire();
+            ExecHistoire::GetEffetActuel()->m_Texte = "Vous êtes maintenant un technoprêtre au service de l'Omnimessie."
+                     "\\n vous êtes affecté à votre division et êtes maintenant " + division + ".";
+
+            Humain::GetHumainJoue()->SetValeurACaracId(AdeptusMechanicus::C_DIVISION, division);
+        };
     }break;
     }
 

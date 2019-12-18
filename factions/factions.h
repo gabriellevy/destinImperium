@@ -5,9 +5,9 @@
 
 enum e_Factions {
     // Imperium
-    AdeptusMechanicus,
-    Ultramarines, // en tant que chef de leur propre secteur
-    Imperium
+    ef_AdeptusMechanicus,
+    ef_Ultramarines, // en tant que chef de leur propre secteur
+    ef_Imperium
 };
 
 class Factions

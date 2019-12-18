@@ -1,4 +1,5 @@
 HEADERS += $$PWD/administratum.h \
+    $$PWD/adeptusmechanicus.h \
     $$PWD/arbites.h \
     $$PWD/assassinorum.h \
     $$PWD/astramilitarum.h \
@@ -8,6 +9,7 @@ HEADERS += $$PWD/administratum.h \
     $$PWD/ministorum.h \
     $$PWD/spacemarine.h
 SOURCES += $$PWD/administratum.cpp \
+    $$PWD/adeptusmechanicus.cpp \
     $$PWD/arbites.cpp \
     $$PWD/assassinorum.cpp \
     $$PWD/astramilitarum.cpp \

@@ -86,5 +86,7 @@
         <file>images/chaos/Chaos_Cultists2.jpg</file>
         <file>images/chaos/ff086889e09fac6503c6559082ffa50a.jpg</file>
         <file>images/metier/Technopretre.jpg</file>
+        <file>images/mechanicus/Adeptus_Mechanicus_Tech-priest.jpg</file>
+        <file>images/mechanicus/MagosExplorator.jpg</file>
     </qresource>
 </RCC>
