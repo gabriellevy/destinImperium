@@ -21,6 +21,7 @@ QString Metier::OUVRIER = "Ouvrier";
 QString Metier::GARDE_IMPERIAL = "Garde Imperial";
 QString Metier::MARIN_IMPERIAL = "Marin Imperial";
 QString Metier::ADEPTE_ADMINISTRATUM = "Adepte Administratum";
+QString Metier::TECHNOPRETRE = "Technoprêtre";
 QString Metier::ARBITES = "Arbitrator"; // Adeptus Arbites
 // mondes chevaliers :
 QString Metier::NOBLE_CHEVALIER = "Noble Chevalier";
@@ -99,7 +100,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
             Humain::GetHumainJoue()->SetValeurACaracId(Assassinorum::C_TEMPLE, temple);
         };
-        m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
         m_Conditions.push_back( Planete::AjouterConditionSiPasMondeFeral() );
     }break;
@@ -135,6 +136,12 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = new Condition(0.005 - tmpFavoriseur, p_Relative);
         Planete::AjouterModifProbaSiMondeMinier(m_ConditionSelecteurProba, 3.0);
     }break;
+    case 13 : {
+        m_Nom = Metier::TECHNOPRETRE;
+        m_Image = ":/images/metier/Technopretre.jpg";
+        m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 0.01);
+    }break;
     }
 
     if ( m_Description == "" ) {
@@ -160,6 +167,8 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 }
 
 
+QList<QString> Metier::METIERS_INTEGRES = {Metier::ARBITES, Metier::INQUISITEUR}; //  métiers où la criminalité est extrêmement faible
+
 Condition* Metier::AjouterConditionSiAMetier()
 {
     Condition* cond = new Condition(Metier::C_METIER, "", Comparateur::c_Different);
@@ -169,5 +178,14 @@ Condition* Metier::AjouterConditionSiAMetier()
 Condition* Metier::AjouterConditionSiAPasMetier()
 {
     Condition* cond = new Condition(Metier::C_METIER, "", Comparateur::c_Egal);
+    return cond;
+}
+
+Condition* Metier::AjouterModifProbaSiAMetierIntegre(Condition* cond, double poidsProba)
+{
+    for ( int i = 0 ; i < Metier::METIERS_INTEGRES.length(); ++i) {
+        cond->AjouterModifProba(poidsProba,
+            { new Condition(Metier::C_METIER, Metier::METIERS_INTEGRES[i], Comparateur::c_Egal) });
+    }
     return cond;
 }

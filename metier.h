@@ -18,6 +18,8 @@ public:
 
     static Condition* AjouterConditionSiAMetier();
     static Condition* AjouterConditionSiAPasMetier();
+    static QList<QString> METIERS_INTEGRES; //  métiers où la criminalité est extrêmement faible
+    static Condition* AjouterModifProbaSiAMetierIntegre(Condition* proba, double modifProbaVal);
 
     static QString C_METIER;
     // valeurs de métiers :
@@ -28,6 +30,7 @@ public:
     static QString GARDE_IMPERIAL;
     static QString MARIN_IMPERIAL;
     static QString ADEPTE_ADMINISTRATUM;
+    static QString TECHNOPRETRE;
     // Adeptus Arbites :
     static QString ARBITES; // Adeptus Arbites
     // mondes chevaliers :

@@ -15,6 +15,7 @@
 #include "psyker.h"
 #include "humanite/pbsante.h"
 #include "texte/jourapresjour.h"
+#include "socio_eco/economieevt.h"
 
 QString SecteChaos::C_SECTE_CHAOS = "Appartient à secte du chaos";
 QString SecteChaos::C_INFLUENCE_CHAOS = "Influence du chaos";
@@ -97,9 +98,24 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = "Révélation de la secte";
         m_ConditionSelecteurProba = new Condition(0.001 + tmpTestVal, p_Relative);
         SecteChaos::AjouterModificateurProbaSiDetectionSecteSuperieurA(m_ConditionSelecteurProba, 5, 0.02);
-        m_Description = "Les autorités ont découvert votre secte et tentent de la détruire. Il va falloir se défendre !.";
+        m_Description = "Les autorités ont découvert votre secte et tentent de la détruire. Il va falloir se défendre ! ==> pas fait !";
         m_Conditions.push_back(SecteChaos::AjouterConditionSiSecte());
 
+    }break;
+    case 6 : {
+        m_Nom = "Travaille mal à cause de la secte";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpTestVal, p_Relative);
+        m_Description = "Votre obsession pour les deux noirs affectent votre vie. Votre efficacité au travail diminue fortement.";
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiSecte());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -2;
+    }break;
+    case 7 : {
+        m_Nom = "Possession démoniaque";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpTestVal, p_Relative);
+        m_Description = "Votre dévotion  au chaos est devenue si forte qu'un démon tente de prendre possession de votre corps pour envahir le plan matériel."
+                "===> pas fait";
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(20));
     }break;
 
     }

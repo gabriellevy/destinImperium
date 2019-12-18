@@ -33,17 +33,12 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Crime::DELINQUANT;
         m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
         m_Description = "Vous vous mettez à voler à droite à gauche pour survivre";
-        m_Conditions.push_back(
-                    new Condition(Crime::C_CRIMINEL,
-                                  "",
-                                  Comparateur::c_Egal));
-        m_Conditions.push_back(
-                    new Condition(ClasseSociale::C_CLASSE_SOCIALE,
-                                  ClasseSociale::MISERABLES,
-                                  Comparateur::c_Egal));
+        m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 1 : {
@@ -52,6 +47,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 2 : {
@@ -60,6 +56,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Votre soif de richesse fait de vous un criminel de plus en plus violent.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 3 : {
@@ -136,6 +133,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 9 : {
@@ -154,6 +152,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                                   Comparateur::c_Egal));
         m_ModificateursCaracs[Crime::C_GANG] = gang;
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeRuche(m_ConditionSelecteurProba, 0.02);
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 10 : {
@@ -179,6 +178,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 12 : {
@@ -191,6 +191,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 13 : {
@@ -203,6 +204,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(Crime::AjouterConditionSiMalhonnete());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     }
