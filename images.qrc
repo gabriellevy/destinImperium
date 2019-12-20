@@ -88,5 +88,6 @@
         <file>images/metier/Technopretre.jpg</file>
         <file>images/mechanicus/Adeptus_Mechanicus_Tech-priest.jpg</file>
         <file>images/mechanicus/MagosExplorator.jpg</file>
+        <file>images/vaisseaux/InquisitorialBlackShip.png</file>
     </qresource>
 </RCC>

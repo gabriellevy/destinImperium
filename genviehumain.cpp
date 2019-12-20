@@ -90,7 +90,7 @@ void GenVieHumain::GenererCaracs()
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::REAFFECTATION_PLANETE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::DESTINATION_PLANETE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::C_DESTINATION_PLANETE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::VOYAGE_WARP);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_FORCE_COMBAT);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_SECTE_CHAOS);

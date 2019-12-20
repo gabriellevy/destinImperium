@@ -12,12 +12,32 @@
 #include "../destinLib/aleatoire.h"
 #include "humanite/pbsante.h"
 #include "socio_eco/crime.h"
+#include "humain.h"
+#include "../destinLib/execeffet.h"
+#include "warp/sectechaos.h"
 
 // caracs :
 QString Psyker::C_PSYKER = "Psyker";
+QString Psyker::C_RAPPORT_AU_GVT = "Rapport au gouvernement";
+QString Psyker::C_NIVEAU_PSYKER = "Niveau de psyker";
 //valeurs de C_PSYKER
 QString Psyker::POTENTIEL_PSY = "Potentiel psy";
 QString Psyker::SANS_AME = "Sans âme";
+//valeurs de C_RAPPORT_AU_GVT
+QString Psyker::IDENTIFIE = "Identifié";
+QString Psyker::CHARGE_DANS_VAISSEAU_NOIR = "Chargé dans un vaisseau noir";
+QString Psyker::DIGNE_DE_SERVIR = "Digne de servir";
+QString Psyker::SACRIFIABLE = "Sacrifiable";// valeurs de C_NIVEAU_PSYKER :
+QString Psyker::OMICRON = "Omicron";
+QString Psyker::XI = "Xi";
+QString Psyker::NU = "Nu";
+QString Psyker::MU = "Mu";
+QString Psyker::LAMBDA = "Lambda";
+QString Psyker::KAPPA = "Kappa";
+QString Psyker::IOTA = "Iota";
+QString Psyker::THETA = "Theta";
+QString Psyker::ETA = "Eta";
+QString Psyker::ALPHA_PLUS = "Alpha Plus";
 
 Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
@@ -25,15 +45,72 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
-        m_ConditionSelecteurProba = new Condition(0.005 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.005 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes identifié par l'Ordo Hereticus comme un dangereux psyker et êtes emprisonné.";
         m_Image = ":/images/inquisition/Inquisitor_Ordo_Hereticus.png";
-        m_Conditions.push_back(
-                    new Condition(Psyker::C_PSYKER,
-                                  Psyker::POTENTIEL_PSY,
-                                  Comparateur::c_Egal));
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_ORDO_HERETICUS;
+    }break;
+    case 1 : {
+        m_Nom = Psyker::IDENTIFIE;
+        m_ConditionSelecteurProba = new Condition(0.03 + tmp_Modificateur, p_Relative);
+        m_Description = "Identifié comme psyker par les agents du gouverneur vous êtes enregistré et répertorié. "
+                "Vous êtes néanmoins remis en liberté ensuite.";
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsykerPasIdentifie());
+        m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::IDENTIFIE;
+    }break;
+    case 2 : {
+        m_Nom = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
+        m_ConditionSelecteurProba = new Condition(0.02 + tmp_Modificateur, p_Relative);
+        m_Description = "Un vaisseau noir de l'inquisition a aterri sur la planète. Sa mission est de capturer tous les psykers de la planète pour les emmener sur Terre."
+                "Les forces du gouvernement qui vous avaient fiché vous livrent à lui sans la moindre hésitation.";
+        m_Image = ":/images/vaisseaux/InquisitorialBlackShip.png";
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
+        m_Conditions.push_back(new Condition(Psyker::C_RAPPORT_AU_GVT, Psyker::IDENTIFIE, Comparateur::c_Egal));
+        m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
+        m_ModificateursCaracs[Voyage::C_DESTINATION_PLANETE] = Planete::TERRE;
+    }break;
+    case 3 : {
+        m_Nom = "Traitement des psykers sur les vaisseaux noirs à Terra";
+        m_ConditionSelecteurProba = new Condition(0.2 + tmp_Modificateur, p_Relative);
+        m_Description = "à mettre à jour";
+        m_Image = ":/images/vaisseaux/InquisitorialBlackShip.png";
+        m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
+        m_Conditions.push_back(new Condition(Psyker::C_RAPPORT_AU_GVT, Psyker::CHARGE_DANS_VAISSEAU_NOIR, Comparateur::c_Egal));
+        m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
+        m_CallbackDisplay = [] {
+            ExecEffet* effetActuel = Univers::ME->GetExecHistoire()->GetExecEffetActuel();
+            Humain* humain = Humain::GetHumainJoue();
+            QString texte = "à remplacer 2";
+            int influenceChaos = humain->GetValeurCaracAsInt(SecteChaos::C_INFLUENCE_CHAOS);
+            QString criminel = humain->GetValeurCarac(Crime::C_CRIMINEL);
+            int age = humain->GetValeurCaracAsInt(GenVieHumain::AGE);
 
+            double probaSacrifice = 0.1;
+            if ( criminel != "")
+                probaSacrifice += 0.3;
+            if ( age > 30*12)
+                probaSacrifice += 0.2;
+
+            if ( Aleatoire::GetAl()->Entre0Et1() < probaSacrifice || influenceChaos > 0) {
+                texte = "Vous n'êtes pas jugé digne de rejoindre la Scholia Psykana. Néanmoins un grand honneur vous attend."
+                        "Vous allez être sacrifié à l'empereur pour l'aider dans sa mission sacrée de mener l'imperium et de repousser les démons.";
+
+                effetActuel->ChargerImage( ":/images/warp/god-emperor.jpg");
+                IPerso::GetPersoCourant()->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
+                IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::SACRIFIABLE);
+            } else {
+                texte = "Vous êtes jugé digne de rejoindre la Schilia Psykana pour devenir un psyker qui pourra servir l'Imperium."
+                      "--> l'école n'est pas faite !";
+
+                effetActuel->ChargerImage( ":/images/metier/Primaris_Psyker.jpg");
+                IPerso::GetPersoCourant()->SetValeurACaracId(Metier::C_METIER, Metier::SCHOLIA_PSYKANA);
+                IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::DIGNE_DE_SERVIR);
+            }
+            effetActuel->GetEffet()->m_Texte = texte;
+
+        };
     }break;
     }
 }
@@ -42,6 +119,11 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 Condition* Psyker::AjouterConditionSiPsyker()
 {
     return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Different);
+}
+
+Condition* Psyker::AjouterConditionSiPsykerPasIdentifie()
+{
+    return new Condition(Psyker::C_RAPPORT_AU_GVT, "", Comparateur::c_Egal);
 }
 
 

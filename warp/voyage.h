@@ -23,10 +23,12 @@ public:
     Voyage(int indexEvt);
     QString GetDescription();
 
+    // caracs
     static QString REAFFECTATION_PLANETE;
-    static QString DESTINATION_PLANETE;
-    static QString ALEATOIRE;
+    static QString C_DESTINATION_PLANETE; // Voyage::ALEATOIRE ou sinon le nom d'une planète
     static QString VOYAGE_WARP;
+
+    static QString ALEATOIRE;
 };
 
 #endif // MISSION_H

@@ -91,7 +91,7 @@ public:
     static QString PLANETE_CIVILISE;
     static QString PLANETE_RUCHE;
     static QString PLANETE_MINIERE;
-    // valeurs de carac C_PLANETE
+    // valeurs de carac C_PLANETE = noms de planètes
     static QString TERRE;
 };
 
