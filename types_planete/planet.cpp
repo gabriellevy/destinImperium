@@ -259,7 +259,22 @@ Planete::Planete()
         m_TypePlanete = Planete::PLANETE_FORGE;
         m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Climat = Climat::Tempere;
-        m_TitheGrade = new TitheGrade(AptusNon, e_ProductionGrade::I_Prima);
+    }break;
+    case 28 : {
+        m_Nom = "Phaeton";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(ef_AdeptusMechanicus);
+        m_TitheGrade = new TitheGrade(AptusNon, e_ProductionGrade::IV_Extremis);
+        m_Climat = Tempere;
+    }break;
+    case 29 : {
+        m_Nom = "Urdesh";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(ef_AdeptusMechanicus);
+        m_TitheGrade = new TitheGrade(AptusNon, e_ProductionGrade::III_Prima);
+        m_Climat = Tempere;
     }break;
     }
 
