@@ -108,13 +108,12 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 7 : {
         m_Nom = "Transformé en serviteur";
-        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.003 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 1.0);
         m_Description = "Vous êtes jugé et condamné à être transformé en serviteur décérébré jusqu'à la fin de vos jours. Vous êtes lobotomisé le mois suivant...";
         m_Image = ":/images/metier/serviteur.jpg";
         m_Conditions.push_back(
-                    new Condition(GenVieHumain::C_LIBERTE,
-                                  Crime::CAPTURE_POLICE,
-                                  Comparateur::c_Egal));
+              new Condition(GenVieHumain::C_LIBERTE, Crime::CAPTURE_POLICE, Comparateur::c_Egal));
         m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
 
     }break;

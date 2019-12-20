@@ -18,6 +18,7 @@
 #include "factions/inquisition.h"
 #include "factions/spacemarine.h"
 #include "types_planete/monderuche.h"
+#include "types_planete/mondeforge.h"
 #include "socio_eco/classesociale.h"
 #include "socio_eco/crime.h"
 #include "socio_eco/maison.h"
@@ -111,6 +112,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_INFLUENCE_CHAOS);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_PUISSANCE_SECTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_DETECTION_SECTE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(AdeptusMechanicus::C_DIVISION);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -155,6 +157,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     GenererNoeuds<MarineImperiale>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
     GenererNoeuds<AdeptusMechanicus>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<MondeForge>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

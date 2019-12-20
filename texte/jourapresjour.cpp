@@ -2,6 +2,7 @@
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
 #include "types_planete/planet.h"
+#include "types_planete/mondeforge.h"
 #include "socio_eco/classesociale.h"
 #include "metier.h"
 #include "genviehumain.h"
@@ -77,6 +78,7 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
                         Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
 
         }
+        MondeForge::RafraichirPhrases();
     }
     else if ( typePlanete == Planete::PLANETE_FERAL)
     {

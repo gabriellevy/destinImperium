@@ -89,5 +89,8 @@
         <file>images/mechanicus/Adeptus_Mechanicus_Tech-priest.jpg</file>
         <file>images/mechanicus/MagosExplorator.jpg</file>
         <file>images/vaisseaux/InquisitorialBlackShip.png</file>
+        <file>images/monde_forge/Exterieur.jpg</file>
+        <file>images/monde_forge/ForgeWorldInterior.png</file>
+        <file>images/monde_forge/Serviteur.png</file>
     </qresource>
 </RCC>
