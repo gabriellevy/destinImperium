@@ -92,5 +92,6 @@
         <file>images/monde_forge/Exterieur.jpg</file>
         <file>images/monde_forge/ForgeWorldInterior.png</file>
         <file>images/monde_forge/Serviteur.png</file>
+        <file>images/metier/Confesseur.jpg</file>
     </qresource>
 </RCC>

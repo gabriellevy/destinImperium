@@ -37,7 +37,7 @@ QMap<QString, Metier*> Metier::METIERS;
 
 Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpFavoriseur = 0.0; // valeur servant à tester => à mettre à 0 pour un test final
+    double tmpFavoriseur = 1.0; // valeur servant à tester => à mettre à 0 pour un test final
     switch (indexEvt) {
     case 0 : {
         m_Nom = Metier::PAYSAN;
@@ -111,7 +111,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Metier::ADEPTUS_MINISTORUM;
         m_Description = "Vous êtes maintenant un fonctionnaire dévoué du très saint Adeptus Ministorum.";
         m_Image = ":/images/organisations/Adeptus_Ministorum_Icon.jpg";
-        m_ConditionSelecteurProba = new Condition(0.1 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.1 + tmpFavoriseur, p_Relative);
     }break;
     case 9 : {
         m_Nom = Metier::MARIN_IMPERIAL;
@@ -142,7 +142,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 13 : {
         m_Nom = Metier::TECHNOPRETRE;
         m_Image = ":/images/metier/Technopretre.jpg";
-        m_ConditionSelecteurProba = new Condition(0.0001 + tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.0001 - tmpFavoriseur, p_Relative);
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 0.01);
         m_CallbackDisplay = [] {
             QString division = AdeptusMechanicus::DeterminerDivisionAleatoire();

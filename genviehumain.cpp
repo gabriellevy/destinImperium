@@ -108,11 +108,12 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MondeRuche::C_ZONE_DHABITATION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(PbSante::C_SANTE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_INFLUENCE_CHAOS);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_PUISSANCE_SECTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_DETECTION_SECTE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(AdeptusMechanicus::C_DIVISION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(AdeptusMechanicus::C_DIVISION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FONCTION);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -152,7 +153,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     GenererNoeuds<Psyker>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Arbites>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Assassinorum>(m_GenerateurEvt, noeuds);
-    GenererNoeuds<Ministorum>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<MinistorumEvts>(m_GenerateurEvt, noeuds);
     GenererNoeuds<AstraMilitarum>(m_GenerateurEvt, noeuds);
     GenererNoeuds<MarineImperiale>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
