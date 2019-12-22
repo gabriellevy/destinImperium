@@ -31,10 +31,13 @@ public:
 
     Condition* AjouterConditionSiMinistorum();
 
+    static void RafraichirPhrasesDeLaFoi(QString typePlanete, QString classeSociale, QString metier);
+
     // caracs
     static QString C_FONCTION;
     // valeurs de C_POSTE
     static QString CONFESSEUR; // haut placé mais relativement mobile et indépendant
+    static QString CONFESSEUR_ACOLYTE; // confesseur affecté à un inquisiteur
 
 };
 

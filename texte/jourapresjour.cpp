@@ -7,6 +7,7 @@
 #include "metier.h"
 #include "genviehumain.h"
 #include "factions/inquisition.h"
+#include "factions/ministorum.h"
 #include "warp/sectechaos.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
@@ -176,6 +177,7 @@ void JourApresJour::RafraichirPhrases()
         SecteChaos::RafraichirPhrases();
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
+    MinistorumEvts::RafraichirPhrasesDeLaFoi(typePlanete, classeSociale, metier); // ce qui a rapport à l'Adeptus Administratum et à la foi en l'empereur
     if ( liberte == "" ) // pas d'actions de métier si on est enfermé
         RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
 

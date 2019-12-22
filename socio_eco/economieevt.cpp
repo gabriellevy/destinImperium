@@ -34,3 +34,8 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     }
 }
+
+Condition* EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(int niv)
+{
+    return new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, QString::number(niv), Comparateur::c_Superieur);
+}
