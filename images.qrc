@@ -94,5 +94,6 @@
         <file>images/monde_forge/Serviteur.png</file>
         <file>images/metier/Confesseur.jpg</file>
         <file>images/guerre/Légion pénale attaque.jpg</file>
+        <file>images/guerre/Arcoflagellant.jpg</file>
     </qresource>
 </RCC>

@@ -9,15 +9,19 @@
 #include "warp/voyage.h"
 #include "metier.h"
 #include "../destinLib/effet.h"
+#include "../destinLib/execeffet.h"
 #include "../destinLib/aleatoire.h"
 #include "classesociale.h"
 #include "humanite/pbsante.h"
 #include "socio_eco/economieevt.h"
 #include "factions/astramilitarum.h"
+#include "warp/sectechaos.h"
+#include "humain.h"
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
 QString Crime::C_GANG = "Gang";
+QString Crime::C_MOIS_PRISON = "Mois d prisons restants";
 //valeurs de criminel : ("" signifie innocent). Note : être jugé innocent même si n est coupable remet en ""
 QString Crime::DELINQUANT = "Délinquant";
 QString Crime::CRIMINEL = "Criminel";
@@ -25,10 +29,11 @@ QString Crime::CRIMINEL = "Criminel";
 QString Crime::CAPTURE_POLICE = "Capturé par la police";
 QString Crime::CAPTURE_ARBITES = "Capturé par l'Adeptus Arbites";
 QString Crime::CAPTURE_ORDO_HERETICUS = "Capturé par l'Ordo Hereticus";
+QString Crime::PRISON = "En prison";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = Crime::DELINQUANT;
@@ -97,26 +102,26 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     case 6 : {
-        m_Nom = "Exécuté par la justice";
-        m_ConditionSelecteurProba = new Condition(0.01 - tmp_Modificateur, p_Relative);
-        m_Description = "Vous êtes jugé et condamné à mort pour vos crimes. La sentence est exécutée le mois suivant.";
-        m_Conditions.push_back(
-                    new Condition(GenVieHumain::C_LIBERTE,
-                                  Crime::CAPTURE_POLICE,
-                                  Comparateur::c_Egal));
-        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Nom = "Vendeur de drogue";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_Description = "VOus mettez en place un petit réseau de revente de drogue sur votre lieu "
+                "de travail qui vous fait très bien voir de vos collègues.";
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Crime::AjouterConditionSiMalhonnete());
+        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
+        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
     case 7 : {
-        m_Nom = "Transformé en serviteur";
-        m_ConditionSelecteurProba = new Condition(0.003 - tmp_Modificateur, p_Relative);
-        m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 1.0);
-        m_Description = "Vous êtes jugé et condamné à être transformé en serviteur décérébré jusqu'à la fin de vos jours. Vous êtes lobotomisé le mois suivant...";
-        m_Image = ":/images/metier/serviteur.jpg";
+        m_Nom = "Jugement !";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
-              new Condition(GenVieHumain::C_LIBERTE, Crime::CAPTURE_POLICE, Comparateur::c_Egal));
-        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
-
+             new Condition(GenVieHumain::C_LIBERTE, Crime::CAPTURE_POLICE, Comparateur::c_Egal));
+        m_CallbackDisplay = [] {
+            Crime::PrononcerLaSentence();
+        };
     }break;
     case 8 : {
         m_Nom = Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
@@ -142,10 +147,8 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         QString gang = Crime::GenererNomGang();
         m_Description = "Vous rejoignez le gang " + gang + ".";
         m_Image = ":/images/crime/gang.PNG";
-        m_Conditions.push_back(
-                    new Condition(Crime::C_CRIMINEL,
-                                  Crime::DELINQUANT,
-                                  Comparateur::c_Egal));
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        m_Conditions.push_back(Crime::AjouterConditionSiDelinquant());
         m_Conditions.push_back(
                     new Condition(Crime::C_GANG,
                                   "",
@@ -194,37 +197,94 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
     }break;
-    case 13 : {
-        m_Nom = "Vendeur de drogue";
-        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
-        m_Description = "VOus mettez en place un petit réseau de revente de drogue sur votre lieu "
-                "de travail qui vous fait très bien voir de vos collègues.";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
-        m_Conditions.push_back(Crime::AjouterConditionSiMalhonnete());
-        m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
-        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
-        m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
 
-    }break;
-    case 14 : {
-        m_Nom = "Condamné au service en légion pénale";
-        m_ConditionSelecteurProba = new Condition(0.01 - tmp_Modificateur, p_Relative);
-        m_Description = "Vous êtes jugé et condamné à servir jusqu'à la mort dans les légions pénales. "
-                "Votre crâne est rasé, on vous tatoue l'insigne de votre régiment et on vous met au cou un collier explosif. "
-                "Au moindre signe d'insubordination votre officier le fera exploser.";
-        m_Image = ":/images/guerre/Légion pénale attaque.jpg";
-        m_Conditions.push_back(
-                    new Condition(GenVieHumain::C_LIBERTE,
-                                  Crime::CAPTURE_POLICE,
-                                  Comparateur::c_Egal));
-        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = AstraMilitarum::LEGION_PENALE;
-        m_ModificateursCaracs[Metier::C_METIER] = Metier::GARDE_IMPERIAL;
-        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
-        m_ModificateursCaracs[AstraMilitarum::C_FONCTION_ASTRA_MILITARUM] = AstraMilitarum::LEGION_PENALE;
-
-    }break;
     }
+}
+
+void Crime::PrononcerLaSentence()
+{
+    Humain* humain = Humain::GetHumainJoue();
+    QString texte = "??? PrononcerLaSentence ???";
+    QString imgPath = "";
+    ExecEffet* execEffet = ExecHistoire::GetExecEffetActuel();
+
+    int graviteCrime = Aleatoire::GetAl()->EntierInferieurA(7);
+    // < 5  = petit délinquant
+    // > 10 crime capital
+
+    if ( humain->GetValeurCarac(Crime::C_CRIMINEL) == Crime::CRIMINEL)
+        graviteCrime += 4;
+    if ( humain->GetValeurCarac(Crime::C_GANG) != "")
+        graviteCrime += 2;
+    if ( humain->GetValeurCarac(SecteChaos::C_SECTE_CHAOS) != "")
+        graviteCrime += 6;
+
+
+    if ( graviteCrime < 5 ) {
+        // relaché
+        humain->SetValeurACaracId(GenVieHumain::C_LIBERTE, "");
+        humain->SetValeurACaracId(Crime::C_GANG, "");
+        humain->SetValeurACaracId(Crime::C_CRIMINEL, "");
+        texte = "Miracle ! Loué soit l'empereur ! Vous êtes jugé innocent et relâché.";
+    }
+    else if ( graviteCrime < 10 ) {
+        // prison
+        int nbAnneePrison = Aleatoire::GetAl()->EntierEntreAEtB(1, 40);
+        humain->SetValeurACaracId(GenVieHumain::C_LIBERTE, Crime::PRISON );
+        humain->SetValeurACaracId(Crime::C_GANG, "");
+        humain->SetValeurACaracId(Crime::C_CRIMINEL, "");
+        humain->SetValeurACaracId(Crime::C_MOIS_PRISON, QString::number(nbAnneePrison * 12));
+        texte = "Vous êtes condamné à " + QString::number(nbAnneePrison) + " années de prison.";
+
+    }
+    else {
+        QList<QString> punitions = {
+            AstraMilitarum::LEGION_PENALE,
+            "exécution",
+            "serviteur",
+            "arcoflagellation"
+        };
+        int indexPunition = Aleatoire::GetAl()->EntierInferieurA(punitions.length());
+        // dans les mondes forges on est transformé en serviteur
+        if ( humain->GetValeurCarac(Planete::C_TYPE_PLANETE) == Planete::PLANETE_FORGE)
+            indexPunition = 2;
+
+        switch (indexPunition) {
+        case 0 : {
+            // condamnation aux légions pénales :
+            humain->SetValeurACaracId(GenVieHumain::C_LIBERTE, AstraMilitarum::LEGION_PENALE);
+            humain->SetValeurACaracId(Metier::C_METIER,Metier::GARDE_IMPERIAL);
+            humain->SetValeurACaracId(AstraMilitarum::C_FONCTION_ASTRA_MILITARUM, AstraMilitarum::LEGION_PENALE);
+            texte = "Vous êtes jugé et condamné à servir jusqu'à la mort dans les légions pénales. "
+                    "Votre crâne est rasé, on vous tatoue l'insigne de votre régiment et on vous met au cou un collier explosif. "
+                    "Au moindre signe d'insubordination votre officier le fera exploser.";
+            imgPath = ":/images/guerre/Légion pénale attaque.jpg";
+            humain->SetValeurACaracId(ClasseSociale::C_CLASSE_SOCIALE,ClasseSociale::MISERABLES);
+        }break;
+        case 1 : {
+            // exécution
+            texte = "Vous êtes jugé et condamné à mort pour vos crimes. La sentence est exécutée le mois suivant.";
+            humain->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
+
+        }break;
+        case 2 : {
+            // transformé en serviteur
+            texte = "Vous êtes jugé et condamné à être transformé en serviteur décérébré jusqu'à la fin de vos jours. Vous êtes lobotomisé le mois suivant...";
+            imgPath = ":/images/metier/serviteur.jpg";
+            humain->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
+        }break;
+        case 3 : {
+            // arco flagellation
+            texte = "Vous êtes jugé et condamné à l'arcoflagellation. Vous êtes lobotomisé et transformé en machine à tuer décérébrée au service de l'inquisition.";
+            imgPath = ":/images/guerre/Arcoflagellant.jpg";
+            humain->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
+        }break;
+        }
+    }
+
+    execEffet->GetEffet()->m_Texte = texte;
+    if ( imgPath != "" )
+        execEffet->ChargerImage(imgPath);
 }
 
 Condition* Crime::AjouterModificateurDeProbaSiDelinquant(Condition* cond, double poidsProba)
@@ -257,6 +317,9 @@ QString Crime::GenererNomGang()
 
 Condition* Crime::AjouterConditionSiLibre()
 {    return new Condition(GenVieHumain::C_LIBERTE, "", Comparateur::c_Egal);}
+
+Condition* Crime::AjouterConditionSiDelinquant()
+{    return new Condition(Crime::C_CRIMINEL, Crime::DELINQUANT, Comparateur::c_Egal);}
 
 Condition* Crime::AjouterConditionSiNonLibre()
 {    return new Condition(GenVieHumain::C_LIBERTE, "", Comparateur::c_Different);}

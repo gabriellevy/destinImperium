@@ -114,6 +114,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_DETECTION_SECTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(AdeptusMechanicus::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FONCTION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -189,6 +190,7 @@ Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
     return effet;
 }
 

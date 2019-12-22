@@ -163,6 +163,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     m_ModificateursCaracs[C_METIER] = m_Nom;
 
     m_Conditions.push_back(Metier::AjouterConditionSiAPasMetier());
+    m_Conditions.push_back(Crime::AjouterConditionSiLibre());
 
     if ( m_ConditionSelecteurProba!= nullptr) {
         // si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
