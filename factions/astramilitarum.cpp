@@ -18,6 +18,7 @@ QString AstraMilitarum::C_FONCTION_ASTRA_MILITARUM = "Fonction dans l'astra Mili
 QString AstraMilitarum::C_REGIMENT_ASTRA_MILITARUM = "Régiment Astra Militarum";
 // valeurs FONCTION_ASTRA_MILITARUM :
 QString AstraMilitarum::FANTASSIN = "Fantassin";
+QString AstraMilitarum::LEGION_PENALE = "Légionnaire pénal";
 // valeurs REGIMENT_ASTRA_MILITARUM :
 QString AstraMilitarum::CADIAN = "Troupes de choc de Cadian";
 QString AstraMilitarum::LEGIONS_D_ACIER = "Légons d'acier d'Armageddon";

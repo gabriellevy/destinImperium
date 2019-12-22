@@ -57,7 +57,7 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[PbSante::C_SANTE] = SecteChaos::LEPRE_DE_NURGLE;
         m_ModificateursCaracs[SecteChaos::C_DIEU] = SecteChaos::NURGLE;
         m_IncrementeursCaracs[SecteChaos::C_INFLUENCE_CHAOS] = 3;
-        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[Metier::C_METIER] = Metier::INEMPLOYABLE;
 
     }break;
     case 2 : {
@@ -70,7 +70,7 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_CallbackDisplay = [] {
             QVector<QString> textes = {
                 "Vous avez des hallucinations étranges et terrifiantes. Des créatures spectrales grimaçantes.",
-                "Un de vos amis vous confie aller souvent à des réunions sacrètes mystiques."
+                "Un de vos amis vous confie aller souvent à des réunions secrètes mystiques."
             };
             int num = Aleatoire::GetAl()->EntierInferieurA(textes.length());
             ExecHistoire::GetEffetActuel()->m_Texte = textes[num];

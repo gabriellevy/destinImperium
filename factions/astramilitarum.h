@@ -41,6 +41,7 @@ public:
     static QString C_REGIMENT_ASTRA_MILITARUM;
     // valeurs FONCTION_ASTRA_MILITARUM :
     static QString FANTASSIN;
+    static QString LEGION_PENALE;
     // valeurs REGIMENT_ASTRA_MILITARUM :
     static QString CADIAN;
     static QString LEGIONS_D_ACIER;

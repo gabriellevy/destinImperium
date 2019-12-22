@@ -23,6 +23,7 @@ public:
 
     static QString C_METIER;
     // valeurs de métiers :
+    static QString INEMPLOYABLE; // quand le eprso n'est plus bon à rien (maladie extrêmement grave par ex)
     static QString PAYSAN;
     static QString MINEUR;
     static QString CHASSEUR_CUEILLEUR_NOMADE;

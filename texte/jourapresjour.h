@@ -7,7 +7,7 @@
 
 // affichage de texte (phrase donc) mais aussi potetntiellement d'une image
 struct Phrase {
-    Phrase(QString texte, QString img = ""):m_Texte(texte), m_CheminImg(img) {
+    Phrase(QString texte, QString img = ""):m_Texte(" - " + texte), m_CheminImg(img) {
 
     }
     QString m_Texte;

@@ -13,6 +13,7 @@
 #include "classesociale.h"
 #include "humanite/pbsante.h"
 #include "socio_eco/economieevt.h"
+#include "factions/astramilitarum.h"
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
@@ -27,7 +28,7 @@ QString Crime::CAPTURE_ORDO_HERETICUS = "Capturé par l'Ordo Hereticus";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = Crime::DELINQUANT;
@@ -73,7 +74,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 4 : {
         m_Nom = Crime::CAPTURE_ARBITES;
-        m_ConditionSelecteurProba = new Condition(0.001 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.001 - tmp_Modificateur, p_Relative);
         m_Description = "Vous avez été capturé par l'Adeptus Arbites pour vos méfaits.";
         m_Conditions.push_back(
                     new Condition(Crime::C_CRIMINEL,
@@ -85,7 +86,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 5 : {
         m_Nom = "Exécuté par un arbitrator";
-        m_ConditionSelecteurProba = new Condition(0.05 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.05 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes jugé et condamné à mort pour vos crimes. La sentence est exécutée immédiatement par le juge Arbitrator.";
         m_Image = ":/images/metier/juge.jpg";
         m_Conditions.push_back(
@@ -97,7 +98,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 6 : {
         m_Nom = "Exécuté par la justice";
-        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.01 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes jugé et condamné à mort pour vos crimes. La sentence est exécutée le mois suivant.";
         m_Conditions.push_back(
                     new Condition(GenVieHumain::C_LIBERTE,
@@ -108,7 +109,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 7 : {
         m_Nom = "Transformé en serviteur";
-        m_ConditionSelecteurProba = new Condition(0.003 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.003 - tmp_Modificateur, p_Relative);
         m_ConditionSelecteurProba = Planete::AjouterModifProbaSiMondeForge(m_ConditionSelecteurProba, 1.0);
         m_Description = "Vous êtes jugé et condamné à être transformé en serviteur décérébré jusqu'à la fin de vos jours. Vous êtes lobotomisé le mois suivant...";
         m_Image = ":/images/metier/serviteur.jpg";
@@ -156,7 +157,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 10 : {
         m_Nom = "Envoyé en travail forcé en monde minier";
-        m_ConditionSelecteurProba = new Condition(0.01 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.01 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes jugé et condamné à travailler dans la colonie pénale d'un monde minier.";
         m_Conditions.push_back(
                     new Condition(GenVieHumain::C_LIBERTE,
@@ -204,6 +205,23 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
         m_ConditionSelecteurProba = Metier::AjouterModifProbaSiAMetierIntegre(m_ConditionSelecteurProba, -0.01);
+
+    }break;
+    case 14 : {
+        m_Nom = "Condamné au service en légion pénale";
+        m_ConditionSelecteurProba = new Condition(0.01 - tmp_Modificateur, p_Relative);
+        m_Description = "Vous êtes jugé et condamné à servir jusqu'à la mort dans les légions pénales. "
+                "Votre crâne est rasé, on vous tatoue l'insigne de votre régiment et on vous met au cou un collier explosif. "
+                "Au moindre signe d'insubordination votre officier le fera exploser.";
+        m_Image = ":/images/guerre/Légion pénale attaque.jpg";
+        m_Conditions.push_back(
+                    new Condition(GenVieHumain::C_LIBERTE,
+                                  Crime::CAPTURE_POLICE,
+                                  Comparateur::c_Egal));
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = AstraMilitarum::LEGION_PENALE;
+        m_ModificateursCaracs[Metier::C_METIER] = Metier::GARDE_IMPERIAL;
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
+        m_ModificateursCaracs[AstraMilitarum::C_FONCTION_ASTRA_MILITARUM] = AstraMilitarum::LEGION_PENALE;
 
     }break;
     }
