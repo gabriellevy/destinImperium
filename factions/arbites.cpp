@@ -11,6 +11,7 @@
 #include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
+#include "texte/jourapresjour.h"
 
 // grades
 QString Arbites::JUGE_ARBITES = "Juge"; //  => inateignable pour l'instant
@@ -30,4 +31,22 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     }
+}
+
+void Arbites::RafraichirPhrases()
+{
+    JourApresJour::PHRASES.push_back(
+        Phrase(
+            "Encore une patrouille tranquille autour de la fortresse de circonscription.",
+            ":/images/metier/Arbite_aboard_vessel.jpg"
+            ));
+    JourApresJour::PHRASES.push_back(
+        Phrase(
+            "Rien de particulier. Juste quelques coups de matraque énergétique pour calmer les délinquants des environs.",
+            ":/images/metier/Female_Arbiter_2.jpg"
+            ));
+    JourApresJour::PHRASES.push_back(
+        Phrase("Vous passez un temps infini à étudier le livre des jugements pour rendre votre verdict." ));
+    JourApresJour::PHRASES.push_back(
+        Phrase("Vous ajoutez des articles au grand livre des jugements au nom de l'empereur." ));
 }

@@ -8,6 +8,7 @@
 #include "genviehumain.h"
 #include "factions/inquisition.h"
 #include "factions/ministorum.h"
+#include "factions/arbites.h"
 #include "warp/sectechaos.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
@@ -98,16 +99,7 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
 void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*classeSociale*/, QString metier)
 {
     if ( metier == Metier::ARBITES) {
-        JourApresJour::PHRASES.push_back(
-            Phrase(
-                "Encore une patrouille tranquille autour de la fortresse de circonscription.",
-                ":/images/metier/Arbite_aboard_vessel.jpg"
-                ));
-        JourApresJour::PHRASES.push_back(
-            Phrase(
-                "Rien de particulier. Juste quelques coups de matraque énergétique pour calmer les délinquants des environs.",
-                ":/images/metier/Female_Arbiter_2.jpg"
-                ));
+        Arbites::RafraichirPhrases();
     } else if ( metier == Metier::OUVRIER)
     {
         if ( typePlanete == Planete::PLANETE_RUCHE) {

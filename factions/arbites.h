@@ -18,6 +18,8 @@ class Arbites : public GenerateurNoeudsProbables
 public:
     Arbites(int indexEvt);
 
+    static void RafraichirPhrases();
+
     // grades :
     static QString JUGE_ARBITES; //  => inateignable pour l'instant
     static QString PREVOT_MARECHAL; // chef de tout l'adeptus => innateignable pour l'instant
