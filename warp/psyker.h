@@ -29,6 +29,7 @@ public:
     static QString C_NIVEAU_PSYKER; // TODO MATHIEU : cette carac n'est pas utilisée pour l'instant
     //valeurs de C_PSYKER
     static QString POTENTIEL_PSY;
+    static QString PSYKER_CONFIRME;
     static QString SANS_AME;
     //valeurs de C_RAPPORT_AU_GVT
     static QString IDENTIFIE;

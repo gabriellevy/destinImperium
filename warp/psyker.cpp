@@ -22,6 +22,7 @@ QString Psyker::C_RAPPORT_AU_GVT = "Rapport au gouvernement";
 QString Psyker::C_NIVEAU_PSYKER = "Niveau de psyker";
 //valeurs de C_PSYKER
 QString Psyker::POTENTIEL_PSY = "Potentiel psy";
+QString Psyker::PSYKER_CONFIRME = "Psyke confirmé";
 QString Psyker::SANS_AME = "Sans âme";
 //valeurs de C_RAPPORT_AU_GVT
 QString Psyker::IDENTIFIE = "Identifié";
