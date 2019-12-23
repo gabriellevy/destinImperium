@@ -32,7 +32,9 @@ QString Metier::SERVANT_ADEPTUS_ASTRONOMICA = "Servant Adeptus Astronomica";
 QString Metier::ADEPTUS_ASSASSINORUM = "Adeptus Assassinorum";
 QString Metier::ADEPTUS_MINISTORUM = "Adeptus Ministorum";
 // psykers
-QString Metier::SCHOLIA_PSYKANA = "Scholia Psykana";
+QString Metier::SCHOLIA_PSYKANA = "Scholista Psykana";
+QString Metier::PSYKER_PRIMARIS = "Psyker Primaris";
+QString Metier::ASTROPATHE = "Astropathe";
 
 QMap<QString, Metier*> Metier::METIERS;
 

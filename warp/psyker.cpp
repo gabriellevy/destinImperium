@@ -45,7 +45,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
-        m_ConditionSelecteurProba = new Condition(0.005 - tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = new Condition(0.002 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes identifié par l'Ordo Hereticus comme un dangereux psyker et êtes emprisonné.";
         m_Image = ":/images/inquisition/Inquisitor_Ordo_Hereticus.png";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
@@ -70,6 +70,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(new Condition(Psyker::C_RAPPORT_AU_GVT, Psyker::IDENTIFIE, Comparateur::c_Egal));
         m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
         m_ModificateursCaracs[Voyage::C_DESTINATION_PLANETE] = Planete::TERRE;
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
     }break;
     case 3 : {
         m_Nom = "Traitement des psykers sur les vaisseaux noirs à Terra";
@@ -101,8 +102,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 IPerso::GetPersoCourant()->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
                 IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::SACRIFIABLE);
             } else {
-                texte = "Vous êtes jugé digne de rejoindre la Schilia Psykana pour devenir un psyker qui pourra servir l'Imperium."
-                      "--> l'école n'est pas faite !";
+                texte = "Vous êtes jugé digne de rejoindre la Schilia Psykana pour devenir un psyker qui pourra servir l'Imperium.";
 
                 effetActuel->ChargerImage( ":/images/metier/Primaris_Psyker.jpg");
                 IPerso::GetPersoCourant()->SetValeurACaracId(Metier::C_METIER, Metier::SCHOLIA_PSYKANA);

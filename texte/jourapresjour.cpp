@@ -11,6 +11,7 @@
 #include "factions/administratum.h"
 #include "factions/arbites.h"
 #include "warp/sectechaos.h"
+#include "factions/astratelepathica.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
@@ -97,13 +98,16 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
     }
 }
 
-void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*classeSociale*/, QString metier)
+void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier)
 {
     if ( metier == Metier::ARBITES) {
         Arbites::RafraichirPhrases();
     }
     else if ( metier == Metier::ADEPTE_ADMINISTRATUM) {
         Administratum::RafraichirPhrases();
+    }
+    else if ( metier == Metier::SCHOLIA_PSYKANA) {
+        AstraTelepathica::RafraichirPhrasesScholasticaPsykana(typePlanete, classeSociale);
     } else if ( metier == Metier::OUVRIER)
     {
         if ( typePlanete == Planete::PLANETE_RUCHE) {

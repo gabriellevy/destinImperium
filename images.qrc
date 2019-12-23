@@ -95,5 +95,7 @@
         <file>images/metier/Confesseur.jpg</file>
         <file>images/guerre/Légion pénale attaque.jpg</file>
         <file>images/guerre/Arcoflagellant.jpg</file>
+        <file>images/warp/LienDesAmes.jpg</file>
+        <file>images/warp/Primaris_Psyker2.jpg</file>
     </qresource>
 </RCC>

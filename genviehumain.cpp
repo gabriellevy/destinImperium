@@ -34,6 +34,7 @@
 #include "factions/astramilitarum.h"
 #include "factions/marineimperiale.h"
 #include "factions/adeptusmechanicus.h"
+#include "factions/astratelepathica.h"
 #include "age.h"
 
 QString GenVieHumain::AGE = "Age";
@@ -84,7 +85,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_BUREAU_MUNITORUM);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_BUREAU_MUNITORUM );
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_RANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
@@ -162,6 +163,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds)
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
     GenererNoeuds<AdeptusMechanicus>(m_GenerateurEvt, noeuds);
     GenererNoeuds<MondeForge>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<AstraTelepathica>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

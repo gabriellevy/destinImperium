@@ -56,6 +56,7 @@ Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             effetActuel->ChargerImage( nouvellePlanete->m_Image);
             effetActuel->GetEffet()->m_Texte = "Vos arrivez enfin à la planète " + planeteDestinationStr + ".";
             IPerso::GetPersoCourant()->SetValeurACaracId(Planete::C_PLANETE, planeteDestinationStr);
+            IPerso::GetPersoCourant()->SetValeurACaracId(Planete::C_TYPE_PLANETE, nouvellePlanete->m_TypePlanete);
             IPerso::GetPersoCourant()->SetValeurACaracId(Voyage::C_DESTINATION_PLANETE, "");
         };
     }break;

@@ -23,6 +23,7 @@ public:
     static QString C_SANTE;
     // valeurs de C_SANTE
     static QString MORT;
+    static QString FOLIE;
 
     static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);
     static Condition* AjouterConditionSiVivant();

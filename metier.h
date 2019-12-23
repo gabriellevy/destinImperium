@@ -42,6 +42,8 @@ public:
     static QString ADEPTUS_MINISTORUM;
     // psykers
     static QString SCHOLIA_PSYKANA;
+    static QString PSYKER_PRIMARIS;
+    static QString ASTROPATHE;
 };
 
 #endif // METIER_H

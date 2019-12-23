@@ -3,6 +3,7 @@ HEADERS += $$PWD/administratum.h \
     $$PWD/arbites.h \
     $$PWD/assassinorum.h \
     $$PWD/astramilitarum.h \
+    $$PWD/astratelepathica.h \
     $$PWD/factions.h \
     $$PWD/inquisition.h \
     $$PWD/marineimperiale.h \
@@ -13,6 +14,7 @@ SOURCES += $$PWD/administratum.cpp \
     $$PWD/arbites.cpp \
     $$PWD/assassinorum.cpp \
     $$PWD/astramilitarum.cpp \
+    $$PWD/astratelepathica.cpp \
     $$PWD/factions.cpp \
     $$PWD/inquisition.cpp \
     $$PWD/marineimperiale.cpp \

@@ -74,15 +74,18 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
 }
 
 
-void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /*classeSociale*/, QString /*metier*/)
+void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /*classeSociale*/, QString metier)
 {
     Humain* humain = Humain::GetHumainJoue();
     QString fonction = humain->GetValeurCarac(MinistorumEvts::C_FONCTION);
-    if ( fonction == MinistorumEvts::CONFESSEUR)
+    if ( metier == Metier::ADEPTUS_MINISTORUM)
     {
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Un peuvre diable mutant s'est confessé à vous. Nul doute que l'empereur l'accueillera en sa sainte présence après son immolation.",
-            ":/images/metier/Confesseur.jpg"));
+        if ( fonction == MinistorumEvts::CONFESSEUR)
+        {
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Un peuvre diable mutant s'est confessé à vous. Nul doute que l'empereur l'accueillera en sa sainte présence après son immolation.",
+                ":/images/metier/Confesseur.jpg"));
+        }
     }
 }
 

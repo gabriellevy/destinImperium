@@ -12,6 +12,7 @@
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
 QString PbSante::MORT = "Mort";
+QString PbSante::FOLIE = "Folie";
 
 PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
