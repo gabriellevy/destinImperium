@@ -8,6 +8,7 @@
 #include "genviehumain.h"
 #include "factions/inquisition.h"
 #include "factions/ministorum.h"
+#include "factions/administratum.h"
 #include "factions/arbites.h"
 #include "warp/sectechaos.h"
 
@@ -100,6 +101,9 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString /*
 {
     if ( metier == Metier::ARBITES) {
         Arbites::RafraichirPhrases();
+    }
+    else if ( metier == Metier::ADEPTE_ADMINISTRATUM) {
+        Administratum::RafraichirPhrases();
     } else if ( metier == Metier::OUVRIER)
     {
         if ( typePlanete == Planete::PLANETE_RUCHE) {

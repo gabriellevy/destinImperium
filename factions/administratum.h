@@ -25,9 +25,14 @@ public:
     Condition* AjouterModifProbaSiPrefetAdministratum60Ans(Condition* cond, double poidsProba);
     Condition* AjouterModifProbaSiADivision(Condition* cond, double poidsProba);
 
+    static void RafraichirPhrases();
+
+    static void AffecterBureauMunitorum(); // runtime function
+
     // caracs :
     static QString C_DIVISION; // sous partie d'administration
-    // valeurs de caracs
+    static QString C_BUREAU_MUNITORUM; // sous partie d'administration
+    // valeurs de C_DIVISION
     static QString DEPARTMENTO_MUNITORUM;
     static QString DEPARTMENTO_EXACTA;
     static QString ESTATE_IMPERIUM;
@@ -41,13 +46,24 @@ public:
     static QString OFFICIO_SABATORUM;
     static QString OFFICIO_AGRICULTAE;
     static QString ORDO_TEMPESTUS;
-    static QVector<QString> DIVISIONS;
+    // valeurs de C_BUREAU_MUNITORUM
+    static QString OFFICIO_TACTICA;
+    static QString BUREAU_COMMISSAIRE;
+    static QString BUREAU_ENREGISTREMENT;
+    static QString SCHOLA_PROGENIUM;
+    static QString CORPS_EVALUATION;
+    static QString COMMISSARIAT;
+    static QString CORPS_INGENIEUR;
+    static QString CORPS_EXECUTION;
+    static QString CORPS_SAPEURS;
+    static QString CORPS_PIONNIERS;
+    static QString CORPS_SIEGE;
 
     // ids d'effets
     static QString ID_AFFECTATION_DIVISION;
 
     // grades
-    static QString RANG; // dans l'administratum
+    static QString C_RANG; // dans l'administratum
     static QString GRADE_SCRIBE;
     static QString GRADE_ORDINATE;
     static QString GRADE_PREFET;
@@ -70,6 +86,7 @@ public:
 
     static void GenererDivisions();
     static void GenererNoeudsAffectation(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    static QVector<QPair<QString, QString>> BUREAU_MUNITORUM;
 
 };
 

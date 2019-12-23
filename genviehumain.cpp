@@ -84,7 +84,8 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_DIVISION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::RANG);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_BUREAU_MUNITORUM);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Administratum::C_RANG);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Inquisition::C_ORDO);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Maison::C_MAISON);

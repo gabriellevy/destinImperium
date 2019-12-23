@@ -74,7 +74,7 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
 }
 
 
-void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString typePlanete, QString classeSociale, QString metier)
+void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /*classeSociale*/, QString /*metier*/)
 {
     Humain* humain = Humain::GetHumainJoue();
     QString fonction = humain->GetValeurCarac(MinistorumEvts::C_FONCTION);
