@@ -11,6 +11,10 @@
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
+QString PbSante::C_CONSTITUTION = "Constitution";
+// valeurs de C_CONSTITUTION normal = ""
+QString PbSante::RESISTANT = "Résistant";
+QString PbSante::FRELE = "Frêle";
 QString PbSante::MORT = "Mort";
 QString PbSante::FOLIE = "Folie";
 
@@ -44,6 +48,11 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Egal)});
         m_ConditionSelecteurProba->AjouterModifProba(-0.01,
             {new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Egal)});
+        // différence selon constitution
+        m_ConditionSelecteurProba->AjouterModifProba(0.0001,
+            {new Condition(PbSante::C_CONSTITUTION, PbSante::FRELE, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.005,
+            {new Condition(PbSante::C_CONSTITUTION, PbSante::RESISTANT, Comparateur::c_Egal)});
 
 
         m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;

@@ -19,11 +19,15 @@ public:
     PbSante(int indexEvt);
 
     // caracs liées :
-    static QString PESTE;
     static QString C_SANTE;
+    static QString C_CONSTITUTION; // influe sur espérance de vie
+    // valeurs de C_CONSTITUTION "" = normal
+    static QString RESISTANT;
+    static QString FRELE;
     // valeurs de C_SANTE
     static QString MORT;
     static QString FOLIE;
+    static QString PESTE;
 
     static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);
     static Condition* AjouterConditionSiVivant();

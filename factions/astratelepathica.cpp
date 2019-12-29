@@ -77,7 +77,7 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
     case 2 : {
         m_Nom = "Diplome_AstraTelepathica";
         m_ConditionSelecteurProba = new Condition(0.4, p_Relative);
-        m_Description = "Vous êtes arrivé au bout de la formation. Vous êtes maintenant un psyker reconnu et accept par l'Imperium. Un carrière glorieuse vous attend. ";
+        m_Description = "à remplacer ";
         m_Image = ":/images/warp/Primaris_Psyker2.jpg";
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiScholasticaPsykana());
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiApprentissageSuperieurA(9));
@@ -105,17 +105,26 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
 void AstraTelepathica::AffecterMetierPsyker()
 {
     Humain* humain = Humain::GetHumainJoue();
+    ExecEffet* exec_effet = ExecHistoire::GetExecEffetActuel();
+    QString texte = "Vous êtes arrivé au bout de la formation. Vous êtes maintenant un psyker reconnu et accept par l'Imperium. Un carrière glorieuse vous attend. ";
     QString metier = "";
     int val = Aleatoire::GetAl()->EntierInferieurA(2);
     if ( val == 0)
     {
         metier = Metier::ASTROPATHE;
+        exec_effet->ChargerImage(":/images/metier/Astropathe.jpg");
+        texte += "\n\nVous êtes affecté à la division des astropathes, chargés des communications psychiques interstellaires instantanées. "
+                "Un travail extrêmement précieux pour l'Imperium mais épuisant pour l'esprit et le corps.";
+        humain->SetValeurACaracId(PbSante::C_CONSTITUTION, PbSante::FRELE);
     }
     else if ( val == 1)
     {
         metier = Metier::PSYKER_PRIMARIS;
+        texte += "\n\nVous êtes maintenant un psyker Primaris au service de la garde impériale.";
+        exec_effet->ChargerImage(":/images/metier/Primaris_Psyker.jpg");
     }
     humain->SetValeurACaracId(Metier::C_METIER, metier);
+    exec_effet->GetEffet()->m_Texte= texte;
 }
 
 Condition* AstraTelepathica::AjouterConditionSiScholasticaPsykana()

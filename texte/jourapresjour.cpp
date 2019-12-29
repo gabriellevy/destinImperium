@@ -26,7 +26,7 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
                         Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
             JourApresJour::PHRASES.push_back(
                         Phrase("La fatigue et la déprime est telle après cette journée épuisante que vous vous laissez aller à boire de l'immonde Torboyo. "
-                               "Eespérons que vous ne serez pas aveugle demain.",
+                               "Espérons que vous ne serez pas aveugle demain.",
                                ""));
 
         } else
@@ -43,7 +43,7 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
                         Phrase("Encore une bonne bouillie de déchets organiques recyclés comme repas", ""));
             JourApresJour::PHRASES.push_back(
                         Phrase("La fatigue et la déprime est telle après cette journée épuisante que vous vous laissez aller à boire de l'immonde Torboyo. "
-                               "Eespérons que vous ne serez pas aveugle demain.",
+                               "Espérons que vous ne serez pas aveugle demain.",
                                ""));
 
         } else if ( classeSociale == ClasseSociale::CLASSE_MOYENNE ) {
@@ -166,6 +166,8 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
 
 void JourApresJour::RafraichirPhrases()
 {
+    JourApresJour::PHRASES.clear();
+
     Humain* humain = Humain::GetHumainJoue();
     // extraire les critères qui influent sur les textes/événements possibles :
     QString typePlanete = Humain::GetHumainJoue()->GetValeurCarac(Planete::C_TYPE_PLANETE);

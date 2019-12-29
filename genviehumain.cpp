@@ -111,13 +111,15 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MondeRuche::C_ZONE_DHABITATION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_CONSTITUTION);
     // secte du chaos :
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_INFLUENCE_CHAOS);
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_PUISSANCE_SECTE);
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_DETECTION_SECTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(AdeptusMechanicus::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FONCTION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
+    Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
+    carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
 }
 
 void GenVieHumain::GenererEvtsAccueil()

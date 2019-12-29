@@ -22,7 +22,7 @@ QString Psyker::C_RAPPORT_AU_GVT = "Rapport au gouvernement";
 QString Psyker::C_NIVEAU_PSYKER = "Niveau de psyker";
 //valeurs de C_PSYKER
 QString Psyker::POTENTIEL_PSY = "Potentiel psy";
-QString Psyker::PSYKER_CONFIRME = "Psyke confirmé";
+QString Psyker::PSYKER_CONFIRME = "Psyker confirmé";
 QString Psyker::SANS_AME = "Sans âme";
 //valeurs de C_RAPPORT_AU_GVT
 QString Psyker::IDENTIFIE = "Identifié";
@@ -72,6 +72,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
         m_ModificateursCaracs[Voyage::C_DESTINATION_PLANETE] = Planete::TERRE;
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
+        m_ModificateursCaracs[Metier::C_METIER] = "";
     }break;
     case 3 : {
         m_Nom = "Traitement des psykers sur les vaisseaux noirs à Terra";
@@ -103,11 +104,12 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 IPerso::GetPersoCourant()->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
                 IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::SACRIFIABLE);
             } else {
-                texte = "Vous êtes jugé digne de rejoindre la Schilia Psykana pour devenir un psyker qui pourra servir l'Imperium.";
+                texte = "Vous êtes jugé digne de rejoindre la Scholista Psykana pour devenir un psyker qui pourra servir l'Imperium.";
 
                 effetActuel->ChargerImage( ":/images/metier/Primaris_Psyker.jpg");
                 IPerso::GetPersoCourant()->SetValeurACaracId(Metier::C_METIER, Metier::SCHOLIA_PSYKANA);
                 IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::DIGNE_DE_SERVIR);
+                IPerso::GetPersoCourant()->SetValeurACaracId(GenVieHumain::C_LIBERTE, "");
             }
             effetActuel->GetEffet()->m_Texte = texte;
 

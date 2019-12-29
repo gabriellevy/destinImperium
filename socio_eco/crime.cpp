@@ -21,7 +21,7 @@
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
 QString Crime::C_GANG = "Gang";
-QString Crime::C_MOIS_PRISON = "Mois d prisons restants";
+QString Crime::C_MOIS_PRISON = "Mois de prison restants";
 //valeurs de criminel : ("" signifie innocent). Note : être jugé innocent même si n est coupable remet en ""
 QString Crime::DELINQUANT = "Délinquant";
 QString Crime::CRIMINEL = "Criminel";
