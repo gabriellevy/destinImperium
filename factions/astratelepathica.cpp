@@ -133,17 +133,11 @@ Condition* AstraTelepathica::AjouterConditionSiScholasticaPsykana()
 Condition* AstraTelepathica::AjouterConditionSiApprentissageSuperieurA(int val)
 {    return new Condition(AstraTelepathica::C_NIVEAU_APPRENTISSAGE, QString::number(val), Comparateur::c_Superieur);}
 
-void AstraTelepathica::AstraTelepathica::RafraichirPhrasesScholasticaPsykana(QString typePlanete, QString classeSociale)
+void AstraTelepathica::RafraichirPhrasesScholasticaPsykana(QString typePlanete, QString classeSociale)
 {
     Humain* hum = Humain::GetHumainJoue();
     if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)
     {
-        // psyker non maîtrisés :
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Les statues se mettent à pleurer du sangsur la grande place. Est-ce un miracle de l'empereur ?"));
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Le sol se couvre de glace sur votre passage. Ce semble être de la sorcellerie. Vient-elle de vous ?"));
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Vous entedez des murmures fantomatiques. Est-ce que vous devenez fou ?"));
+
     }
 }

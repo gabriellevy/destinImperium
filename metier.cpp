@@ -33,6 +33,7 @@ QString Metier::ADEPTUS_ASSASSINORUM = "Adeptus Assassinorum";
 QString Metier::ADEPTUS_MINISTORUM = "Adeptus Ministorum";
 // psykers
 QString Metier::SCHOLIA_PSYKANA = "Scholista Psykana";
+QString Metier::ASTRONOMICA = "Adeptus Astronomica";
 QString Metier::PSYKER_PRIMARIS = "Psyker Primaris";
 QString Metier::ASTROPATHE = "Astropathe";
 
@@ -182,6 +183,12 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
 
 QList<QString> Metier::METIERS_INTEGRES = {Metier::ARBITES, Metier::INQUISITEUR}; //  métiers où la criminalité est extrêmement faible
+
+Condition* Metier::AjouterConditionSiACeMetier(QString metier)
+{
+    Condition* cond = new Condition(Metier::C_METIER, metier, Comparateur::c_Egal);
+    return cond;
+}
 
 Condition* Metier::AjouterConditionSiAMetier()
 {

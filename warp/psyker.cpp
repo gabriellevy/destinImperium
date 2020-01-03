@@ -15,6 +15,8 @@
 #include "humain.h"
 #include "../destinLib/execeffet.h"
 #include "warp/sectechaos.h"
+#include "texte/jourapresjour.h"
+
 
 // caracs :
 QString Psyker::C_PSYKER = "Psyker";
@@ -98,11 +100,13 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
             if ( Aleatoire::GetAl()->Entre0Et1() < probaSacrifice || influenceChaos > 0) {
                 texte = "Vous n'êtes pas jugé digne de rejoindre la Scholia Psykana. Néanmoins un grand honneur vous attend."
-                        "Vous allez être sacrifié à l'empereur pour l'aider dans sa mission sacrée de mener l'imperium et de repousser les démons.";
+                        "Vous allez être intégré à l'adeptus astronomica pour soutenir l'empereur et l'aider dans sa mission sacrée de mener "
+                        "l'imperium et de garder allumée la balise galactique de l'astronomicon.";
 
-                effetActuel->ChargerImage( ":/images/warp/god-emperor.jpg");
-                IPerso::GetPersoCourant()->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
+                effetActuel->ChargerImage( ":/images/organisations/Adeptus_Astronomica_Icon_update.jpg");
+                IPerso::GetPersoCourant()->SetValeurACaracId(Metier::C_METIER, Metier::ASTRONOMICA);
                 IPerso::GetPersoCourant()->SetValeurACaracId(Psyker::C_RAPPORT_AU_GVT, Psyker::SACRIFIABLE);
+                IPerso::GetPersoCourant()->SetValeurACaracId(GenVieHumain::C_LIBERTE, "");
             } else {
                 texte = "Vous êtes jugé digne de rejoindre la Scholista Psykana pour devenir un psyker qui pourra servir l'Imperium.";
 
@@ -162,4 +166,18 @@ QString Psyker::GetNiveauPsykerNaissance()
 
     // non psyker :
     return "";
+}
+void Psyker::RafraichirPhrasesPsyker(QString typePlanete, QString classeSociale)
+{
+    Humain* hum = Humain::GetHumainJoue();
+    if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)
+    {
+        // psyker non maîtrisés :
+        JourApresJour::PHRASES.push_back(Phrase(
+            "Les statues se mettent à pleurer du sangsur la grande place. Est-ce un miracle de l'empereur ?"));
+        JourApresJour::PHRASES.push_back(Phrase(
+            "Le sol se couvre de glace sur votre passage. Ce semble être de la sorcellerie. Vient-elle de vous ?"));
+        JourApresJour::PHRASES.push_back(Phrase(
+            "Vous entedez des murmures fantomatiques. Est-ce que vous devenez fou ?"));
+    }
 }

@@ -11,7 +11,9 @@
 #include "factions/administratum.h"
 #include "factions/arbites.h"
 #include "warp/sectechaos.h"
+#include "warp/psyker.h"
 #include "factions/astratelepathica.h"
+#include "factions/astronomica.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
@@ -108,6 +110,9 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString cl
     }
     else if ( metier == Metier::SCHOLIA_PSYKANA) {
         AstraTelepathica::RafraichirPhrasesScholasticaPsykana(typePlanete, classeSociale);
+    }
+    else if ( metier == Metier::ASTRONOMICA) {
+        Astronomica::RafraichirPhrasesAstronomica(typePlanete, classeSociale);
     } else if ( metier == Metier::OUVRIER)
     {
         if ( typePlanete == Planete::PLANETE_RUCHE) {
@@ -179,7 +184,10 @@ void JourApresJour::RafraichirPhrases()
         SecteChaos::RafraichirPhrases();
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
+
+    Psyker::RafraichirPhrasesPsyker(typePlanete, classeSociale);
     MinistorumEvts::RafraichirPhrasesDeLaFoi(typePlanete, classeSociale, metier); // ce qui a rapport à l'Adeptus Administratum et à la foi en l'empereur
+
     if ( liberte == "" ) // pas d'actions de métier si on est enfermé
         RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
 

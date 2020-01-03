@@ -17,6 +17,7 @@ public:
     static QMap<QString, Metier*> METIERS;
 
     static Condition* AjouterConditionSiAMetier();
+    static Condition* AjouterConditionSiACeMetier(QString metier);
     static Condition* AjouterConditionSiAPasMetier();
     static QList<QString> METIERS_INTEGRES; //  métiers où la criminalité est extrêmement faible
     static Condition* AjouterModifProbaSiAMetierIntegre(Condition* proba, double modifProbaVal);
@@ -42,6 +43,7 @@ public:
     static QString ADEPTUS_MINISTORUM;
     // psykers
     static QString SCHOLIA_PSYKANA;
+    static QString ASTRONOMICA;
     static QString PSYKER_PRIMARIS;
     static QString ASTROPATHE;
 };

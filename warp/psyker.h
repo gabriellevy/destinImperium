@@ -23,6 +23,8 @@ public:
     static Condition* AjouterModifProbaSiPsyker(Condition* cond, double poidsProba);
     static Condition* AjouterModifProbaSiNonPsyker(Condition* cond, double poidsProba);
 
+    static void RafraichirPhrasesPsyker(QString typePlanete, QString classeSociale);
+
     // caracs :
     static QString C_PSYKER; // si différent de "" alors c'est un psyker
     static QString C_RAPPORT_AU_GVT; // inconnu (""), enregistré, emprisonné, condamné
