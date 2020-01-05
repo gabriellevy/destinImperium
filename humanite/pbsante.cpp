@@ -38,8 +38,6 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(GenVieHumain::AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
-        m_ConditionSelecteurProba->AjouterModifProba(0.05,
-            {new Condition(PbSante::PESTE, "1", Comparateur::c_Egal)});
 
         // espérance de vie différente selon la classe sociale... :
         m_ConditionSelecteurProba->AjouterModifProba(-0.001,
@@ -70,9 +68,17 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 2 : {
         m_Nom = "mort de la lèpre de Nurgle";
         m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
-        m_Description = "Vous mourez des suites de votre maladie.";
+        m_Description = "Vous mourez des suites de la lèpre de Nurgle.";
         m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
         m_Conditions.push_back(SecteChaos::AjouterConditionSiLepreDeNurgle());
+
+    }break;
+    case 3 : {
+        m_Nom = "mort de la peste";
+        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_Description = "Vous mourez des suites de la peste.";
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Conditions.push_back(new Condition(PbSante::PESTE, "1", Comparateur::c_Egal));
 
     }break;
     }

@@ -86,6 +86,9 @@ void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /
                 "Un peuvre diable mutant s'est confessé à vous. Nul doute que l'empereur l'accueillera en sa sainte présence après son immolation.",
                 ":/images/metier/Confesseur.jpg"));
         }
+        JourApresJour::PHRASES.push_back(Phrase(
+            "Les discussions sur le sens exact des paroles des saints continue à occuper l'essentiel de votre temps.",
+            ":/images/foi/pretres.jpg"));
     }
 }
 
