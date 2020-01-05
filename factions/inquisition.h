@@ -39,6 +39,8 @@ public:
     Condition* AjouterModifProbaSiAOrdo(Condition* cond, double poidsProba);
 
     Condition* AjouterModifProbaSiInquisiteur(Condition* cond, double poidsProba);
+
+    static void RafraichirPhrases(); // phrases d'ambiance
 };
 
 class Ordo

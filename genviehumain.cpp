@@ -113,6 +113,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_CONSTITUTION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FOI);
     // secte du chaos :
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_INFLUENCE_CHAOS);
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_PUISSANCE_SECTE);

@@ -126,6 +126,14 @@ void SecteChaos::RafraichirPhrases()
     JourApresJour::PHRASES.push_back(Phrase("Vous recevez des tatouages de la confrérie du chaos."));
     JourApresJour::PHRASES.push_back(Phrase("Les puissances de la ruine vous promettent gloire et pouvoir pour votre obéissance.",
                                             ":/images/chaos/ff086889e09fac6503c6559082ffa50a.jpg"));
+    Humain* humain = Humain::GetHumainJoue();
+    QString dieu_venere = humain->GetValeurCarac(SecteChaos::C_DIEU);
+    if ( dieu_venere == SecteChaos::KHORNE)
+    {
+        JourApresJour::PHRASES.push_back(
+                    Phrase("C'est le jour de la ronde du massacre, le sang va couler à flot.",
+                          ":/images/chaos/Sanguinary_Cultist.png"));
+    }
 }
 
 Condition* SecteChaos::AjouterModificateurProbaSiPuissanceSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba)

@@ -29,15 +29,24 @@ class MinistorumEvts : public GenerateurNoeudsProbables
 public:
     MinistorumEvts(int indexEvt);
 
-    Condition* AjouterConditionSiMinistorum();
+    static Condition* AjouterConditionSiMinistorum();
+    static Condition* AjouterConditionSiCroyant();
+    static Condition* AjouterConditionSiCroyantEnEmpereur();
+    static Condition* AjouterConditionSiNiveauFoiSuperieurA(int niv);
 
     static void RafraichirPhrasesDeLaFoi(QString typePlanete, QString classeSociale, QString metier);
 
     // caracs
     static QString C_FONCTION;
+    // valeur int approximant la foi du personnage dans sa religion (-10 = au bord de l'hérésie, +10 = fanatique)
+    static QString C_FOI;
+    static QString C_RELIGION; //"" = empereur
     // valeurs de C_POSTE
     static QString CONFESSEUR; // haut placé mais relativement mobile et indépendant
     static QString CONFESSEUR_ACOLYTE; // confesseur affecté à un inquisiteur
+    static QString FRATERIS_MILITIA;
+    // valeurs de C_RELIGION
+    static QString ATHEE;
 
 };
 

@@ -17,9 +17,14 @@
 
 // caracs
 QString MinistorumEvts::C_FONCTION = "Poste Ministorum";
+QString MinistorumEvts::C_FOI = "Foi";
+QString MinistorumEvts::C_RELIGION = "Religion";
 // valeurs de C_POSTE
 QString MinistorumEvts::CONFESSEUR = "Confesseur";
 QString MinistorumEvts::CONFESSEUR_ACOLYTE = "Confesseur";
+QString MinistorumEvts::FRATERIS_MILITIA = "Frateris Militia";
+// valeurs de C_RELIGION
+QString MinistorumEvts::ATHEE = "Athée";
 
 MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
@@ -70,7 +75,39 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
 
     }break;
+    case 2 : {
+        m_Nom = "foi augmente";
+        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_Description = "Votre foi est de plus en plus ardente.";
+        m_IncrementeursCaracs[MinistorumEvts::C_FOI] = 1;
+        m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyant());
+    }break;
+    case 3 : {
+        m_Nom = "foi diminue";
+        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_Description = "Votre foi s'affaiblit.";
+        m_IncrementeursCaracs[MinistorumEvts::C_FOI] = -1;
+        m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyant());
+    }break;
+    case 4 : {
+        m_Nom = "Rejoindre le Frateris Militia";
+        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_Image = ":/images/foi/Frateris_Militia.jpg";
+        m_Description = "Votre foi ardente vous pousse à rejoindre la Frateris Militia, le bras armé de l'Adeptus Ministorum.";
+        m_Conditions.push_back(MinistorumEvts::AjouterConditionSiNiveauFoiSuperieurA(9));
+        m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyantEnEmpereur());
+        m_Conditions.push_back(
+                    new Condition(MinistorumEvts::C_FONCTION, MinistorumEvts::FRATERIS_MILITIA, Comparateur::c_Different));
+        m_ModificateursCaracs[Metier::C_METIER] = Metier::ADEPTUS_MINISTORUM;
+        m_ModificateursCaracs[MinistorumEvts::C_FONCTION] = MinistorumEvts::FRATERIS_MILITIA;
+
+    }break;
     }
+}
+
+Condition* MinistorumEvts::AjouterConditionSiNiveauFoiSuperieurA(int niv)
+{
+    return new Condition(MinistorumEvts::C_FOI, QString::number(niv), Comparateur::c_Superieur);
 }
 
 
@@ -95,6 +132,14 @@ void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /
 Condition* MinistorumEvts::AjouterConditionSiMinistorum()
 {
     return new Condition(Metier::C_METIER, Metier::ADEPTUS_MINISTORUM, Comparateur::c_Egal);
+}
+Condition* MinistorumEvts::AjouterConditionSiCroyant()
+{
+    return new Condition(MinistorumEvts::C_RELIGION, MinistorumEvts::ATHEE, Comparateur::c_Different);
+}
+Condition* MinistorumEvts::AjouterConditionSiCroyantEnEmpereur()
+{
+    return new Condition(MinistorumEvts::C_RELIGION, "", Comparateur::c_Egal);
 }
 
 void AdepteMinistorum::DeterminerAffectation()

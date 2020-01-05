@@ -100,5 +100,9 @@
         <file>images/metier/Astropathe.jpg</file>
         <file>images/foi/pretres.jpg</file>
         <file>images/planetes/Astramis.png</file>
+        <file>images/chaos/Sanguinary_Cultist.png</file>
+        <file>images/inquisition/hereticus.jpg</file>
+        <file>images/inquisition/inquisiteur.jpg</file>
+        <file>images/foi/Frateris_Militia.jpg</file>
     </qresource>
 </RCC>

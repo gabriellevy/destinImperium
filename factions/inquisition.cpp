@@ -12,6 +12,11 @@
 #include "socio_eco/crime.h"
 #include "humanite/pbsante.h"
 #include "warp/psyker.h"
+#include "warp/sectechaos.h"
+#include "humain.h"
+#include "humanite/pbsante.h"
+#include "texte/jourapresjour.h"
+#include "socio_eco/economieevt.h"
 
 QString Inquisition::C_ORDO = "Ordo";
 
@@ -73,6 +78,17 @@ Inquisition::Inquisition(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
+    case 3 : {
+        m_Nom = "Suspecté d'hérésie";
+        m_ConditionSelecteurProba = new Condition(0.001 + tmp_Modificateur, p_Relative);
+        m_Description = "L'Ordo Hereticus vous suspecte d'hérésie et vous emprisonne dans l'attente de votre interrogatoire.";
+        m_Image = ":/images/inquisition/hereticus.jpg";
+        m_ConditionSelecteurProba->AjouterModifProba(
+                    0.01, {new Condition(SecteChaos::C_SECTE_CHAOS, "1", Comparateur::c_Egal)});
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_ORDO_HERETICUS;
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+
+    }break;
     }
 
 }
@@ -122,6 +138,21 @@ Effet* Inquisition::GenererEffet(GenEvt* genEvt)
     }
 
     return effet;
+}
+
+void Inquisition::RafraichirPhrases()
+{
+    Humain* humain = Humain::GetHumainJoue();
+    QString capture = humain->GetValeurCarac(GenVieHumain::C_LIBERTE);
+    if ( capture == Crime::CAPTURE_ORDO_HERETICUS) // capturé par l'Ordo Hereticus
+    {
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Vous êtes torturé jour et nuit par les horribles acolytes de l'Ordo Hereticus."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("L'Ordo Hereticus vous accuse de trahison et d'hérésie mais vous tenez bon.",
+                           ":/images/inquisition/inquisiteur.jpg" ));
+
+    }
 }
 
 QVector<Ordo*> Ordo::ORDOS = {};
