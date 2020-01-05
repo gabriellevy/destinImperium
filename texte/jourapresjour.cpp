@@ -188,8 +188,20 @@ void JourApresJour::RafraichirPhrases()
     Psyker::RafraichirPhrasesPsyker(typePlanete, classeSociale);
     MinistorumEvts::RafraichirPhrasesDeLaFoi(typePlanete, classeSociale, metier); // ce qui a rapport à l'Adeptus Administratum et à la foi en l'empereur
 
-    if ( liberte == "" ) // pas d'actions de métier si on est enfermé
+    if ( liberte == "" ) // si libre
+    {
+        // pas d'actions de métier si on est enfermé
         RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
+
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Vous mettez la main sur une bouteille d'Aasec de bonne qualité."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Vous buvez un verre de Dammassine au bon goût d'herbe et d'amande."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Une famille d'amis vous invite à boire un petit Recaf avec des biscuits Nafar."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Vous mangez un bon rôti de Grox."));
+    }
 
     if ( PHRASES.length() == 0 )
         JourApresJour::PHRASES.push_back(

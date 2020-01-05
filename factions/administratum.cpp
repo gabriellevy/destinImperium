@@ -179,7 +179,11 @@ void Administratum::RafraichirPhrases()
         JourApresJour::PHRASES.push_back(
             Phrase("Un vaisseau de renforts a été perdu dans le warp. Vous en réquisitionnez un nouveau."));
         JourApresJour::PHRASES.push_back(
-            Phrase("Les troupes du secteur sont en déficit d'alcool et risquent de se mutiner. Vous vous êtes chargé d'accélérer la réquisition de liqueurs locales.."));
+            Phrase("Les troupes du secteur sont en déficit d'alcool et risquent de se mutiner. Vous vous êtes chargé d'accélérer la réquisition de liqueurs locales."));
+        JourApresJour::PHRASES.push_back(
+            Phrase("Les fournitures médicales sont en tel déficit que les hommes meurent des suites dinfections bénignes. Il faut réquisitionner des stocks supplémentaires."));
+        JourApresJour::PHRASES.push_back(
+            Phrase("Tout se passe bien, les campagnes suivent leur cours."));
     }
 }
 
