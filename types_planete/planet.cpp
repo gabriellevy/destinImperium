@@ -276,6 +276,29 @@ Planete::Planete()
         m_TitheGrade = new TitheGrade(AptusNon, e_ProductionGrade::III_Prima);
         m_Climat = Tempere;
     }break;
+    case 30 : {
+        m_Nom = "Astaramis";
+        m_Population = 100;
+        m_Image = ":/images/planetes/Astramis.png";
+        m_TypePlanete = Planete::PLANETE_RUCHE;
+        m_Faction = new Factions(ef_Ultramarines);
+        m_Climat = Tempere;
+    }break;
+    case 31 : {
+        m_Nom = "Atar-Median";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(ef_AdeptusMechanicus);
+        m_TitheGrade = new TitheGrade(AptusNon);
+        m_Climat = Tempere;
+    }break;
+    case 32 : {
+        m_Nom = "Attila";
+        m_Population = 2;
+        m_TypePlanete = Planete::PLANETE_FEODAL;
+        m_Faction = new Factions(ef_Imperium);
+        m_Climat = Tempere;
+    }break;
     }
 
     Planete::COMPTEUR++;
