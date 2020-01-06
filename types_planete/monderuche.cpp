@@ -66,7 +66,7 @@ MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different)};
         m_ConditionSelecteurProba = new Condition(0.0001, p_Relative);
         m_Description = "Vous avez été choisis pour aller peupler une distante planète récemment découverte. Vous avez un mois pour préparer vos affaires.";
-        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+        m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
 
     }break;
     }

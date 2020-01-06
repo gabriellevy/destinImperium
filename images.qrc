@@ -104,5 +104,9 @@
         <file>images/inquisition/hereticus.jpg</file>
         <file>images/inquisition/inquisiteur.jpg</file>
         <file>images/foi/Frateris_Militia.jpg</file>
+        <file>images/warp/enfers_warp.jpg</file>
+        <file>images/warp/warp.jpg</file>
+        <file>images/warp/flotte_hors_warp.png</file>
+        <file>images/warp/Warpstorm_.jpg</file>
     </qresource>
 </RCC>

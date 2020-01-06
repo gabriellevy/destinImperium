@@ -21,7 +21,7 @@ struct Phrase {
 class JourApresJour
 {
     void RafraichirPhrasesSelonPlanete(QString typePlanete, QString classeSociale, QString metier);
-    void RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier);
+    void RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier, int nbMoisVoyage);
 public:
     JourApresJour();
     static QVector<Phrase> PHRASES;

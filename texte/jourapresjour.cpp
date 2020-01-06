@@ -12,6 +12,7 @@
 #include "factions/arbites.h"
 #include "warp/sectechaos.h"
 #include "warp/psyker.h"
+#include "warp/voyage.h"
 #include "factions/astratelepathica.h"
 #include "factions/astronomica.h"
 
@@ -100,46 +101,50 @@ void JourApresJour::RafraichirPhrasesSelonPlanete(QString typePlanete, QString c
     }
 }
 
-void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier)
+void JourApresJour::RafraichirPhrasesSelonMetier(QString typePlanete, QString classeSociale, QString metier, int nbMoisVoyage)
 {
-    if ( metier == Metier::ARBITES) {
-        Arbites::RafraichirPhrases();
-    }
-    else if ( metier == Metier::ADEPTE_ADMINISTRATUM) {
-        Administratum::RafraichirPhrases();
-    }
-    else if ( metier == Metier::SCHOLIA_PSYKANA) {
-        AstraTelepathica::RafraichirPhrasesScholasticaPsykana(typePlanete, classeSociale);
-    }
-    else if ( metier == Metier::ASTRONOMICA) {
-        Astronomica::RafraichirPhrasesAstronomica(typePlanete, classeSociale);
-    } else if ( metier == Metier::OUVRIER)
+    // métiers qui ne s'effectuent pas dans l'espace :
+    if ( nbMoisVoyage <= 0)
     {
-        if ( typePlanete == Planete::PLANETE_RUCHE) {
-            JourApresJour::PHRASES.push_back(
-                Phrase(
-                    "Encore une dure journée de travail à l'usine de la ruche.",
-                    ":/images/socio_eco/UsineRuche.jpg"
-                    ));
-            JourApresJour::PHRASES.push_back(
-                Phrase(
-                    "Vous allez au travail dans le labyrinthe chaothique de la ruche.",
-                    ":/images/ruche/usine.PNG"
-                    ));
+        if ( metier == Metier::ARBITES) {
+            Arbites::RafraichirPhrases();
         }
-    } else if (metier == Metier::PAYSAN)
-    {
-        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de blé."));
-        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de riz."));
-        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de céréales."));
-        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de légumes."));
-        JourApresJour::PHRASES.push_back(Phrase("Vous avez essentiellement abattu des têtes de bétail ces jours-ci."));
-        JourApresJour::PHRASES.push_back(Phrase("Les Grox se tiennent à carreau et se nourrissent normalement."));
-        JourApresJour::PHRASES.push_back(Phrase("La ponte d'oeufs géants a été bonne."));
-        JourApresJour::PHRASES.push_back(Phrase("Vous avez récolté des champignons géants comestibles."));
-        JourApresJour::PHRASES.push_back(Phrase("Vous avez chargé des milliers de tonnes d'eau potable pour les mondes ruches."));
-        JourApresJour::PHRASES.push_back(Phrase("La pêche devrait suffire à remplir vos quotas du mois."));
-        JourApresJour::PHRASES.push_back(Phrase("La récolte d'algues nutritive est satisfaisante."));
+        else if ( metier == Metier::SCHOLIA_PSYKANA) {
+            AstraTelepathica::RafraichirPhrasesScholasticaPsykana(typePlanete, classeSociale);
+        }
+        else if ( metier == Metier::ASTRONOMICA) {
+            Astronomica::RafraichirPhrasesAstronomica(typePlanete, classeSociale);
+        } else if ( metier == Metier::OUVRIER)
+        {
+            if ( typePlanete == Planete::PLANETE_RUCHE) {
+                JourApresJour::PHRASES.push_back(
+                    Phrase(
+                        "Encore une dure journée de travail à l'usine de la ruche.",
+                        ":/images/socio_eco/UsineRuche.jpg"
+                        ));
+                JourApresJour::PHRASES.push_back(
+                    Phrase(
+                        "Vous allez au travail dans le labyrinthe chaothique de la ruche.",
+                        ":/images/ruche/usine.PNG"
+                        ));
+            }
+        } else if (metier == Metier::PAYSAN)
+        {
+            JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de blé."));
+            JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de riz."));
+            JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de céréales."));
+            JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de légumes."));
+            JourApresJour::PHRASES.push_back(Phrase("Vous avez essentiellement abattu des têtes de bétail ces jours-ci."));
+            JourApresJour::PHRASES.push_back(Phrase("Les Grox se tiennent à carreau et se nourrissent normalement."));
+            JourApresJour::PHRASES.push_back(Phrase("La ponte d'oeufs géants a été bonne."));
+            JourApresJour::PHRASES.push_back(Phrase("Vous avez récolté des champignons géants comestibles."));
+            JourApresJour::PHRASES.push_back(Phrase("Vous avez chargé des milliers de tonnes d'eau potable pour les mondes ruches."));
+            JourApresJour::PHRASES.push_back(Phrase("La pêche devrait suffire à remplir vos quotas du mois."));
+            JourApresJour::PHRASES.push_back(Phrase("La récolte d'algues nutritive est satisfaisante."));
+        }
+    }
+    if ( metier == Metier::ADEPTE_ADMINISTRATUM) {
+        Administratum::RafraichirPhrases();
     } else if ( metier == Metier::INQUISITEUR)
     {
         QString ordo = Humain::GetHumainJoue()->GetValeurCarac(Inquisition::C_ORDO);
@@ -179,19 +184,23 @@ void JourApresJour::RafraichirPhrases()
     QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
     QString metier = Humain::GetHumainJoue()->GetValeurCarac(Metier::C_METIER);
     QString liberte = Humain::GetHumainJoue()->GetValeurCarac(GenVieHumain::C_LIBERTE);
+    int nbMoisVoyage = humain->GetValeurCaracAsInt(Voyage::C_DUREE_VOYAGE_WARP);
+
+    if ( nbMoisVoyage > 0)
+        Voyage::RafraichirPhrases();
 
     if ( humain->GetValeurCarac(SecteChaos::C_SECTE_CHAOS) == "1")
         SecteChaos::RafraichirPhrases();
 
     RafraichirPhrasesSelonPlanete(typePlanete, classeSociale, metier);
 
-    Psyker::RafraichirPhrasesPsyker(typePlanete, classeSociale);
+    Psyker::RafraichirPhrasesPsyker();
     MinistorumEvts::RafraichirPhrasesDeLaFoi(typePlanete, classeSociale, metier); // ce qui a rapport à l'Adeptus Administratum et à la foi en l'empereur
 
     if ( liberte == "" ) // si libre
     {
         // pas d'actions de métier si on est enfermé
-        RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier);
+        RafraichirPhrasesSelonMetier(typePlanete, classeSociale, metier, nbMoisVoyage);
 
         JourApresJour::PHRASES.push_back(
                     Phrase("Vous mettez la main sur une bouteille d'Aasec de bonne qualité."));

@@ -167,7 +167,7 @@ QString Psyker::GetNiveauPsykerNaissance()
     // non psyker :
     return "";
 }
-void Psyker::RafraichirPhrasesPsyker(QString typePlanete, QString classeSociale)
+void Psyker::RafraichirPhrasesPsyker()
 {
     Humain* hum = Humain::GetHumainJoue();
     if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)

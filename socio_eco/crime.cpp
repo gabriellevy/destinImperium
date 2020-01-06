@@ -166,7 +166,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     new Condition(GenVieHumain::C_LIBERTE,
                                   Crime::CAPTURE_ARBITES,
                                   Comparateur::c_Egal));
-        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Planete::GetPlaneteAleatoire(false, false, Planete::PLANETE_MINIERE)->m_Nom;
+        m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = Planete::GetPlaneteAleatoire(false, false, Planete::PLANETE_MINIERE)->m_Nom;
         m_ModificateursCaracs[Metier::C_METIER] = Metier::MINEUR;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
 

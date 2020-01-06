@@ -93,9 +93,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Maison::C_MAISON);
 
     // temp test :
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::REAFFECTATION_PLANETE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::C_REAFFECTATION_PLANETE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::C_DESTINATION_PLANETE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::VOYAGE_WARP);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Voyage::C_DUREE_VOYAGE_WARP);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_FORCE_COMBAT);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_SECTE_CHAOS);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(SecteChaos::C_DIEU);
@@ -122,6 +122,8 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FONCTION);
     Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
+    Carac* caracMoisVoyage = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Voyage::C_DUREE_VOYAGE_WARP);
+    caracMoisVoyage->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
 }
 
 void GenVieHumain::GenererEvtsAccueil()
@@ -200,6 +202,7 @@ Effet* GenVieHumain::TransformerEffetEnEffetMoisDeVie(Effet* effet)
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
     effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
+    effet->AjouterAjouteurACarac(Voyage::C_DUREE_VOYAGE_WARP, -1);
     return effet;
 }
 

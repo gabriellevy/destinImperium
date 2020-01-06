@@ -75,7 +75,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Image = ":/images/metier/Arbitrator.jpg";
         m_ConditionSelecteurProba = new Condition(0.01 - tmpFavoriseur, p_Relative);
         // à peine nommé, un arbitrator est affecté à une nouvelle planète
-        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+        m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
     }break;
     case 5 : {
@@ -84,7 +84,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Image = ":/images/metier/inquisiteur.jpg";
         m_ConditionSelecteurProba = new Condition(0.001 - tmpFavoriseur, p_Relative);
         // à peine nommé, un Inquisiteur est affecté à une nouvelle planète
-        m_ModificateursCaracs[Voyage::REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
+        m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
     }break;
     case 6 : {
