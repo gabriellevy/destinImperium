@@ -22,7 +22,7 @@ public:
     static QString GetClasseSocialeAleatoire(QString typeMonde);
 
     // caracs :
-    static QString C_CLASSE_SOCIALE;
+    static QString C_CLASSE_SOCIALE; // noté de 0(misérable) à 4 (seigneurs de planètes)
     // valeurs de caracs :
     static QString MISERABLES; // dépourvus de logement et de métier, mendiants...
     static QString PAUVRES; // travaillerrs non qualifiés

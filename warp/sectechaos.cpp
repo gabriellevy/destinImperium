@@ -18,6 +18,7 @@
 #include "socio_eco/economieevt.h"
 
 QString SecteChaos::C_SECTE_CHAOS = "Appartient à secte du chaos";
+QString SecteChaos::C_MUTATIONS = "Mutations";
 QString SecteChaos::C_INFLUENCE_CHAOS = "Influence du chaos";
 QString SecteChaos::C_DETECTION_SECTE = "Détection de la secte";
 QString SecteChaos::C_PUISSANCE_SECTE = "Puissance de la secte";
@@ -70,7 +71,8 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_CallbackDisplay = [] {
             QVector<QString> textes = {
                 "Vous avez des hallucinations étranges et terrifiantes. Des créatures spectrales grimaçantes.",
-                "Un de vos amis vous confie aller souvent à des réunions secrètes mystiques."
+                "Un de vos amis vous confie aller souvent à des réunions secrètes mystiques.",
+                "Une légère mutation apparaît sur votre corps. La marque du chaos."
             };
             int num = Aleatoire::GetAl()->EntierInferieurA(textes.length());
             ExecHistoire::GetEffetActuel()->m_Texte = textes[num];
@@ -117,6 +119,32 @@ SecteChaos::SecteChaos(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 "===> pas fait";
         m_Conditions.push_back(SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(20));
     }break;
+    case 8 : {
+        m_Nom = "Enfant du chaos";
+        m_ConditionSelecteurProba = new Condition(0.01 + tmpTestVal, p_Relative);
+        m_Description = "Les énergies du chaos ont tellement pris d'emprise sur votre corps que vous mutez en un horrible enfant du chaos décérébré.";
+        m_Image = ":/images/chaos/enfant_du_chaos.jpg";
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Conditions.push_back(SecteChaos::AjouterConditionSiMutationsSuperieurA(15));
+    }break;
+    case 9 : {
+        m_Nom = "Mutation du chaos";
+        m_ConditionSelecteurProba = new Condition(0.001 + tmpTestVal, p_Relative);
+        m_ConditionSelecteurProba = SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(m_ConditionSelecteurProba, 3, 0.01);
+        m_ConditionSelecteurProba = SecteChaos::AjouterModificateurProbaSiInfluenceChaosSuperieurA(m_ConditionSelecteurProba, 8, 0.01);
+        m_Description = "Mutation à mettre à jour.";
+        m_Image = ":/images/chaos/enfant_du_chaos.jpg";
+        m_IncrementeursCaracs[SecteChaos::C_MUTATIONS] = 1;
+        m_CallbackDisplay = []{
+            QVector<QString> textes = {
+                "Un tentacule vous a poussé sur le corps.",
+                "Votre peau devient écailleuse en plusieurs points."
+            };
+            int num = Aleatoire::GetAl()->EntierInferieurA(textes.length());
+            ExecHistoire::GetEffetActuel()->m_Texte = textes[num];
+
+        };
+    }break;
 
     }
 }
@@ -160,6 +188,11 @@ Condition* SecteChaos::AjouterModificateurProbaSiDetectionSecteSuperieurA(Condit
 Condition* SecteChaos::AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence)
 {
     return new Condition(SecteChaos::C_INFLUENCE_CHAOS, QString::number(nivInfluence), Comparateur::c_Superieur);
+}
+
+Condition* SecteChaos::AjouterConditionSiMutationsSuperieurA(int nivMutation)
+{
+    return new Condition(SecteChaos::C_MUTATIONS, QString::number(nivMutation), Comparateur::c_Superieur);
 }
 
 Condition* SecteChaos::AjouterConditionSiLepreDeNurgle()

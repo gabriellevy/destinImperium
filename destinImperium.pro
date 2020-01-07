@@ -29,6 +29,7 @@ include(actions/actions.pri)
 include(warp/warp.pri)
 include(humanite/humanite.pri)
 include(texte/texte.pri)
+include(techno/techno.pri)
 
 CONFIG += c++11
 CONFIG += resources_big

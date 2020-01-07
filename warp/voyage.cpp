@@ -15,6 +15,7 @@
 #include "humanite/pbsante.h"
 #include "texte/jourapresjour.h"
 #include "socio_eco/economieevt.h"
+#include "warp/sectechaos.h"
 
 QString Voyage::C_DESTINATION_PLANETE = "Destination planète";
 QString Voyage::C_REAFFECTATION_PLANETE = "Réaffectation planète";
@@ -86,7 +87,17 @@ Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
         m_IncrementeursCaracs[Voyage::C_DUREE_VOYAGE_WARP] = 5;
     }break;
+    case 4 : {
+        m_Nom = "Influence du warp";
+        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_Description = "Vous sentez confusément que vous avez été souillé par la prsence maléfique du chaos qui irrigue le warp.";
+        m_Image = ":/images/warp/warp.jpg";
+        m_Conditions.push_back(new Condition(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
+        m_IncrementeursCaracs[SecteChaos::C_INFLUENCE_CHAOS] = 1;
+    }break;
 
+        // TODO :  ajouter ici qu'en cours de voyage l'influence du warp peut affecter le eprso (cf secteChaos)
     }
 }
 

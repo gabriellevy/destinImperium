@@ -132,8 +132,8 @@ QString ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
 }
 
 
-QString ClasseSociale::MISERABLES = "Misérable";
-QString ClasseSociale::PAUVRES = "Pauvre";
-QString ClasseSociale::CLASSE_MOYENNE = "Classe moyenne";
-QString ClasseSociale::INFLUENTS = "Classe dominante";
-QString ClasseSociale::MAITRES = "Classe dirigeante";
+QString ClasseSociale::MISERABLES = "0";//"Misérable";
+QString ClasseSociale::PAUVRES = "1";//"Pauvre";
+QString ClasseSociale::CLASSE_MOYENNE = "2";//"Classe moyenne";
+QString ClasseSociale::INFLUENTS = "3";//"Classe dominante";
+QString ClasseSociale::MAITRES = "4";//"Classe dirigeante";

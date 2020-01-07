@@ -124,6 +124,8 @@ void GenVieHumain::GenererCaracs()
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
     Carac* caracMoisVoyage = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Voyage::C_DUREE_VOYAGE_WARP);
     caracMoisVoyage->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
+    Carac* caracMutations = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_MUTATIONS);
+    caracMutations->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
 }
 
 void GenVieHumain::GenererEvtsAccueil()

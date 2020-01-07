@@ -27,6 +27,7 @@ public:
     static Condition* AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
     static Condition* AjouterModificateurProbaSiPuissanceSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
     static Condition* AjouterModificateurProbaSiDetectionSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
+    static Condition* AjouterConditionSiMutationsSuperieurA(int nivMutation);
 
     static void RafraichirPhrases(); // phrases d'ambiance
 
@@ -34,6 +35,7 @@ public:
     // int augmentant quand le chaos gagne de l'influence sur vous.
     // Il augmente les risques de rejoindre une secte, d'être possédé, d'être jugé hérétique...
     static QString C_INFLUENCE_CHAOS;
+    static QString C_MUTATIONS; // int allant de 1 (très légère miutation à peine visible à 20 (enfant du chaos)
     static QString C_PUISSANCE_SECTE;
     // int augmentant quand les autorités détectent la secte => plus de 5 devient dangereux
     static QString C_DETECTION_SECTE;

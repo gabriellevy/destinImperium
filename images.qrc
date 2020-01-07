@@ -108,5 +108,6 @@
         <file>images/warp/warp.jpg</file>
         <file>images/warp/flotte_hors_warp.png</file>
         <file>images/warp/Warpstorm_.jpg</file>
+        <file>images/chaos/enfant_du_chaos.jpg</file>
     </qresource>
 </RCC>
