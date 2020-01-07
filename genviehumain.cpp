@@ -36,6 +36,7 @@
 #include "factions/adeptusmechanicus.h"
 #include "factions/astratelepathica.h"
 #include "factions/astronomica.h"
+#include "techno/bionique.h"
 #include "age.h"
 
 QString GenVieHumain::AGE = "Age";
@@ -126,6 +127,8 @@ void GenVieHumain::GenererCaracs()
     caracMoisVoyage->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
     Carac* caracMutations = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_MUTATIONS);
     caracMutations->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
+    Carac* caracBionique = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
+    caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
 }
 
 void GenVieHumain::GenererEvtsAccueil()

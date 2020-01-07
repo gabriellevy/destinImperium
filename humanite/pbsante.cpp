@@ -8,6 +8,7 @@
 #include "types_planete/planet.h"
 #include "warp/sectechaos.h"
 #include "socio_eco/classesociale.h"
+#include "techno/bionique.h"
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
@@ -38,6 +39,8 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(GenVieHumain::AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.05,
             {new Condition(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
+        m_ConditionSelecteurProba->AjouterModifProba(0.1,
+            {new Condition(GenVieHumain::AGE, "2400", Comparateur::c_Superieur)}); // 200 ans
 
         // espérance de vie différente selon la classe sociale... :
         m_ConditionSelecteurProba->AjouterModifProba(-0.001,
@@ -51,7 +54,27 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {new Condition(PbSante::C_CONSTITUTION, PbSante::FRELE, Comparateur::c_Egal)});
         m_ConditionSelecteurProba->AjouterModifProba(-0.005,
             {new Condition(PbSante::C_CONSTITUTION, PbSante::RESISTANT, Comparateur::c_Egal)});
-
+        // différence selon le nombre d'implants de longévité :
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(0)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(1)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(2)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(3)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(4)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(5)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(6)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(7)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(8)});
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {Bionique::AjouterConditionSiBioniqueLongeviteSuperieureA(9)});
 
         m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
         m_Conditions.push_back(PbSante::AjouterConditionSiVivant());
@@ -82,6 +105,12 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     }
+}
+
+Condition* PbSante::AjouterConditionSiAgeSuperieurA(int ageAnnees)
+{
+    Condition* cond = new Condition(GenVieHumain::AGE, QString::number(ageAnnees*12), Comparateur::c_Superieur);
+    return cond;
 }
 
 Condition* PbSante::AjouterConditionSiVivant()

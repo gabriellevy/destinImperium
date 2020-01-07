@@ -16,6 +16,9 @@ class Bionique : public GenerateurNoeudsProbables
 public:
     Bionique(int indexEvt);
 
+    static Condition* AjouterConditionSiBioniqueLongeviteSuperieureA(int nbBionique);
+    static Condition* AjouterConditionSiBioniqueLongeviteInferieurA(int nbBionique);
+
     static QString C_BIONIQUE_LONGEVITE; // nombre de bioniques ajouté au corps pour augmenter la longévité
 };
 

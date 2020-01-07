@@ -87,6 +87,17 @@ Condition* ClasseSociale::AjouterConditionSiCetteClasseSociale(QString classeSoc
 
 QString ClasseSociale::C_CLASSE_SOCIALE = "Classe sociale";
 
+Condition* ClasseSociale::AjouterConditionSiClasseSocialeSuperieureA(int classeSociale)
+{
+    Condition* cond = new Condition(ClasseSociale::C_CLASSE_SOCIALE, QString::number(classeSociale), Comparateur::c_Superieur);
+    return cond;
+}
+
+Condition* ClasseSociale::AjouterConditionSiClasseSocialeSuperieureA(QString classeSociale)
+{
+    Condition* cond = new Condition(ClasseSociale::C_CLASSE_SOCIALE, classeSociale, Comparateur::c_Superieur);
+    return cond;
+}
 
 QString ClasseSociale::GetClasseSocialeAleatoire(QString typeMonde)
 {

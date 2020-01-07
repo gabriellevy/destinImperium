@@ -31,6 +31,7 @@ public:
 
     static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);
     static Condition* AjouterConditionSiVivant();
+    static Condition* AjouterConditionSiAgeSuperieurA(int ageAnnees);
 };
 
 #endif // SANTE_H

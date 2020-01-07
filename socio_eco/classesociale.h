@@ -18,6 +18,8 @@ public:
     ClasseSociale(int indexEvt);
 
     static Condition* AjouterConditionSiCetteClasseSociale(QString classeSociale);
+    static Condition* AjouterConditionSiClasseSocialeSuperieureA(int classeSociale);
+    static Condition* AjouterConditionSiClasseSocialeSuperieureA(QString classeSociale);
 
     static QString GetClasseSocialeAleatoire(QString typeMonde);
 
