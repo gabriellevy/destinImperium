@@ -170,14 +170,27 @@ QString Psyker::GetNiveauPsykerNaissance()
 void Psyker::RafraichirPhrasesPsyker()
 {
     Humain* hum = Humain::GetHumainJoue();
-    if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)
+    if ( hum->GetValeurCarac(Psyker::C_PSYKER) != "") // tous les psykers
     {
-        // psyker non maîtrisés :
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Les statues se mettent à pleurer du sangsur la grande place. Est-ce un miracle de l'empereur ?"));
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Le sol se couvre de glace sur votre passage. Ce semble être de la sorcellerie. Vient-elle de vous ?"));
-        JourApresJour::PHRASES.push_back(Phrase(
-            "Vous entedez des murmures fantomatiques. Est-ce que vous devenez fou ?"));
+        if ( hum->GetValeurCarac(Psyker::C_RAPPORT_AU_GVT) == Psyker::CHARGE_DANS_VAISSEAU_NOIR)
+        {
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Les sécurités antipsyker du vaisseau noir sont une torture permanente."));
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Vous êtes épuisé en permanence. Sans doute la nourriture est-elle droguée."));
+            JourApresJour::PHRASES.push_back(Phrase(
+                "On vous change sans arrêt de cellule."));
+        }
+        if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)
+        {
+            // psyker non maîtrisés :
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Les statues se mettent à pleurer du sangsur la grande place. Est-ce un miracle de l'empereur ?"));
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Le sol se couvre de glace sur votre passage. Ce semble être de la sorcellerie. Vient-elle de vous ?"));
+            JourApresJour::PHRASES.push_back(Phrase(
+                "Vous entedez des murmures fantomatiques. Est-ce que vous devenez fou ?"));
+        }
+
     }
 }
