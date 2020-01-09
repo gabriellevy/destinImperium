@@ -84,7 +84,7 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = "attraper la peste noire";
         m_ConditionSelecteurProba = new Condition(0.001, p_Relative);
         m_Description = "Vous avez contracté la peste noire.";
-        Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.1);
+        Planete::AjouterModifProbaSiMondeFeodal(m_ConditionSelecteurProba, 0.01);
         m_ModificateursCaracs[PbSante::PESTE] = "1";
 
     }break;

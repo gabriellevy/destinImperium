@@ -299,6 +299,13 @@ Planete::Planete()
         m_Faction = new Factions(ef_Imperium);
         m_Climat = Tempere;
     }break;
+    case 33 : {
+        m_Nom = "Cypra Mundi";
+        m_Population = 10;
+        m_TypePlanete = Planete::PLANETE_FORGE;
+        m_Faction = new Factions(ef_AdeptusMechanicus);
+        m_Climat = Tempere;
+    }break;
     }
 
     Planete::COMPTEUR++;

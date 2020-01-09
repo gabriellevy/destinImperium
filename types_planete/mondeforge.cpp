@@ -25,7 +25,7 @@ MondeForge::MondeForge(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         // pas pour les très pauvres :
         m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
         m_ConditionSelecteurProba = new Condition(0.0, p_Relative); // 0.01
-        /*m_Description = "Vous prenez ne train des cendres pour rendre une visite dans la ruche " +
+        /*m_Description = "Vous prenez le train des cendres pour rendre une visite dans la ruche " +
                 MondeRuche::GetNomRucheAleatoire() +
                 ".";
         m_Image = ":/images/ruche/Ruche.png";

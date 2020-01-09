@@ -167,6 +167,7 @@ QString Psyker::GetNiveauPsykerNaissance()
     // non psyker :
     return "";
 }
+
 void Psyker::RafraichirPhrasesPsyker()
 {
     Humain* hum = Humain::GetHumainJoue();

@@ -110,5 +110,7 @@
         <file>images/warp/Warpstorm_.jpg</file>
         <file>images/chaos/enfant_du_chaos.jpg</file>
         <file>images/techno/Biotic_Arm.jpg</file>
+        <file>images/crime/Arbitrator_bouclier.jpg</file>
+        <file>images/crime/Chastener.jpg</file>
     </qresource>
 </RCC>

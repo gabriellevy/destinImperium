@@ -121,6 +121,8 @@ void GenVieHumain::GenererCaracs()
 //    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(SecteChaos::C_DETECTION_SECTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(AdeptusMechanicus::C_DIVISION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(MinistorumEvts::C_FONCTION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Arbites::C_AFFECTATION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Arbites::C_GRADE);
     Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
     Carac* caracMoisVoyage = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Voyage::C_DUREE_VOYAGE_WARP);
