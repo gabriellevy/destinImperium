@@ -126,6 +126,8 @@ void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /
         JourApresJour::PHRASES.push_back(Phrase(
             "Les discussions sur le sens exact des paroles des saints continue à occuper l'essentiel de votre temps.",
             ":/images/foi/pretres.jpg"));
+        JourApresJour::PHRASES.push_back(Phrase(
+            "Le serviteur cénobite est en panne. Vous êtes chargé d'assister le chapelain lors des prières journalières."));
     }
 }
 

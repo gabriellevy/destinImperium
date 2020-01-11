@@ -7,6 +7,7 @@ enum e_Factions {
     // Imperium
     ef_AdeptusMechanicus,
     ef_Ultramarines, // en tant que chef de leur propre secteur
+    ef_BloodAngels, // en tant que chef de leur propre secteur
     ef_Imperium
 };
 

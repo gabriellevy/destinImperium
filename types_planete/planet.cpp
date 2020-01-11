@@ -306,6 +306,22 @@ Planete::Planete()
         m_Faction = new Factions(ef_AdeptusMechanicus);
         m_Climat = Tempere;
     }break;
+    case 34 : {
+        m_Nom = "Baal";
+        m_Population = 1;
+        m_TypePlanete = Planete::PLANETE_FERAL;
+        m_Faction = new Factions(ef_BloodAngels);
+        m_PresenceNotableImperium = {ep_RecrutementSpaceMarine};
+        m_TitheGrade = new TitheGrade(AptusNon);
+        m_Climat = Aride;
+    }break;
+    case 35 : {
+        m_Nom = "Bakka";
+        m_Population = 5;
+        m_TypePlanete = Planete::PLANETE_MINIERE;
+        m_Faction = new Factions(ef_Imperium);
+        m_Climat = Aride;
+    }break;
     }
 
     Planete::COMPTEUR++;

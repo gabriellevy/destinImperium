@@ -185,6 +185,9 @@ void Administratum::RafraichirPhrases()
         JourApresJour::PHRASES.push_back(
             Phrase("Tout se passe bien, les campagnes suivent leur cours."));
     }
+    JourApresJour::PHRASES.push_back(
+        Phrase("Le serviteur Calligraphus de la division de la division est en panne. Vous avez des dizaines de documents à copier."));
+
 }
 
 Effet* Administratum::GenererEffet(GenEvt* genEvt)

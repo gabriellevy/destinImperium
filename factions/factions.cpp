@@ -12,6 +12,9 @@ Factions::Factions(e_Factions faction):m_FactionE(faction)
     case ef_Ultramarines : {
         m_Nom = "les Ultramarines";
     } break;
+    case ef_BloodAngels : {
+        m_Nom = "les Blood Angels";
+    } break;
 
     }
 }
