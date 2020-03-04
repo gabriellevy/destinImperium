@@ -1,15 +1,15 @@
 #include "voyage.h"
 #include "genviehumain.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "types_planete/planet.h"
 #include "../destinLib/gestionnairecarac.h"
 #include "humain.h"
-#include "../destinLib/execeffet.h"
+#include "../destinLib/exec/execeffet.h"
 #include "../destinLib/aleatoire.h"
 #include "psyker.h"
 #include "humanite/pbsante.h"
@@ -27,8 +27,8 @@ Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Réaffectation vers une planète";
-        m_ConditionSelecteurProba = new Condition(0.5, p_Relative);
-        m_Conditions.push_back(new Condition(Voyage::C_REAFFECTATION_PLANETE, "", Comparateur::c_Different));
+        m_ConditionSelecteurProba = make_shared<Condition>(0.5, p_Relative);
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_REAFFECTATION_PLANETE, "", Comparateur::c_Different));
         m_Description = "Vous avez été réaffecté vers une nouvelle planète.";
         m_ModificateursCaracs[Planete::C_PLANETE] = "";
         m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = "";
@@ -50,11 +50,11 @@ Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = "Voyage warp terminé";
-        m_ConditionSelecteurProba = new Condition(0.5, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.5, p_Relative);
         m_Description = "Vous arrivez à votre planète de destination.";
         m_Image = ":/images/warp/flotte_hors_warp.png";
-        m_Conditions.push_back(new Condition(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_InferieurEgal));
-        m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
         m_ModificateursCaracs[Voyage::C_DUREE_VOYAGE_WARP] = "";
         m_CallbackDisplay = [](){
             Humain* humain = Humain::GetHumainJoue();
@@ -71,29 +71,29 @@ Voyage::Voyage(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 2 : {
         m_Nom = "Voyage warp allongé";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Les courants warp vous font dériver. Le voyage s'allonge.";
         m_Image = ":/images/warp/warp.jpg";
-        m_Conditions.push_back(new Condition(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
-        m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
         m_IncrementeursCaracs[Voyage::C_DUREE_VOYAGE_WARP] = 1;
     }break;
     case 3 : {
         m_Nom = "Tempête Voyage warp allongé";
-        m_ConditionSelecteurProba = new Condition(0.002, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.002, p_Relative);
         m_Description = "Une terrible tempête warp vous isole de l'Astronomicon. Impossible de naviguer dans ces conditions pour l'instant.";
         m_Image = ":/images/warp/Warpstorm_.jpg";
-        m_Conditions.push_back(new Condition(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
-        m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
         m_IncrementeursCaracs[Voyage::C_DUREE_VOYAGE_WARP] = 5;
     }break;
     case 4 : {
         m_Nom = "Influence du warp";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Vous sentez confusément que vous avez été souillé par la prsence maléfique du chaos qui irrigue le warp.";
         m_Image = ":/images/warp/warp.jpg";
-        m_Conditions.push_back(new Condition(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
-        m_Conditions.push_back(new Condition(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DUREE_VOYAGE_WARP, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(make_shared<Condition>(Voyage::C_DESTINATION_PLANETE, "", Comparateur::c_Different));
         m_IncrementeursCaracs[SecteChaos::C_INFLUENCE_CHAOS] = 1;
     }break;
 

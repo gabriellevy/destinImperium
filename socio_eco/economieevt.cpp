@@ -1,14 +1,13 @@
 #include "economieevt.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 
 QString EconomieEvt::C_NIVEAU_ECONOMIQUE = "Niveau économique";
@@ -18,7 +17,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "bon travail";
-        m_ConditionSelecteurProba = new Condition(0.03, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.03, p_Relative);
         m_Description = "Votre excellent travail est apprécié de tous.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
@@ -26,7 +25,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = "mauvais travail";
-        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
@@ -35,7 +34,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 }
 
-Condition* EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(int niv)
+shared_ptr<Condition> EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(int niv)
 {
-    return new Condition(EconomieEvt::C_NIVEAU_ECONOMIQUE, QString::number(niv), Comparateur::c_Superieur);
+    return make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, QString::number(niv), Comparateur::c_Superieur);
 }

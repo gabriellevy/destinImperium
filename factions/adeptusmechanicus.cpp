@@ -1,14 +1,13 @@
 #include "adeptusmechanicus.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
 
@@ -52,7 +51,7 @@ AdeptusMechanicus::AdeptusMechanicus(int indexEvt):GenerateurNoeudsProbables (in
     switch (indexEvt) {
     case 0 : {
         m_Nom = "youpi AdeptusMechanicus";
-        m_ConditionSelecteurProba = new Condition(0.0, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0, p_Relative);
         m_Description = "??? Assassinorum";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
         /*m_CallbackDisplay = [] {

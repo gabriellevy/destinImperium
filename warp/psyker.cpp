@@ -1,19 +1,18 @@
 #include "psyker.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "humanite/pbsante.h"
 #include "socio_eco/crime.h"
 #include "humain.h"
-#include "../destinLib/execeffet.h"
+#include "../destinLib/exec/execeffet.h"
 #include "warp/sectechaos.h"
 #include "texte/jourapresjour.h"
 
@@ -48,7 +47,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = Psyker::POTENTIEL_PSY + " élimination";
-        m_ConditionSelecteurProba = new Condition(0.002 - tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.002 - tmp_Modificateur, p_Relative);
         m_Description = "Vous êtes identifié par l'Ordo Hereticus comme un dangereux psyker et êtes emprisonné.";
         m_Image = ":/images/inquisition/Inquisitor_Ordo_Hereticus.png";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
@@ -56,7 +55,7 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = Psyker::IDENTIFIE;
-        m_ConditionSelecteurProba = new Condition(0.03 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.03 + tmp_Modificateur, p_Relative);
         m_Description = "Identifié comme psyker par les agents du gouverneur vous êtes enregistré et répertorié. "
                 "Vous êtes néanmoins remis en liberté ensuite.";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
@@ -65,12 +64,12 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 2 : {
         m_Nom = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
-        m_ConditionSelecteurProba = new Condition(0.02 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + tmp_Modificateur, p_Relative);
         m_Description = "Un vaisseau noir de l'inquisition a aterri sur la planète. Sa mission est de capturer tous les psykers de la planète pour les emmener sur Terre."
                 "Les forces du gouvernement qui vous avaient fiché vous livrent à lui sans la moindre hésitation.";
         m_Image = ":/images/vaisseaux/InquisitorialBlackShip.png";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
-        m_Conditions.push_back(new Condition(Psyker::C_RAPPORT_AU_GVT, Psyker::IDENTIFIE, Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(Psyker::C_RAPPORT_AU_GVT, Psyker::IDENTIFIE, Comparateur::c_Egal));
         m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
         m_ModificateursCaracs[Voyage::C_DESTINATION_PLANETE] = Planete::TERRE;
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Psyker::CHARGE_DANS_VAISSEAU_NOIR;
@@ -78,12 +77,12 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 3 : {
         m_Nom = "Traitement des psykers sur les vaisseaux noirs à Terra";
-        m_ConditionSelecteurProba = new Condition(0.2 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmp_Modificateur, p_Relative);
         m_Description = "à mettre à jour";
         m_Image = ":/images/vaisseaux/InquisitorialBlackShip.png";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
-        m_Conditions.push_back(new Condition(Psyker::C_RAPPORT_AU_GVT, Psyker::CHARGE_DANS_VAISSEAU_NOIR, Comparateur::c_Egal));
-        m_Conditions.push_back(new Condition(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(Psyker::C_RAPPORT_AU_GVT, Psyker::CHARGE_DANS_VAISSEAU_NOIR, Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(Planete::C_PLANETE, Planete::TERRE, Comparateur::c_Egal));
         m_CallbackDisplay = [] {
             ExecEffet* effetActuel = Univers::ME->GetExecHistoire()->GetExecEffetActuel();
             Humain* humain = Humain::GetHumainJoue();
@@ -123,33 +122,33 @@ Psyker::Psyker(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 }
 
 
-Condition* Psyker::AjouterConditionSiPsyker()
+shared_ptr<Condition> Psyker::AjouterConditionSiPsyker()
 {
-    return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Different);
+    return make_shared<Condition>(Psyker::C_PSYKER, "", Comparateur::c_Different);
 }
 
-Condition* Psyker::AjouterConditionSiPsykerPasIdentifie()
+shared_ptr<Condition> Psyker::AjouterConditionSiPsykerPasIdentifie()
 {
-    return new Condition(Psyker::C_RAPPORT_AU_GVT, "", Comparateur::c_Egal);
+    return make_shared<Condition>(Psyker::C_RAPPORT_AU_GVT, "", Comparateur::c_Egal);
 }
 
 
-Condition* Psyker::AjouterConditionSiNonPsyker()
+shared_ptr<Condition> Psyker::AjouterConditionSiNonPsyker()
 {
-    return new Condition(Psyker::C_PSYKER, "", Comparateur::c_Egal);
+    return make_shared<Condition>(Psyker::C_PSYKER, "", Comparateur::c_Egal);
 }
 
-Condition* Psyker::AjouterModifProbaSiPsyker(Condition* cond, double poidsProba)
+shared_ptr<Condition> Psyker::AjouterModifProbaSiPsyker(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {         new Condition(Psyker::C_PSYKER, "", Comparateur::c_Different)        });
+        {         make_shared<Condition>(Psyker::C_PSYKER, "", Comparateur::c_Different)        });
     return cond;
 }
 
-Condition* Psyker::AjouterModifProbaSiNonPsyker(Condition* cond, double poidsProba)
+shared_ptr<Condition> Psyker::AjouterModifProbaSiNonPsyker(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {         new Condition(Psyker::C_PSYKER, "", Comparateur::c_Egal)        });
+        {         make_shared<Condition>(Psyker::C_PSYKER, "", Comparateur::c_Egal)        });
     return cond;
 }
 

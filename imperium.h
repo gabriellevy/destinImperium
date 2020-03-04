@@ -1,7 +1,7 @@
 #ifndef IMPERIUM_H
 #define IMPERIUM_H
 
-#include "../destinLib/univers.h"
+#include "../destinLib/abs/univers.h"
 
 class Imperium : public Univers
 {

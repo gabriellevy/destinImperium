@@ -29,10 +29,10 @@ class MinistorumEvts : public GenerateurNoeudsProbables
 public:
     MinistorumEvts(int indexEvt);
 
-    static Condition* AjouterConditionSiMinistorum();
-    static Condition* AjouterConditionSiCroyant();
-    static Condition* AjouterConditionSiCroyantEnEmpereur();
-    static Condition* AjouterConditionSiNiveauFoiSuperieurA(int niv);
+    static std::shared_ptr<Condition> AjouterConditionSiMinistorum();
+    static std::shared_ptr<Condition> AjouterConditionSiCroyant();
+    static std::shared_ptr<Condition> AjouterConditionSiCroyantEnEmpereur();
+    static std::shared_ptr<Condition> AjouterConditionSiNiveauFoiSuperieurA(int niv);
 
     static void RafraichirPhrasesDeLaFoi(QString typePlanete, QString classeSociale, QString metier);
 

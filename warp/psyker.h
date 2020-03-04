@@ -17,11 +17,12 @@ public:
 
     static QString GetNiveauPsykerNaissance();
 
-    static Condition* AjouterConditionSiPsyker();
-    static Condition* AjouterConditionSiPsykerPasIdentifie();
-    static Condition* AjouterConditionSiNonPsyker();
-    static Condition* AjouterModifProbaSiPsyker(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiNonPsyker(Condition* cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterConditionSiPsyker();
+    static std::shared_ptr<Condition> AjouterConditionSiPsykerPasIdentifie();
+    static std::shared_ptr<Condition> AjouterConditionSiNonPsyker();
+    static std::shared_ptr<Condition> AjouterModifProbaSiPsyker(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiNonPsyker(std::shared_ptr<Condition>
+                                                                   cond, double poidsProba);
 
     static void RafraichirPhrasesPsyker();
 

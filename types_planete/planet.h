@@ -6,6 +6,7 @@
 #include <QVector>
 #include "factions/factions.h"
 #include "tithegrade.h"
+#include <memory>
 
 class NoeudProbable;
 class GenEvt;
@@ -58,25 +59,25 @@ public:
     static QVector<NoeudProbable*> ConstruireToutePlanetes();
 
     // modificateurs de condition standards :
-    static Condition* AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeMinier(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba);
-    static Condition* AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba);
-    static Condition* AjouterConditionSiMondeFeral();
-    static Condition* AjouterConditionSiMondeAgricole();
-    static Condition* AjouterConditionSiMondeFeodal();
-    static Condition* AjouterConditionSiMondeChevalier();
-    static Condition* AjouterConditionSiMondeForge();
-    static Condition* AjouterConditionSiMondeRuche();
-    static Condition* AjouterConditionSiPasMondeFeral();
-    static Condition* AjouterConditionSiPasMondeAgricole();
-    static Condition* AjouterConditionSiPasMondeFeodal();
-    static Condition* AjouterConditionSiPasMondeChevalier();
-    static Condition* AjouterConditionSiPasMondeForge();
-    static Condition* AjouterConditionSiPasMondeRuche();
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeAgricole(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeFeodal(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeFeral(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeMinier(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeChevalier(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeForge(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMondeRuche(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterConditionSiMondeFeral();
+    static std::shared_ptr<Condition> AjouterConditionSiMondeAgricole();
+    static std::shared_ptr<Condition> AjouterConditionSiMondeFeodal();
+    static std::shared_ptr<Condition> AjouterConditionSiMondeChevalier();
+    static std::shared_ptr<Condition> AjouterConditionSiMondeForge();
+    static std::shared_ptr<Condition> AjouterConditionSiMondeRuche();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeFeral();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeAgricole();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeFeodal();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeChevalier();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeForge();
+    static std::shared_ptr<Condition> AjouterConditionSiPasMondeRuche();
 
     // caracs associées :
     static QString C_PLANETE;

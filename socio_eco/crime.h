@@ -19,13 +19,13 @@ public:
     Crime(int indexEvt);
 
     // ajoute à la liste de conditions une condition validée seulement si on est une personne libre
-    static Condition* AjouterConditionSiLibre();
-    static Condition* AjouterConditionSiNonLibre();
-    static Condition* AjouterConditionSiDelinquant();
-    static Condition* AjouterConditionSiJamaisCriminel();
-    static Condition* AjouterConditionSiMalhonnete();
-    static Condition* AjouterModificateurDeProbaSiDelinquant(Condition* cond, double poidsProba);
-    static Condition* AjouterModificateurDeProbaSiCriminel(Condition* cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterConditionSiLibre();
+    static std::shared_ptr<Condition> AjouterConditionSiNonLibre();
+    static std::shared_ptr<Condition> AjouterConditionSiDelinquant();
+    static std::shared_ptr<Condition> AjouterConditionSiJamaisCriminel();
+    static std::shared_ptr<Condition> AjouterConditionSiMalhonnete();
+    static std::shared_ptr<Condition> AjouterModificateurDeProbaSiDelinquant(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterModificateurDeProbaSiCriminel(std::shared_ptr<Condition> cond, double poidsProba);
 
     static QList<QString> NOMS_GANGS;
     static QString GenererNomGang();

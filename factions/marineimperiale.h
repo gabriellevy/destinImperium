@@ -32,7 +32,7 @@ public:
     MarineImperiale(int indexEvt);
 
     // conditions perso :
-    QList<Condition*> AjouterConditionSiMarineImperiale(QList<Condition*> conditions);
+    QList<std::shared_ptr<Condition>> AjouterConditionSiMarineImperiale(QList<std::shared_ptr<Condition>> conditions);
 
     // caracs
     static QString C_FLOTTE;

@@ -1,14 +1,13 @@
 #include "arbites.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
 #include "texte/jourapresjour.h"
@@ -33,17 +32,17 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "grade de juge";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Grâce à votre carrière exemplaire vous avez été promu juge de l'Arbites. "
                 "C'est une promotion glorieuse entre toutes, vous êtes maintenant une des personnes les plus puissantes de la planète.";
         m_ModificateursCaracs[Arbites::C_GRADE] = Arbites::JUGE_ARBITES;
         m_Conditions.push_back(EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(10));
-        m_Conditions.push_back(new Condition(Arbites::C_GRADE, Arbites::SENIOR, Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(Arbites::C_GRADE, Arbites::SENIOR, Comparateur::c_Egal));
 
     }break;
     case 1 : {
         m_Nom = "affecté au service d'un inquisiteur";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Vos compétences ont attiré l'attention d'un inquisiteur qui vous réquisitionne à son service comme acolyte.";
         m_ModificateursCaracs[Arbites::C_AFFECTATION] = Arbites::ACOLYTE_INQUISITEUR;
         m_Conditions.push_back(EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(2));
@@ -51,15 +50,15 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 2 : {
         m_Nom = "carrière avance au service de inquisiteur";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Travailer pour l'inquisition vous ouvre de nombreuses portes. Votre carrière progresse.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
-        m_Conditions.push_back(new Condition(Arbites::C_AFFECTATION,Arbites::ACOLYTE_INQUISITEUR, Comparateur::c_Egal ));
+        m_Conditions.push_back(make_shared<Condition>(Arbites::C_AFFECTATION,Arbites::ACOLYTE_INQUISITEUR, Comparateur::c_Egal ));
 
     }break;
     case 3 : {
         m_Nom = "Verispex technicians";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre intelligence et votre sens de la méthode sont remarqués au point de vous voir promu parmi les techniciens Verispex."
                 "Vous serez chargé d'analyser les preuves trouvées sur les lieux de crime de manière scientifique.";
         m_ModificateursCaracs[Arbites::C_AFFECTATION] = Arbites::VERISPEX;
@@ -69,7 +68,7 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 4 : {
         m_Nom = "Châtisseur";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre capacité de persuasion, votre absence de pitié et surtout votre implacabilité ont été remarquées."
                 " Vous avez été choisi pour devenir châtisseur, chargé des brutaux interrogatoires de suspects dans la forteresse.";
         m_ModificateursCaracs[Arbites::C_AFFECTATION] = Arbites::CHATISSEUR;
@@ -80,16 +79,16 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 5 : {
         m_Nom = "grade " + Arbites::SENIOR;
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre compétence et votre ancienneté vous font monter au grade d'arbitrator senior.";
         m_ModificateursCaracs[Arbites::C_GRADE] = Arbites::SENIOR;
         m_Conditions.push_back(EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(3));
-        m_Conditions.push_back(new Condition(Arbites::C_GRADE, "", Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(Arbites::C_GRADE, "", Comparateur::c_Egal));
 
     }break;
     case 6 : {
         m_Nom = Arbites::DETECTIVE;
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre capacité de persuasion et d'analyse ont été remarquées."
                 " Vous avez été choisi pour devenir détective, chargé des investigations dans la ruche.";
         m_ModificateursCaracs[Arbites::C_AFFECTATION] = Arbites::DETECTIVE;
@@ -99,7 +98,7 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 7 : {
         m_Nom = Arbites::CHAPELAIN;
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre foi en l'empereur alliée à votre charisme vous ont qualifié pour devenir chapelain de la division."
                 " Vous devrez entretenir la foi et l'incorruptibilité des arbitrators de votre division.";
         m_ModificateursCaracs[Arbites::C_AFFECTATION] = Arbites::CHAPELAIN;
@@ -111,9 +110,9 @@ Arbites::Arbites(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 }
 
-Condition* Arbites::AjouterConditionSiPasAffectation()
+std::shared_ptr<Condition> Arbites::AjouterConditionSiPasAffectation()
 {
-    return new Condition(Arbites::C_AFFECTATION, "", Comparateur::c_Egal);
+    return make_shared<Condition>(Arbites::C_AFFECTATION, "", Comparateur::c_Egal);
 }
 
 void Arbites::RafraichirPhrases()

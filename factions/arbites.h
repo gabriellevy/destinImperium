@@ -20,7 +20,7 @@ public:
 
     static void RafraichirPhrases();
 
-    static Condition* AjouterConditionSiPasAffectation();
+    static std::shared_ptr<Condition> AjouterConditionSiPasAffectation();
 
     static QString C_GRADE;
     static QString C_AFFECTATION;

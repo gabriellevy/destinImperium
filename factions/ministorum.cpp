@@ -1,16 +1,15 @@
 #include "ministorum.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
-#include "../destinLib/execeffet.h"
+#include "../destinLib/exec/execeffet.h"
 #include "socio_eco/economieevt.h"
 #include "humain.h"
 #include "texte/jourapresjour.h"
@@ -31,12 +30,12 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Sélection de poste au Ministorum";
-        m_ConditionSelecteurProba = new Condition(1.0, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(1.0, p_Relative);
         m_Description = "??? Ministorum";
 
         // si Ministorum et pas encore affecté :
         m_Conditions.push_back( MinistorumEvts::AjouterConditionSiMinistorum());
-        m_Conditions.push_back(new Condition(MinistorumEvts::C_FONCTION,
+        m_Conditions.push_back(make_shared<Condition>(MinistorumEvts::C_FONCTION,
                                              "", Comparateur::c_Egal));
 
         m_CallbackDisplay = [] {
@@ -60,14 +59,14 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
     }break;
     case 1 : {
         m_Nom = "Confesseur affecté à la suite d'un inquisiteur";
-        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
         m_Description = "Votre mérite dans la traque des hérétiques est arrivée aux oreilles de personnes de valeur."
                 " Vous êtes recruté par la sainte Inquisition pour devenir l'acolyte gardien de al foi de sa suite.";
 
         // si Ministorum et pas encore affecté :
         m_Conditions.push_back( MinistorumEvts::AjouterConditionSiMinistorum());
         m_Conditions.push_back( EconomieEvt::AjouterConditionSiNiveauEconomiqueSuperieurA(8));
-        m_Conditions.push_back(new Condition(MinistorumEvts::C_FONCTION,
+        m_Conditions.push_back(make_shared<Condition>(MinistorumEvts::C_FONCTION,
                                              MinistorumEvts::CONFESSEUR, Comparateur::c_Egal));
 
         // remise à 0 du niveau de réputation lors d'un changement de métier
@@ -77,27 +76,27 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
     }break;
     case 2 : {
         m_Nom = "foi augmente";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre foi est de plus en plus ardente.";
         m_IncrementeursCaracs[MinistorumEvts::C_FOI] = 1;
         m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyant());
     }break;
     case 3 : {
         m_Nom = "foi diminue";
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Votre foi s'affaiblit.";
         m_IncrementeursCaracs[MinistorumEvts::C_FOI] = -1;
         m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyant());
     }break;
     case 4 : {
         m_Nom = "Rejoindre le Frateris Militia";
-        m_ConditionSelecteurProba = new Condition(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
         m_Image = ":/images/foi/Frateris_Militia.jpg";
         m_Description = "Votre foi ardente vous pousse à rejoindre la Frateris Militia, le bras armé de l'Adeptus Ministorum.";
         m_Conditions.push_back(MinistorumEvts::AjouterConditionSiNiveauFoiSuperieurA(9));
         m_Conditions.push_back(MinistorumEvts::AjouterConditionSiCroyantEnEmpereur());
         m_Conditions.push_back(
-                    new Condition(MinistorumEvts::C_FONCTION, MinistorumEvts::FRATERIS_MILITIA, Comparateur::c_Different));
+                    make_shared<Condition>(MinistorumEvts::C_FONCTION, MinistorumEvts::FRATERIS_MILITIA, Comparateur::c_Different));
         m_ModificateursCaracs[Metier::C_METIER] = Metier::ADEPTUS_MINISTORUM;
         m_ModificateursCaracs[MinistorumEvts::C_FONCTION] = MinistorumEvts::FRATERIS_MILITIA;
 
@@ -105,9 +104,9 @@ MinistorumEvts::MinistorumEvts(int indexEvt):GenerateurNoeudsProbables (indexEvt
     }
 }
 
-Condition* MinistorumEvts::AjouterConditionSiNiveauFoiSuperieurA(int niv)
+shared_ptr<Condition> MinistorumEvts::AjouterConditionSiNiveauFoiSuperieurA(int niv)
 {
-    return new Condition(MinistorumEvts::C_FOI, QString::number(niv), Comparateur::c_Superieur);
+    return make_shared<Condition>(MinistorumEvts::C_FOI, QString::number(niv), Comparateur::c_Superieur);
 }
 
 
@@ -131,17 +130,17 @@ void MinistorumEvts::RafraichirPhrasesDeLaFoi(QString /*typePlanete*/, QString /
     }
 }
 
-Condition* MinistorumEvts::AjouterConditionSiMinistorum()
+shared_ptr<Condition> MinistorumEvts::AjouterConditionSiMinistorum()
 {
-    return new Condition(Metier::C_METIER, Metier::ADEPTUS_MINISTORUM, Comparateur::c_Egal);
+    return make_shared<Condition>(Metier::C_METIER, Metier::ADEPTUS_MINISTORUM, Comparateur::c_Egal);
 }
-Condition* MinistorumEvts::AjouterConditionSiCroyant()
+shared_ptr<Condition> MinistorumEvts::AjouterConditionSiCroyant()
 {
-    return new Condition(MinistorumEvts::C_RELIGION, MinistorumEvts::ATHEE, Comparateur::c_Different);
+    return make_shared<Condition>(MinistorumEvts::C_RELIGION, MinistorumEvts::ATHEE, Comparateur::c_Different);
 }
-Condition* MinistorumEvts::AjouterConditionSiCroyantEnEmpereur()
+shared_ptr<Condition> MinistorumEvts::AjouterConditionSiCroyantEnEmpereur()
 {
-    return new Condition(MinistorumEvts::C_RELIGION, "", Comparateur::c_Egal);
+    return make_shared<Condition>(MinistorumEvts::C_RELIGION, "", Comparateur::c_Egal);
 }
 
 void AdepteMinistorum::DeterminerAffectation()

@@ -1,14 +1,13 @@
 #include "mondeforge.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "../socio_eco/classesociale.h"
 #include "../actions/combat.h"
@@ -23,8 +22,8 @@ MondeForge::MondeForge(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 0 : {
         m_Nom = "bouche trou en attendant MondeForge";
         // pas pour les très pauvres :
-        m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
-        m_ConditionSelecteurProba = new Condition(0.0, p_Relative); // 0.01
+        m_Conditions = { make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0, p_Relative); // 0.01
         /*m_Description = "Vous prenez le train des cendres pour rendre une visite dans la ruche " +
                 MondeRuche::GetNomRucheAleatoire() +
                 ".";

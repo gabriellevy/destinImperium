@@ -1,7 +1,7 @@
 #ifndef GENVIEHUMAIN_H
 #define GENVIEHUMAIN_H
 
-#include "../destinLib/genhistoire.h"
+#include "../destinLib/gen/genhistoire.h"
 
 class Imperium;
 
@@ -12,7 +12,7 @@ class GenVieHumain : public GenHistoire
 public:
     GenVieHumain();
 
-    virtual Hist* GenererHistoire();
+    virtual std::shared_ptr<Hist> GenererHistoire();
 
     static GenVieHumain* GetGenVieHumain();
 
@@ -25,8 +25,8 @@ public:
     // evts important :
     static QString EFFET_SELECTEUR_ID;
     static QString EVT_SELECTEUR_ID;
-    static Evt* EVT_SELECTEUR;
-    static Effet* TransformerEffetEnEffetMoisDeVie(Effet* effet);
+    static std::shared_ptr<Evt> EVT_SELECTEUR;
+    static std::shared_ptr<Effet> TransformerEffetEnEffetMoisDeVie(std::shared_ptr<Effet> effet);
 protected:
     // génère toutes les caracs qui peuvent être visualisées par le joueur (d'autres caracs peuvent être générées et invisibles n'importe quand dans l'aventure)
     virtual void GenererCaracs();
@@ -35,12 +35,12 @@ protected:
     /**
      * T doit hériter de GenerateurNoeudsProbables
      */
-    template<class T >static void GenererNoeuds(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    template<class T >static void GenererNoeuds(std::shared_ptr<GenEvt> genEvt, QVector<std::shared_ptr<NoeudProbable>> &noeuds);
 
 private:
     // génération des événement et effets de base
     void GenererEvtsAccueil();
-    void GenererEvtsDeBase(QVector<NoeudProbable*> &noeuds);
+    void GenererEvtsDeBase(QVector<std::shared_ptr<NoeudProbable>> &noeuds);
     void GenererPrincipalSelectionneurDEffet();
  //  cet effet représente à lui seul un mois complet de vie, il veiilit de le personnage
 };

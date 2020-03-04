@@ -1,14 +1,13 @@
 #include "monderuche.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "../socio_eco/classesociale.h"
 #include "../actions/combat.h"
@@ -31,8 +30,8 @@ MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 0 : {
         m_Nom = "voyage_train_des_cendres";
         // pas pour les très pauvres :
-        m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
-        m_ConditionSelecteurProba = new Condition(0.01, p_Relative); // 0.01
+        m_Conditions = { make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Different)                       };
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative); // 0.01
         m_Description = "Vous prenez le train des cendres pour rendre une visite dans la ruche " +
                 MondeRuche::GetNomRucheAleatoire() +
                 ".";
@@ -41,7 +40,7 @@ MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             // selon les proba il peut se passer plus de choses durant ce voyage :
             if ( Aleatoire::GetAl()->EntierInferieurA(10) == 0) {
                 // attaque du train :
-                Effet* effetActuel = ExecHistoire::GetEffetActuel();
+                shared_ptr<Effet> effetActuel = ExecHistoire::GetEffetActuel();
                 effetActuel->m_Texte += "\nLe train est attaqué par des rebelles nomades mutants !";
                 int resCombat = Combat::JouerCombat(3);
                 if ( resCombat < -2) {
@@ -63,8 +62,8 @@ MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 1 : {
         m_Nom = "réaffectation planète";
         // pas pour les très riches :
-        m_Conditions = { new Condition(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different)};
-        m_ConditionSelecteurProba = new Condition(0.0001, p_Relative);
+        m_Conditions = { make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Different)};
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0001, p_Relative);
         m_Description = "Vous avez été choisis pour aller peupler une distante planète récemment découverte. Vous avez un mois pour préparer vos affaires.";
         m_ModificateursCaracs[Voyage::C_REAFFECTATION_PLANETE] = Voyage::ALEATOIRE;
 
@@ -73,7 +72,7 @@ MondeRuche::MondeRuche(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     // tous ces événements ne peuvent se produire que sur un monde ruche :
     m_Conditions.push_back(
-                new Condition(Planete::C_TYPE_PLANETE,
+                make_shared<Condition>(Planete::C_TYPE_PLANETE,
                               Planete::PLANETE_RUCHE,
                               Comparateur::c_Egal));
 }
@@ -88,7 +87,7 @@ QString MondeRuche::GetNomRucheAleatoire()
     return MondeRuche::RUCHES[Aleatoire::GetAl()->EntierInferieurA(MondeRuche::RUCHES.length())];
 }
 
-void MondeRuche::AssignerCaracsDeNaissance(QString classeSociale, Effet* effetAffectation)
+void MondeRuche::AssignerCaracsDeNaissance(QString classeSociale, shared_ptr<Effet> effetAffectation)
 {
     // zone d'habitation dans le monde ruche :
     QString zoneHab = MondeRuche::RUCHE;

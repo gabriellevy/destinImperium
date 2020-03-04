@@ -17,7 +17,7 @@ class Inquisition : public GenerateurNoeudsProbables
 public:
     Inquisition(int indexEvt);
 
-    Effet* GenererEffet(GenEvt* genEvt);
+    std::shared_ptr<Effet> GenererEffet(std::shared_ptr<GenEvt> genEvt);
 
     // caracs :
     static QString C_ORDO; // sous partie d'administration
@@ -36,9 +36,8 @@ public:
 
     static QString ID_AFFECTATION_ORDO;
 
-    Condition* AjouterModifProbaSiAOrdo(Condition* cond, double poidsProba);
-
-    Condition* AjouterModifProbaSiInquisiteur(Condition* cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiAOrdo(std::shared_ptr<Condition> cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiInquisiteur(std::shared_ptr<Condition> cond, double poidsProba);
 
     static void RafraichirPhrases(); // phrases d'ambiance
 };
@@ -53,12 +52,12 @@ public:
     QString m_Nom = "";
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant la division
-    Condition* m_ConditionSelecteurProba = nullptr; // proba de se voir affecter à cette diviion
-    QList<Condition*> m_Conditions;
+    std::shared_ptr<Condition> m_ConditionSelecteurProba = nullptr; // proba de se voir affecter à cette diviion
+    QList<std::shared_ptr<Condition>> m_Conditions;
     QMap<QString, QString> m_ModificateursCaracs;
 
     static void GenererOrdos();
-    static void GenererNoeudsAffectation(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    static void GenererNoeudsAffectation(std::shared_ptr<GenEvt> genEvt, QVector<std::shared_ptr<NoeudProbable>> &noeuds);
 
 };
 

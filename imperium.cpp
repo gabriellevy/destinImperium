@@ -11,5 +11,5 @@ Imperium::Imperium(ModeAffichage modeAffichage,
     //this->AppliquerTheme(QColor(54, 46, 43));
     this->AppliquerTheme(QColor(100, 90, 80));
 
-    m_GensHistoire[Imperium::VIE_HUMAIN] = new GenVieHumain();
+    m_GensHistoire[Imperium::VIE_HUMAIN] = make_shared<GenVieHumain>();
 }

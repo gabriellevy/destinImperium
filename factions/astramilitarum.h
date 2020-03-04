@@ -34,7 +34,7 @@ public:
     AstraMilitarum(int indexEvt);
 
     // conditions perso :
-    QList<Condition*> AjouterConditionSiAstraMilitarum(QList<Condition*> conditions);
+    QList<std::shared_ptr<Condition>> AjouterConditionSiAstraMilitarum(QList<std::shared_ptr<Condition>> conditions);
 
     // caracs
     static QString C_FONCTION_ASTRA_MILITARUM;

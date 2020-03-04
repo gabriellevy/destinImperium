@@ -8,7 +8,7 @@
 #include "metier.h"
 #include "types_planete/monderuche.h"
 
-Effet* Naissance::GenererEffetNaissance(Effet* effetNarrationVide)
+std::shared_ptr<Effet> Naissance::GenererEffetNaissance(std::shared_ptr<Effet> effetNarrationVide)
 {
     // 1 : déterminer planète de naissance :
     Planete* planete = Planete::GetPlaneteAleatoire(true);

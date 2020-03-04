@@ -16,8 +16,8 @@ class AstraTelepathica : public GenerateurNoeudsProbables
 public:
     AstraTelepathica(int indexEvt);
 
-    static Condition* AjouterConditionSiScholasticaPsykana();
-    static Condition* AjouterConditionSiApprentissageSuperieurA(int val);
+    static std::shared_ptr<Condition> AjouterConditionSiScholasticaPsykana();
+    static std::shared_ptr<Condition> AjouterConditionSiApprentissageSuperieurA(int val);
 
     static void AffecterMetierPsyker();
 

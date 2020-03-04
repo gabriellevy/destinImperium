@@ -16,11 +16,11 @@ public:
 
     static QMap<QString, Metier*> METIERS;
 
-    static Condition* AjouterConditionSiAMetier();
-    static Condition* AjouterConditionSiACeMetier(QString metier);
-    static Condition* AjouterConditionSiAPasMetier();
+    static std::shared_ptr<Condition> AjouterConditionSiAMetier();
+    static std::shared_ptr<Condition> AjouterConditionSiACeMetier(QString metier);
+    static std::shared_ptr<Condition> AjouterConditionSiAPasMetier();
+    static std::shared_ptr<Condition> AjouterModifProbaSiAMetierIntegre(std::shared_ptr<Condition> proba, double modifProbaVal);
     static QList<QString> METIERS_INTEGRES; //  métiers où la criminalité est extrêmement faible
-    static Condition* AjouterModifProbaSiAMetierIntegre(Condition* proba, double modifProbaVal);
 
     static QString C_METIER;
     // valeurs de métiers :

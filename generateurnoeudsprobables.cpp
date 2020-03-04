@@ -1,20 +1,19 @@
 #include "generateurnoeudsprobables.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 
 GenerateurNoeudsProbables::GenerateurNoeudsProbables(int indexEvt){}
 
 
-Effet* GenerateurNoeudsProbables::GenererEffet(GenEvt* genEvt)
+shared_ptr<Effet> GenerateurNoeudsProbables::GenererEffet(shared_ptr<GenEvt> genEvt)
 {
-    Effet* effet = nullptr;
+    shared_ptr<Effet> effet = nullptr;
 
     // système de création d'effets de base :
     effet = genEvt->AjouterEffetNarration(

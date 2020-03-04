@@ -17,13 +17,13 @@ class Administratum : public GenerateurNoeudsProbables
 public:
     Administratum(int indexEvt);
 
-    virtual Effet* GenererEffet(GenEvt* genEvt);
+    virtual std::shared_ptr<Effet> GenererEffet(std::shared_ptr<GenEvt> genEvt);
 
-    Condition* AjouterModifProbaSiAdepteAdministratum(Condition* cond, double poidsProba);
-    Condition* AjouterModifProbaSiScribeAdministratum40Ans(Condition* cond, double poidsProba);
-    Condition* AjouterModifProbaSiOrdinateAdministratum50Ans(Condition* cond, double poidsProba);
-    Condition* AjouterModifProbaSiPrefetAdministratum60Ans(Condition* cond, double poidsProba);
-    Condition* AjouterModifProbaSiADivision(Condition* cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiAdepteAdministratum(std::shared_ptr<Condition> cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiScribeAdministratum40Ans(std::shared_ptr<Condition> cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiOrdinateAdministratum50Ans(std::shared_ptr<Condition> cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiPrefetAdministratum60Ans(std::shared_ptr<Condition> cond, double poidsProba);
+    std::shared_ptr<Condition> AjouterModifProbaSiADivision(std::shared_ptr<Condition> cond, double poidsProba);
 
     static void RafraichirPhrases();
 
@@ -80,12 +80,12 @@ public:
     QString m_Nom = "";
     QString m_Description = "";
     QString m_Image = ""; // chemin vers une éventuelle image représentant la division
-    Condition* m_Condition = nullptr; // proba de se voir affecter à cette diviion
+    std::shared_ptr<Condition> m_Condition = nullptr; // proba de se voir affecter à cette diviion
     QMap<QString, QString> m_ModificateursCaracs;
 
 
     static void GenererDivisions();
-    static void GenererNoeudsAffectation(GenEvt* genEvt, QVector<NoeudProbable*> &noeuds);
+    static void GenererNoeudsAffectation(std::shared_ptr<GenEvt> genEvt, QVector<std::shared_ptr<NoeudProbable>> &noeuds);
     static QVector<QPair<QString, QString>> BUREAU_MUNITORUM;
 
 };

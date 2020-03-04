@@ -19,7 +19,7 @@ public:
 
     static QList<QString> RUCHES; // noms de ruche stockés en vrac peu importe leur monde originel
     static QString GetNomRucheAleatoire();
-    static void AssignerCaracsDeNaissance(QString classeSociale, Effet* effetAffectation);
+    static void AssignerCaracsDeNaissance(QString classeSociale, std::shared_ptr<Effet> effetAffectation);
 
     // caracs
     static QString C_ZONE_DHABITATION;

@@ -20,14 +20,14 @@ public:
 
     static QPair<QString, QString>  DeterminerDieuVenere();
 
-    static Condition* AjouterConditionSiLepreDeNurgle();
-    static Condition* AjouterConditionSiSecte();
-    static Condition* AjouterConditionSiPasSecte();
-    static Condition* AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence);
-    static Condition* AjouterModificateurProbaSiInfluenceChaosSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
-    static Condition* AjouterModificateurProbaSiPuissanceSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
-    static Condition* AjouterModificateurProbaSiDetectionSecteSuperieurA(Condition* condProba, int nivInfluence, double modifProba);
-    static Condition* AjouterConditionSiMutationsSuperieurA(int nivMutation);
+    static std::shared_ptr<Condition> AjouterConditionSiLepreDeNurgle();
+    static std::shared_ptr<Condition> AjouterConditionSiSecte();
+    static std::shared_ptr<Condition> AjouterConditionSiPasSecte();
+    static std::shared_ptr<Condition> AjouterConditionSiInfluenceChaosSuperieurA(int nivInfluence);
+    static std::shared_ptr<Condition> AjouterModificateurProbaSiInfluenceChaosSuperieurA(std::shared_ptr<Condition> condProba, int nivInfluence, double modifProba);
+    static std::shared_ptr<Condition> AjouterModificateurProbaSiPuissanceSecteSuperieurA(std::shared_ptr<Condition> condProba, int nivInfluence, double modifProba);
+    static std::shared_ptr<Condition> AjouterModificateurProbaSiDetectionSecteSuperieurA(std::shared_ptr<Condition> condProba, int nivInfluence, double modifProba);
+    static std::shared_ptr<Condition> AjouterConditionSiMutationsSuperieurA(int nivMutation);
 
     static void RafraichirPhrases(); // phrases d'ambiance
 

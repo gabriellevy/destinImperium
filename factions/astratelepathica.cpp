@@ -1,16 +1,15 @@
 #include "astratelepathica.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
-#include "../destinLib/execeffet.h"
+#include "../destinLib/exec/execeffet.h"
 #include "socio_eco/economieevt.h"
 #include "humain.h"
 #include "texte/jourapresjour.h"
@@ -25,12 +24,12 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
     switch (indexEvt) {
     case 0 : {
         m_Nom = AstraTelepathica::C_LIEN_DES_AMES;
-        m_ConditionSelecteurProba = new Condition(0.3, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.3, p_Relative);
         m_Description = "à remplacer";
         m_Image = ":/images/warp/LienDesAmes.jpg";
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiScholasticaPsykana());
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiApprentissageSuperieurA(6));
-        m_Conditions.push_back(new Condition(AstraTelepathica::C_LIEN_DES_AMES, "", Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(AstraTelepathica::C_LIEN_DES_AMES, "", Comparateur::c_Egal));
         m_ModificateursCaracs[AstraTelepathica::C_LIEN_DES_AMES] = "1";
         m_CallbackDisplay = []{
             Humain* humain = Humain::GetHumainJoue();
@@ -68,7 +67,7 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
     }break;
     case 1 : {
         m_Nom = "Apprentissage_AstraTelepathica";
-        m_ConditionSelecteurProba = new Condition(0.4, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.4, p_Relative);
         m_Description = "Vous faites de grands progrès dans l'utilisation de vos pouvoirs. ";
         m_Image = ":/images/warp/Primaris_Psyker2.jpg";
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiScholasticaPsykana());
@@ -76,7 +75,7 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
     }break;
     case 2 : {
         m_Nom = "Diplome_AstraTelepathica";
-        m_ConditionSelecteurProba = new Condition(0.4, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.4, p_Relative);
         m_Description = "à remplacer ";
         m_Image = ":/images/warp/Primaris_Psyker2.jpg";
         m_Conditions.push_back(AstraTelepathica::AjouterConditionSiScholasticaPsykana());
@@ -88,10 +87,10 @@ AstraTelepathica::AstraTelepathica(int indexEvt):GenerateurNoeudsProbables (inde
     }break;
     case 3 : {
         m_Nom = "Les fous sont sacrifiés";
-        m_ConditionSelecteurProba = new Condition(1.0, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(1.0, p_Relative);
         m_Description = "Votre esprit brisé n'est plus utilisable par l'Imperium. Vous êtes sacrifié à l'empereur. ";
         m_Conditions.push_back(Psyker::AjouterConditionSiPsyker());
-        m_Conditions.push_back(new Condition(PbSante::C_SANTE, PbSante::FOLIE, Comparateur::c_Egal));
+        m_Conditions.push_back(make_shared<Condition>(PbSante::C_SANTE, PbSante::FOLIE, Comparateur::c_Egal));
         m_ModificateursCaracs[Psyker::C_RAPPORT_AU_GVT] = Psyker::SACRIFIABLE;
     }break;
     }
@@ -127,13 +126,13 @@ void AstraTelepathica::AffecterMetierPsyker()
     exec_effet->GetEffet()->m_Texte= texte;
 }
 
-Condition* AstraTelepathica::AjouterConditionSiScholasticaPsykana()
-{    return new Condition(Metier::C_METIER, Metier::SCHOLIA_PSYKANA, Comparateur::c_Egal);}
+shared_ptr<Condition> AstraTelepathica:: AjouterConditionSiScholasticaPsykana()
+{    return make_shared<Condition>(Metier::C_METIER, Metier::SCHOLIA_PSYKANA, Comparateur::c_Egal);}
 
-Condition* AstraTelepathica::AjouterConditionSiApprentissageSuperieurA(int val)
-{    return new Condition(AstraTelepathica::C_NIVEAU_APPRENTISSAGE, QString::number(val), Comparateur::c_Superieur);}
+shared_ptr<Condition> AstraTelepathica::AjouterConditionSiApprentissageSuperieurA(int val)
+{    return make_shared<Condition>(AstraTelepathica::C_NIVEAU_APPRENTISSAGE, QString::number(val), Comparateur::c_Superieur);}
 
-void AstraTelepathica::RafraichirPhrasesScholasticaPsykana(QString typePlanete, QString classeSociale)
+void AstraTelepathica::RafraichirPhrasesScholasticaPsykana(QString /*typePlanete*/, QString /*classeSociale*/)
 {
     Humain* hum = Humain::GetHumainJoue();
     if ( hum->GetValeurCarac(Psyker::C_PSYKER) == Psyker::POTENTIEL_PSY)

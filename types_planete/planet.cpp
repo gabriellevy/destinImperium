@@ -1,11 +1,11 @@
 #include "planet.h"
 //#include "../destinLib/noeudnarratif.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
 #include "../destinLib/gestionnairecarac.h"
 #include "../destinLib/aleatoire.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "humain.h"
@@ -363,90 +363,90 @@ Planete* Planete::GetPlaneteAleatoire(bool usePopulationCommePoids, bool ignoreP
     return i.value();
 }
 
-Condition* Planete::AjouterModifProbaSiMondeAgricole(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeAgricole(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeFeodal(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeFeodal(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeForge(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeForge(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeMinier(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeMinier(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_MINIERE, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_MINIERE, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeRuche(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeRuche(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeFeral(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeFeral(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterModifProbaSiMondeChevalier(Condition* cond, double poidsProba)
+shared_ptr<Condition> Planete::AjouterModifProbaSiMondeChevalier(shared_ptr<Condition> cond, double poidsProba)
 {
     cond->AjouterModifProba(poidsProba,
-        {new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal)});
+        {make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal)});
     return cond;
 }
 
-Condition* Planete::AjouterConditionSiMondeFeral()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeFeral()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiMondeAgricole()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeAgricole()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiMondeFeodal()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeFeodal()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiMondeChevalier()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeChevalier()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiMondeForge()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeForge()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiMondeRuche()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal);}
+shared_ptr<Condition> Planete::AjouterConditionSiMondeRuche()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Egal);}
 
-Condition* Planete::AjouterConditionSiPasMondeFeral()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeFeral()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FERAL, Comparateur::c_Different);}
 
-Condition* Planete::AjouterConditionSiPasMondeAgricole()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeAgricole()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_AGRICOLE, Comparateur::c_Different);}
 
-Condition* Planete::AjouterConditionSiPasMondeFeodal()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeFeodal()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FEODAL, Comparateur::c_Different);}
 
-Condition* Planete::AjouterConditionSiPasMondeChevalier()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeChevalier()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_CHEVALIER, Comparateur::c_Different);}
 
-Condition* Planete::AjouterConditionSiPasMondeForge()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeForge()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_FORGE, Comparateur::c_Different);}
 
-Condition* Planete::AjouterConditionSiPasMondeRuche()
-{    return new Condition(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Different);}
+shared_ptr<Condition> Planete::AjouterConditionSiPasMondeRuche()
+{    return make_shared<Condition>(Planete::C_TYPE_PLANETE, Planete::PLANETE_RUCHE, Comparateur::c_Different);}
 
 QVector<NoeudProbable*> Planete::ConstruireToutePlanetes()
 {

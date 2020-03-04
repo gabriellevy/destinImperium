@@ -22,7 +22,7 @@ public:
     // valable en tant que réputation dans les métiers où l'argent est secondaire
     static QString C_NIVEAU_ECONOMIQUE;
 
-    static Condition* AjouterConditionSiNiveauEconomiqueSuperieurA(int niv);
+    static std::shared_ptr<Condition> AjouterConditionSiNiveauEconomiqueSuperieurA(int niv);
 };
 
 #endif // ECONOMIEEVT_H

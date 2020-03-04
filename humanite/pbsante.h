@@ -29,9 +29,9 @@ public:
     static QString FOLIE;
     static QString PESTE;
 
-    static Condition* AjouterModifProbaSiMort(Condition* cond, double poidsProba);
-    static Condition* AjouterConditionSiVivant();
-    static Condition* AjouterConditionSiAgeSuperieurA(int ageAnnees);
+    static std::shared_ptr<Condition> AjouterModifProbaSiMort(std::shared_ptr<Condition> cond, double poidsProba);
+    static std::shared_ptr<Condition> AjouterConditionSiVivant();
+    static std::shared_ptr<Condition> AjouterConditionSiAgeSuperieurA(int ageAnnees);
 };
 
 #endif // SANTE_H

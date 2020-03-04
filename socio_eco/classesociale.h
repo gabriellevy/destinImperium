@@ -17,9 +17,9 @@ class ClasseSociale : public GenerateurNoeudsProbables
 public:
     ClasseSociale(int indexEvt);
 
-    static Condition* AjouterConditionSiCetteClasseSociale(QString classeSociale);
-    static Condition* AjouterConditionSiClasseSocialeSuperieureA(int classeSociale);
-    static Condition* AjouterConditionSiClasseSocialeSuperieureA(QString classeSociale);
+    static std::shared_ptr<Condition> AjouterConditionSiCetteClasseSociale(QString classeSociale);
+    static std::shared_ptr<Condition> AjouterConditionSiClasseSocialeSuperieureA(int classeSociale);
+    static std::shared_ptr<Condition> AjouterConditionSiClasseSocialeSuperieureA(QString classeSociale);
 
     static QString GetClasseSocialeAleatoire(QString typeMonde);
 

@@ -1,17 +1,16 @@
 #include "marineimperiale.h"
-#include "../destinLib/effet.h"
-#include "../destinLib/evt.h"
-#include "../destinLib/genevt.h"
-#include "../destinLib/selectionneurdenoeud.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
 #include "imperium.h"
 #include "genviehumain.h"
 #include "../types_planete/planet.h"
 #include "warp/voyage.h"
 #include "metier.h"
-#include "../destinLib/effet.h"
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
-#include "../destinLib/execeffet.h"
+#include "../destinLib/exec/execeffet.h"
 
 // caracs
 QString MarineImperiale::C_FLOTTE = "Flotte";
@@ -58,7 +57,7 @@ MarineImperiale::MarineImperiale(int indexEvt):GenerateurNoeudsProbables (indexE
     switch (indexEvt) {
     case 0 : {
         m_Nom = MarineImperiale::C_FONCTION;
-        m_ConditionSelecteurProba = new Condition(1.0, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(1.0, p_Relative);
         m_Description = "???";
         //m_ModificateursCaracs[SecteChaos::C_SECTE_CHAOS] = "1";
         m_CallbackDisplay = [] {
@@ -81,16 +80,16 @@ MarineImperiale::MarineImperiale(int indexEvt):GenerateurNoeudsProbables (indexE
 
         // si marin impérial et pas encore affecté :
         m_Conditions = MarineImperiale::AjouterConditionSiMarineImperiale(m_Conditions);
-        m_Conditions.push_back(new Condition(MarineImperiale::C_FONCTION,
+        m_Conditions.push_back(make_shared<Condition>(MarineImperiale::C_FONCTION,
                                              "", Comparateur::c_Egal));
 
     }break;
     }
 }
 
-QList<Condition*> MarineImperiale::AjouterConditionSiMarineImperiale(QList<Condition*> conditions)
+QList<shared_ptr<Condition>> MarineImperiale::AjouterConditionSiMarineImperiale(QList<shared_ptr<Condition>> conditions)
 {
-    conditions.push_back(new Condition(Metier::C_METIER,
+    conditions.push_back(make_shared<Condition>(Metier::C_METIER,
                         Metier::MARIN_IMPERIAL, Comparateur::c_Egal));
     return conditions;
 }
